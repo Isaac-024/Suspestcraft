@@ -1,0 +1,620 @@
+/* ==========================================================================
+   CASE: ABHEDYA — GLOBAL DESIGN SYSTEM & BASE STYLES
+   Aesthetic: Minecraft / Voxel-Inspired Pixel Detective Mystery
+   ========================================================================== */
+
+:root {
+    /* Fonts */
+    --font-pixel: 'Press Start 2P', monospace;
+    --font-sub: 'VT323', monospace;
+    --font-heading: 'Silkscreen', monospace;
+
+    /* Background Assets with Dark Radial Gradient Shading for High Readability */
+    --bg-menu: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.85) 100%), url('../images/underwater.png'), url('images/underwater.png');
+    --bg-overworld: radial-gradient(circle at center, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.85) 100%), url('../images/overworld.png'), url('images/overworld.png');
+    --bg-nether: radial-gradient(circle at center, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.88) 100%), url('../images/nether.jpg'), url('images/nether.jpg');
+    --bg-end: radial-gradient(circle at center, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.88) 100%), url('../images/end.png'), url('images/end.png');
+    --bg-deepdark: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.92) 100%), url('../images/sfit.jpg'), url('images/sfit.jpg');
+
+    /* Default Current Background */
+    --bg-current: var(--bg-overworld);
+
+    /* UI Palette */
+    --ui-dark-bg: #111116;
+    --ui-panel-bg: rgba(22, 21, 29, 0.92);
+    --ui-panel-inner: rgba(14, 13, 18, 0.95);
+    --ui-border-dark: #000000;
+    --ui-border-light: #525266;
+    --ui-text-main: #f0f0f5;
+    --ui-text-muted: #a3a3bd;
+    --ui-text-highlight: #ffdd40;
+
+    /* Voxel Bevel Accents */
+    --bevel-top-light: #525266;
+    --bevel-bottom-dark: #0b0b0f;
+
+    /* Dimension Accents */
+    --dim-primary: #388720;
+    --dim-accent: #78a7ff;
+    --dim-border-accent: #5b8c32;
+
+    /* Button Colors */
+    --btn-wood-bg: #855c34;
+    --btn-wood-top: #a67341;
+    --btn-wood-bot: #593d29;
+    --btn-wood-text: #fff6e0;
+
+    --btn-stone-bg: #595959;
+    --btn-stone-top: #7d7d7d;
+    --btn-stone-bot: #333333;
+    --btn-stone-text: #ffffff;
+
+    --btn-gold-bg: #d49b28;
+    --btn-gold-top: #fcdb38;
+    --btn-gold-bot: #8f6213;
+    --btn-gold-text: #1a1202;
+
+    --btn-red-bg: #9c2727;
+    --btn-red-top: #d33838;
+    --btn-red-bot: #5e1313;
+    --btn-red-text: #ffffff;
+
+    /* Status Colors */
+    --status-success: #3be055;
+    --status-danger: #e63946;
+    --status-warning: #ffb703;
+    --status-info: #00b4d8;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+}
+
+/* --------------------------------------------------------------------------
+   DIMENSION THEMES & BACKGROUND ASSETS
+   -------------------------------------------------------------------------- */
+
+/* 1. MENU STATE (Underwater Theme — Strictly for Main Menu Lobby Screen) */
+body.state-menu,
+body.dimension-underwater,
+body[data-theme="underwater"] {
+    --bg-current: var(--bg-menu);
+    --dim-primary: #1b6ca8;
+    --dim-accent: #5ec2ff;
+    --dim-border-accent: #3399cc;
+}
+
+/* 1b. CASE ARCHIVE STATE (Overworld Archive Theme) */
+body.state-archive {
+    --bg-current: var(--bg-overworld);
+    --dim-primary: #468c2d;
+    --dim-accent: #78d254;
+    --dim-border-accent: #6db34b;
+}
+
+/* 2. OVERWORLD (Cases 1-3) */
+body.dimension-overworld,
+body[data-theme="overworld"] {
+    --bg-current: var(--bg-overworld);
+    --dim-primary: #468c2d;
+    --dim-accent: #78d254;
+    --dim-border-accent: #6db34b;
+}
+
+/* 3. NETHER (Cases 4-6) */
+body.dimension-nether,
+body[data-theme="nether"] {
+    --bg-current: var(--bg-nether);
+    --dim-primary: #941e21;
+    --dim-accent: #ff6b35;
+    --dim-border-accent: #e25822;
+}
+
+/* 4. THE END (Cases 7-9) */
+body.dimension-end,
+body[data-theme="end"] {
+    --bg-current: var(--bg-end);
+    --dim-primary: #803ca6;
+    --dim-accent: #d88eff;
+    --dim-border-accent: #b260e6;
+}
+
+/* 5. THE SIFT / DEEP DARK (Case 10) */
+body.dimension-deepdark,
+body[data-theme="deepdark"] {
+    --bg-current: var(--bg-deepdark);
+    --dim-primary: #008f85;
+    --dim-accent: #00ffcc;
+    --dim-border-accent: #00d9b6;
+}
+
+/* --------------------------------------------------------------------------
+   BASE CSS RESET & SETUP
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #0c0b10;
+    background-image: var(--bg-current);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--ui-text-main);
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    line-height: 1.5;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    text-rendering: geometricPrecision;
+    transition: background-image 0.4s ease-in-out;
+}
+
+.analysis-text,
+.synopsis-text,
+.crossref-text,
+.pixel-quote,
+.motive-desc {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+/* --------------------------------------------------------------------------
+   CRT / SCANLINE RETRO FILTER
+   -------------------------------------------------------------------------- */
+
+.screen-filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%),
+        radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.55) 100%);
+    background-size: 100% 4px, 100% 100%;
+    opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   APP WRAPPER & SCREEN MANAGER
+   -------------------------------------------------------------------------- */
+
+.game-app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    transform: scale(0.98);
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    z-index: 20;
+}
+
+.screen[hidden] {
+    display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   PIXEL UI WINDOWS & BEVEL SYSTEM
+   -------------------------------------------------------------------------- */
+
+.panel-window {
+    background: var(--ui-panel-bg);
+    border: 4px solid var(--ui-border-dark);
+    box-shadow:
+        inset 4px 4px 0px var(--bevel-top-light),
+        inset -4px -4px 0px var(--bevel-bottom-dark),
+        0 14px 40px rgba(0, 0, 0, 0.9);
+    position: relative;
+    max-width: 920px;
+    width: 100%;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid var(--ui-border-dark);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.header-title h2 {
+    font-size: 16px;
+    color: var(--ui-text-highlight);
+    letter-spacing: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   VOXEL TACTILE BUTTON SYSTEM
+   -------------------------------------------------------------------------- */
+
+.mc-btn {
+    appearance: none;
+    background: var(--btn-stone-bg);
+    border: 3px solid var(--ui-border-dark);
+    box-shadow:
+        inset 3px 3px 0px var(--btn-stone-top),
+        inset -3px -3px 0px var(--btn-stone-bot),
+        0 4px 0px #000;
+    color: var(--btn-stone-text);
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-shadow: 2px 2px #000;
+    position: relative;
+    transition: filter 0.1s, transform 0.05s;
+    text-decoration: none;
+}
+
+.mc-btn:hover {
+    outline: 2px dashed #ffffff;
+    outline-offset: 2px;
+    filter: brightness(1.15);
+}
+
+.mc-btn:active {
+    box-shadow:
+        inset -3px -3px 0px var(--btn-stone-top),
+        inset 3px 3px 0px var(--btn-stone-bot),
+        0 1px 0px #000;
+    transform: translateY(3px);
+    outline: none;
+}
+
+.mc-btn:focus-visible {
+    outline: 3px solid #ffdd40;
+    outline-offset: 3px;
+}
+
+.mc-btn-primary {
+    background: var(--btn-gold-bg);
+    box-shadow:
+        inset 3px 3px 0px var(--btn-gold-top),
+        inset -3px -3px 0px var(--btn-gold-bot),
+        0 4px 0px #000;
+    color: var(--btn-gold-text);
+    text-shadow: none;
+    font-weight: bold;
+}
+
+.mc-btn-primary:active {
+    box-shadow:
+        inset -3px -3px 0px var(--btn-gold-top),
+        inset 3px 3px 0px var(--btn-gold-bot),
+        0 1px 0px #000;
+}
+
+.mc-btn-secondary {
+    background: var(--btn-wood-bg);
+    box-shadow:
+        inset 3px 3px 0px var(--btn-wood-top),
+        inset -3px -3px 0px var(--btn-wood-bot),
+        0 4px 0px #000;
+    color: var(--btn-wood-text);
+}
+
+.mc-btn-danger {
+    background: var(--btn-red-bg);
+    box-shadow:
+        inset 3px 3px 0px var(--btn-red-top),
+        inset -3px -3px 0px var(--btn-red-bot),
+        0 4px 0px #000;
+    color: var(--btn-red-text);
+}
+
+.mc-btn-accent {
+    background: var(--dim-primary);
+    box-shadow:
+        inset 3px 3px 0px var(--dim-border-accent),
+        inset -3px -3px 0px #000,
+        0 4px 0px #000;
+    color: #ffffff;
+}
+
+.mc-btn-sm {
+    padding: 8px 12px;
+    font-size: 10px;
+}
+
+.mc-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+    transform: none !important;
+    box-shadow:
+        inset 2px 2px 0px #444,
+        inset -2px -2px 0px #222,
+        0 2px 0px #000 !important;
+    outline: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   CUSTOM PIXEL SELECT DROPDOWNS
+   -------------------------------------------------------------------------- */
+
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ui-text-highlight);
+    pointer-events: none;
+    font-size: 10px;
+    text-shadow: 1px 1px #000;
+}
+
+.mc-select {
+    width: 100%;
+    background: #0f0f14;
+    color: #ffffff;
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    padding: 12px 36px 12px 14px;
+    border: 3px solid var(--ui-border-dark);
+    box-shadow:
+        inset 3px 3px 0px #22222e,
+        inset -3px -3px 0px #000;
+    appearance: none;
+    cursor: pointer;
+    line-height: 1.6;
+}
+
+.mc-select:focus {
+    outline: 2px solid var(--ui-text-highlight);
+    border-color: #ffffff;
+}
+
+.mc-select option {
+    background: #171622;
+    color: #f0f0f5;
+    padding: 10px;
+    font-family: var(--font-pixel);
+    font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   PIXEL DIALOG MODALS (<dialog>)
+   -------------------------------------------------------------------------- */
+
+.pixel-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    background: transparent;
+    border: none;
+    padding: 0;
+    max-width: 760px;
+    width: 90vw;
+    max-height: 85vh;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    overflow: visible;
+}
+
+.pixel-dialog[open] {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.pixel-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.88);
+}
+
+.dialog-frame {
+    background: var(--ui-panel-bg);
+    border: 4px solid var(--ui-border-dark);
+    box-shadow:
+        inset 4px 4px 0px var(--bevel-top-light),
+        inset -4px -4px 0px var(--bevel-bottom-dark),
+        0 14px 40px rgba(0, 0, 0, 0.95);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid var(--ui-border-dark);
+    padding-bottom: var(--space-md);
+    position: relative;
+}
+
+.evidence-type-tag {
+    font-size: 10px;
+    color: var(--dim-accent);
+    letter-spacing: 1px;
+}
+
+.dialog-title {
+    font-size: 14px;
+    color: var(--ui-text-highlight);
+    margin-top: 4px;
+}
+
+.btn-pixel-close {
+    background: var(--btn-red-bg);
+    border: 2px solid var(--ui-border-dark);
+    box-shadow:
+        inset 2px 2px 0px var(--btn-red-top),
+        inset -2px -2px 0px var(--btn-red-bot);
+    color: #ffffff;
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.btn-pixel-close:hover {
+    outline: 2px solid #ffffff;
+}
+
+.btn-pixel-close:active {
+    transform: translateY(2px);
+}
+
+.dialog-content {
+    overflow-y: auto;
+    padding: var(--space-md) 0;
+    flex: 1;
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 4px solid var(--ui-border-dark);
+    padding-top: var(--space-md);
+    margin-top: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   CUSTOM PIXEL SCROLLBARS
+   -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background: #0d0d12;
+}
+
+::-webkit-scrollbar-track {
+    background: #111118;
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555566;
+    border: 2px solid #000;
+    box-shadow: inset 1px 1px 0px #888899;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #777788;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE BASE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    :root {
+        --space-md: 12px;
+        --space-lg: 16px;
+    }
+
+    html,
+    body {
+        font-size: 10px;
+    }
+
+    .panel-window {
+        padding: var(--space-md);
+        max-height: 95vh;
+    }
+
+    .mc-btn {
+        padding: 10px 14px;
+        font-size: 10px;
+    }
+}
+
+/* --- CHAT LOG READABILITY FIX --- */
+.clue-chatlog {
+    background-color: #0b131e !important;
+    border: 2px solid #3a5a80 !important;
+    padding: 12px !important;
+}
+
+.chat-msg .chat-sender {
+    color: #55ff55 !important;
+    /* Bright green name */
+}
+
+.chat-msg .chat-body {
+    color: #ffffff !important;
+    /* Pure white text */
+    text-shadow: 1px 1px 0 #000;
+}
+
+.chat-msg .chat-time {
+    color: #88aaaa !important;
+}

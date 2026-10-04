@@ -1,0 +1,368 @@
+/* ==========================================================================
+   CASE: ABHEDYA — MENU, LOADING & CASE ARCHIVES STYLES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LOADING SCREEN (Solid Mojang-Red with Large White Pixel ABHEDYA Title)
+   -------------------------------------------------------------------------- */
+
+.screen-loading {
+    background: #db2f38; /* Solid Mojang-Red */
+    z-index: 50;
+}
+
+.loading-mojang-box {
+    max-width: 620px;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.mojang-logo-badge {
+    background: #ffffff;
+    color: #db2f38;
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 14px;
+    letter-spacing: 4px;
+    border: 3px solid #000000;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.mojang-title-text {
+    font-size: clamp(28px, 6vw, 48px);
+    color: #ffffff;
+    font-family: var(--font-pixel);
+    letter-spacing: 4px;
+    line-height: 1.1;
+    text-shadow: 
+        4px 4px 0px #000000,
+        -2px -2px 0px #80131b;
+    margin: 8px 0;
+}
+
+.mojang-subtitle-text {
+    color: #ffffff;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 12px;
+}
+
+/* Chunky Pixel Progress Bar */
+.progress-bar-outer {
+    width: 100%;
+    height: 28px;
+    background: #1a0305;
+    border: 4px solid #000000;
+    box-shadow: 
+        inset 3px 3px 0px #000,
+        inset -3px -3px 0px #38080c,
+        0 4px 10px rgba(0, 0, 0, 0.7);
+    padding: 3px;
+    position: relative;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        #ffffff,
+        #ffffff 12px,
+        #f0f0f0 12px,
+        #f0f0f0 24px
+    );
+    box-shadow: inset 0 2px 0px #ffffff, inset 0 -2px 0px #888888;
+    transition: width 0.15s linear;
+}
+
+.progress-status-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #ffffff;
+    text-shadow: 1px 1px #000;
+}
+
+/* --------------------------------------------------------------------------
+   2. MAIN MENU SCREEN (With Underwater Background)
+   -------------------------------------------------------------------------- */
+
+.screen-menu {
+    background: transparent;
+}
+
+.menu-container {
+    background: rgba(18, 17, 24, 0.92);
+    border: 4px solid var(--ui-border-dark);
+    box-shadow: 
+        inset 4px 4px 0px var(--bevel-top-light),
+        inset -4px -4px 0px var(--bevel-bottom-dark),
+        0 18px 50px rgba(0, 0, 0, 0.9);
+    max-width: 520px;
+    width: 90%;
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    position: relative;
+}
+
+.menu-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-crest {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0f0f14;
+    border: 2px solid var(--dim-border-accent);
+    padding: 4px 10px;
+    font-size: 9px;
+    color: var(--dim-accent);
+    letter-spacing: 2px;
+}
+
+.menu-title {
+    font-size: clamp(20px, 4vw, 28px);
+    color: var(--ui-text-highlight);
+    text-shadow: 
+        3px 3px 0px #000,
+        0 0 14px rgba(255, 221, 64, 0.5);
+    letter-spacing: 2px;
+}
+
+.menu-subtitle {
+    font-size: 10px;
+    color: var(--ui-text-muted);
+    letter-spacing: 2px;
+}
+
+.menu-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-nav .mc-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.menu-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px dashed #333344;
+    padding-top: var(--space-md);
+    font-size: 9px;
+    color: var(--ui-text-muted);
+}
+
+.stats-tag {
+    color: var(--status-success);
+    font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   3. CASE SELECT / ARCHIVES SCREEN
+   -------------------------------------------------------------------------- */
+
+.case-select-window {
+    max-width: 960px;
+    width: 95%;
+    max-height: 88vh;
+}
+
+.case-select-intro {
+    font-size: 11px;
+    color: var(--ui-text-muted);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+}
+
+.case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-md);
+    padding: 4px;
+    max-height: 52vh;
+    overflow-y: auto;
+}
+
+/* Case Item Card */
+.case-card {
+    background: #14131a;
+    border: 3px solid var(--ui-border-dark);
+    box-shadow: 
+        inset 2px 2px 0px #303040,
+        inset -2px -2px 0px #0a0a0e,
+        0 4px 8px rgba(0,0,0,0.5);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.1s, border-color 0.1s, box-shadow 0.1s;
+}
+
+.case-card:hover:not(.case-locked) {
+    transform: translateY(-2px);
+    border-color: var(--ui-text-highlight);
+    box-shadow: 
+        inset 2px 2px 0px #4d4d66,
+        inset -2px -2px 0px #0a0a0e,
+        0 6px 12px rgba(0,0,0,0.7);
+    outline: 2px dashed #ffffff;
+}
+
+.case-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.case-num-tag {
+    font-size: 10px;
+    color: var(--ui-text-highlight);
+    background: #000;
+    padding: 2px 6px;
+    border: 1px solid #333;
+}
+
+.case-dim-tag {
+    font-size: 9px;
+    padding: 2px 6px;
+    border: 1px solid #000;
+    text-transform: uppercase;
+}
+
+.dim-tag-overworld { background: #285418; color: #a4f285; }
+.dim-tag-nether { background: #5c1214; color: #ff999c; }
+.dim-tag-end { background: #481f63; color: #dfa8ff; }
+.dim-tag-deepdark { background: #08333b; color: #72f7ff; }
+
+.case-card-title {
+    font-size: 12px;
+    color: #ffffff;
+    line-height: 1.4;
+    min-height: 34px;
+}
+
+.case-card-meta {
+    font-size: 10px;
+    color: var(--ui-text-muted);
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px dashed #2c2b38;
+    padding-top: 6px;
+    margin-top: auto;
+}
+
+.case-card-status {
+    font-size: 9px;
+    padding: 3px 6px;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.status-solved {
+    background: #173d1a;
+    color: #55ff77;
+    border: 1px solid #2e7a34;
+}
+
+.status-available {
+    background: #40340e;
+    color: #ffd633;
+    border: 1px solid #80661a;
+}
+
+.status-locked {
+    background: #212026;
+    color: #6e6d7a;
+    border: 1px solid #33323d;
+}
+
+.case-card.case-locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+    filter: grayscale(0.9);
+}
+
+.case-select-footer {
+    border-top: 2px solid #2b2a38;
+    padding-top: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.dimension-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 10px;
+}
+
+.legend-item {
+    padding: 4px 8px;
+    background: #111116;
+    border: 1px solid #222;
+}
+
+/* --------------------------------------------------------------------------
+   4. CREDITS MODAL CONTENT
+   -------------------------------------------------------------------------- */
+
+.credits-content {
+    text-align: center;
+}
+
+.credits-role {
+    font-size: 11px;
+    color: var(--ui-text-highlight);
+    margin: 6px 0 16px 0;
+}
+
+.credits-divider {
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #444, #444 6px, transparent 6px, transparent 12px);
+    margin: 12px 0;
+}
+
+.credits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    font-size: 10px;
+}
+
+.credit-item {
+    background: #121118;
+    padding: 8px 12px;
+    border: 2px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c-role { color: var(--ui-text-muted); }
+.c-name { color: var(--dim-accent); font-weight: bold; }

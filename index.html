@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CASE: ABHEDYA — Minecraft-Inspired Detective Murder Mystery</title>
+    <meta name="description"
+        content="A 10-level pixel-art detective murder mystery game set across Minecraft dimensions. Investigate clues, cross-reference alibis, and deduce Who, How, and Why.">
+
+    <!-- Google Pixel & Retro Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/investigation.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body class="state-menu" data-theme="underwater">
+
+    <!-- Scanline & Vignette Filter Overlay -->
+    <div class="screen-filter" aria-hidden="true"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="game-app" class="game-app">
+
+        <!-- 1. LOADING SCREEN (Mojang-Red Solid Background with ABHEDYA Title) -->
+        <section id="screen-loading" class="screen screen-loading active" aria-label="Game Loading">
+            <div class="loading-mojang-box">
+                <div class="mojang-logo-badge">STUDIOS</div>
+                <h1 class="mojang-title-text" data-text="ABHEDYA">ABHEDYA</h1>
+                <p class="mojang-subtitle-text">CASE INVESTIGATION PROTOCOL</p>
+
+                <div class="progress-bar-outer">
+                    <div id="loading-bar" class="progress-bar-inner" style="width: 0%;"></div>
+                </div>
+                <div class="progress-status-row">
+                    <span id="loading-status-text" class="status-text">INITIALIZING CONDUIT ARCHIVES...</span>
+                    <span id="loading-percentage" class="percentage-text">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. MAIN MENU -->
+        <section id="screen-menu" class="screen screen-menu" aria-label="Main Menu" hidden>
+            <div class="menu-container">
+                <div class="menu-header">
+                    <div class="brand-crest">
+                        <span class="crest-icon">🗡️</span>
+                        <span class="crest-label">CONDUIT ARCHIVES</span>
+                    </div>
+                    <h1 class="menu-title">CASE: ABHEDYA</h1>
+                    <p class="menu-subtitle">VOXEL MURDER MYSTERIES</p>
+                </div>
+
+                <nav class="menu-nav" aria-label="Main Menu Navigation">
+                    <button id="btn-new-game" class="mc-btn mc-btn-primary">
+                        <span class="btn-icon">📜</span>
+                        <span class="btn-label">NEW GAME</span>
+                    </button>
+
+                    <button id="btn-continue" class="mc-btn mc-btn-secondary">
+                        <span class="btn-icon">▶</span>
+                        <span class="btn-label">CONTINUE</span>
+                    </button>
+
+                    <button id="btn-case-files" class="mc-btn">
+                        <span class="btn-icon">📁</span>
+                        <span class="btn-label">CASE FILES</span>
+                    </button>
+
+                    <button id="btn-credits" class="mc-btn">
+                        <span class="btn-icon">★</span>
+                        <span class="btn-label">CREDITS</span>
+                    </button>
+                </nav>
+
+                <div class="menu-footer">
+                    <span class="version-tag">DATA-DRIVEN ENGINE • V1.0</span>
+                    <span id="quick-stats-tag" class="stats-tag">0/10 SOLVED</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CASE SELECT / ARCHIVES SCREEN -->
+        <section id="screen-case-select" class="screen screen-case-select" aria-label="Case Files Selection" hidden>
+            <div class="panel-window case-select-window">
+                <header class="window-header">
+                    <div class="header-title">
+                        <span class="folder-icon">📁</span>
+                        <h2>CASE FILES ARCHIVE</h2>
+                    </div>
+                    <button id="btn-close-case-select" class="mc-btn mc-btn-sm" aria-label="Back to Main Menu">←
+                        BACK</button>
+                </header>
+
+                <div class="case-select-intro">
+                    <p>Select an unlocked investigation from the 10 shard incident reports across the 4 Dimensions.</p>
+                </div>
+
+                <div id="case-grid" class="case-grid" role="list">
+                    <!-- Injected dynamically via ui.js -->
+                </div>
+
+                <div class="case-select-footer">
+                    <div class="dimension-legend">
+                        <span class="legend-item dim-legend-overworld">🟩 Overworld (1-3)</span>
+                        <span class="legend-item dim-legend-nether">🟥 Nether (4-6)</span>
+                        <span class="legend-item dim-legend-end">🟪 The End (7-9)</span>
+                        <span class="legend-item dim-legend-deepdark">🟦 Deep Dark (10)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CASE BRIEFING DASHBOARD -->
+        <section id="screen-briefing" class="screen screen-briefing" aria-label="Case Briefing" hidden>
+            <div class="panel-window briefing-window">
+                <div class="briefing-tape">RESTRICTED DOSSIER</div>
+
+                <header class="briefing-header">
+                    <div class="case-number-badge" id="briefing-case-num">CASE #001</div>
+                    <h2 class="briefing-title" id="briefing-title">THE SILENT VILLAGE</h2>
+                    <div class="briefing-dimension-tag" id="briefing-dimension">DIMENSION: OVERWORLD</div>
+                </header>
+
+                <div class="briefing-grid">
+                    <div class="briefing-card victim-card">
+                        <div class="card-label">VICTIM</div>
+                        <div class="card-value" id="briefing-victim">Villager Librarian (Eldred)</div>
+                    </div>
+
+                    <div class="briefing-card location-card">
+                        <div class="card-label">LOCATION</div>
+                        <div class="card-value" id="briefing-location">Abandoned Village Library</div>
+                    </div>
+
+                    <div class="briefing-card time-card">
+                        <div class="card-label">ESTIMATED TIME</div>
+                        <div class="card-value" id="briefing-time">23:47</div>
+                    </div>
+
+                    <div class="briefing-card status-card">
+                        <div class="card-label">CRIME STATUS</div>
+                        <div class="card-value status-murder" id="briefing-status">MURDER</div>
+                    </div>
+                </div>
+
+                <div class="briefing-synopsis-box">
+                    <h3 class="box-heading">INCIDENT SYNOPSIS</h3>
+                    <p id="briefing-synopsis" class="synopsis-text">Loading case summary...</p>
+                </div>
+
+                <div class="briefing-actions">
+                    <button id="btn-back-briefing" class="mc-btn mc-btn-secondary">← CASE FILES</button>
+                    <button id="btn-begin-investigation" class="mc-btn mc-btn-primary mc-btn-pulse">
+                        <span>🔍 BEGIN INVESTIGATION</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MAIN INVESTIGATION BOARD -->
+        <section id="screen-investigation" class="screen screen-investigation" aria-label="Investigation Dashboard"
+            hidden>
+            <!-- Top HUD Bar -->
+            <header class="investigation-hud">
+                <div class="hud-left">
+                    <button id="btn-hud-menu" class="mc-btn mc-btn-sm" title="Return to Case Files">📁 FILES</button>
+                    <div class="hud-case-info">
+                        <span id="hud-case-number" class="hud-num">CASE #001</span>
+                        <span id="hud-case-title" class="hud-title">THE SILENT VILLAGE</span>
+                    </div>
+                </div>
+
+                <div class="hud-center">
+                    <div class="evidence-counter-box">
+                        <span class="counter-label">EVIDENCE INSPECTED:</span>
+                        <span id="inspected-count" class="counter-val">0 / 7</span>
+                    </div>
+                </div>
+
+                <div class="hud-right">
+                    <button id="btn-open-notebook" class="mc-btn mc-btn-sm" title="View Case Notes">📓 NOTES</button>
+                    <button id="btn-ready-accuse" class="mc-btn mc-btn-accent" title="Open Accusation Chamber">
+                        <span>⚖️ ACCUSE</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Split Layout: Left Suspects Dossier | Right Evidence Board -->
+            <main class="investigation-layout">
+
+                <!-- Left Sidebar: Suspects & Persons of Interest -->
+                <aside class="suspects-sidebar" aria-label="Suspects Dossier">
+                    <div class="sidebar-header">
+                        <h3 class="sidebar-title">PERSONS OF INTEREST</h3>
+                        <span class="sidebar-badge" id="suspects-count-badge">4 SUSPECTS</span>
+                    </div>
+                    <div id="suspects-list" class="suspects-list" role="list">
+                        <!-- Injected dynamically via ui.js -->
+                    </div>
+                </aside>
+
+                <!-- Center/Right: 7 Evidence Categories Grid -->
+                <section class="evidence-board" aria-label="Evidence Board">
+                    <div class="board-header">
+                        <div class="board-title-row">
+                            <h3 class="board-title">CRIME SCENE EVIDENCE</h3>
+                            <span class="board-instructions">Click any evidence block to inspect details and
+                                cross-reference.</span>
+                        </div>
+                    </div>
+
+                    <div id="evidence-grid" class="evidence-grid">
+                        <!-- Injected dynamically via ui.js -->
+                    </div>
+                </section>
+            </main>
+        </section>
+
+        <!-- 6. ACCUSATION INTERFACE SCREEN -->
+        <section id="screen-accusation" class="screen screen-accusation" aria-label="Accusation Chamber" hidden>
+            <div class="panel-window accusation-window">
+                <header class="accusation-header">
+                    <div class="pixel-seal">⚖️ FINAL VERDICT</div>
+                    <h2 class="accusation-title">FORMAL ACCUSATION</h2>
+                    <p class="accusation-subtitle">You must establish all three pillars with absolute certainty. A wrong
+                        accusation will trigger defensive TNT countermeasures.</p>
+                </header>
+
+                <div id="accusation-form-wrapper" class="accusation-form">
+
+                    <!-- 1. WHO -->
+                    <div class="accusation-group" id="group-who">
+                        <div class="group-header">
+                            <span class="group-num">01</span>
+                            <label for="select-who" class="group-label">WHO COMMITTED THE MURDER?</label>
+                        </div>
+                        <div class="custom-select-wrapper">
+                            <select id="select-who" class="mc-select" required>
+                                <option value="" disabled selected>— Select Prime Suspect —</option>
+                            </select>
+                        </div>
+                        <div class="selection-preview" id="preview-who">Awaiting suspect selection...</div>
+                    </div>
+
+                    <!-- 2. HOW -->
+                    <div class="accusation-group" id="group-how">
+                        <div class="group-header">
+                            <span class="group-num">02</span>
+                            <label for="select-how" class="group-label">HOW WAS THE MURDER EXECUTED?</label>
+                        </div>
+                        <div class="custom-select-wrapper">
+                            <select id="select-how" class="mc-select" required>
+                                <option value="" disabled selected>— Select Method of Murder —</option>
+                            </select>
+                        </div>
+                        <div class="selection-preview" id="preview-how">Awaiting method selection...</div>
+                    </div>
+
+                    <!-- 3. WHY -->
+                    <div class="accusation-group" id="group-why">
+                        <div class="group-header">
+                            <span class="group-num">03</span>
+                            <label for="select-why" class="group-label">WHY? WHAT WAS THE TRUE MOTIVE?</label>
+                        </div>
+                        <div class="custom-select-wrapper">
+                            <select id="select-why" class="mc-select" required>
+                                <option value="" disabled selected>— Select True Motive —</option>
+                            </select>
+                        </div>
+                        <div class="selection-preview" id="preview-why">Awaiting motive selection...</div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="accusation-actions">
+                        <button type="button" id="btn-cancel-accuse" class="mc-btn mc-btn-secondary">
+                            <span>← RESUME INVESTIGATION</span>
+                        </button>
+                        <button type="button" id="btn-submit-accuse" class="mc-btn mc-btn-danger" disabled>
+                            <span>💥 DELIVER ACCUSATION</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CASE SOLVED MODAL/SCREEN -->
+        <section id="screen-case-solved" class="screen screen-case-solved" aria-label="Case Solved" hidden>
+            <div class="panel-window solved-window">
+                <div class="solved-banner">
+                    <span class="star-icon">⭐</span>
+                    <h2>CASE SOLVED!</h2>
+                    <span class="star-icon">⭐</span>
+                </div>
+
+                <h3 class="solved-case-name" id="solved-case-title">THE SILENT VILLAGE</h3>
+                <div class="shard-recovered-badge" id="solved-shard-badge">💎 ANCIENT CONDUIT SHARD RECOVERED (1/10)
+                </div>
+
+                <div class="solved-breakdown">
+                    <div class="solved-row">
+                        <span class="row-tag tag-who">WHO</span>
+                        <span class="row-content" id="solved-who-text">Villager Blacksmith (Durand)</span>
+                    </div>
+                    <div class="solved-row">
+                        <span class="row-tag tag-how">HOW</span>
+                        <span class="row-content" id="solved-how-text">Rigged an Anvil Drop through the Skylight</span>
+                    </div>
+                    <div class="solved-row">
+                        <span class="row-tag tag-why">WHY</span>
+                        <span class="row-content" id="solved-why-text">Stole the ancient relic locked in the
+                            lectern</span>
+                    </div>
+                </div>
+
+                <div class="solved-narrative-box">
+                    <h4 class="narrative-heading">CHIEF INVESTIGATOR'S LOG</h4>
+                    <p id="solved-explanation" class="narrative-text">Loading deduction breakdown...</p>
+                </div>
+
+                <div class="solved-actions">
+                    <button id="btn-solved-case-files" class="mc-btn mc-btn-secondary">CASE ARCHIVES</button>
+                    <button id="btn-next-case" class="mc-btn mc-btn-primary mc-btn-pulse">NEXT CASE →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. GAME OVER / TNT DISASTER SCREEN -->
+        <section id="screen-game-over" class="screen screen-game-over" aria-label="Game Over" hidden>
+            <div class="panel-window game-over-window">
+                <div class="game-over-header">
+                    <div class="tnt-skull-icon">☠️</div>
+                    <h2 class="game-over-title">FATAL ERROR</h2>
+                    <div class="game-over-subtitle">TNT TRAP TRIGGERED — WRONG ACCUSATION</div>
+                </div>
+
+                <div class="game-over-body">
+                    <p class="game-over-msg">Your deduction was flawed. The real culprit detonated the perimeter defense
+                        before you could secure the evidence!</p>
+                    <div class="failure-hint-box">
+                        <span class="hint-title">DETECTIVE'S LESSON:</span>
+                        <span id="failure-hint" class="hint-text">Check your timeline and verify if the suspect had
+                            access to the murder weapon.</span>
+                    </div>
+                </div>
+
+                <div class="game-over-actions">
+                    <button id="btn-respawn" class="mc-btn mc-btn-primary mc-btn-pulse">
+                        <span class="btn-icon">🔄</span>
+                        <span class="btn-label">RESPAWN & RE-INVESTIGATE</span>
+                    </button>
+                    <button id="btn-gameover-menu" class="mc-btn mc-btn-secondary">
+                        <span class="btn-label">MAIN MENU</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. GRAND FINALE / ENDING SCREEN (CASE 10 COMPLETE - EPIC VICTORY) -->
+        <section id="screen-grand-finale" class="screen screen-grand-finale" aria-label="Grand Finale Victory" hidden>
+            <div class="panel-window finale-window">
+                <div class="finale-crest">🏆 GAME COMPLETED — VICTORY! 🏆</div>
+                <h1 class="finale-title">THE CONDUIT OF ABHEDYA RESTORED</h1>
+                <p class="finale-tagline">THE OBSIDIAN CIRCLE HAS BEEN DEFEATED • 10/10 SHARDS SECURED</p>
+
+                <div class="finale-story-scroll">
+                    <p>Through the silent halls of the Overworld Library, the fiery keeps of the Nether Bastion, the
+                        high spires of The End, and the dark silence of The Slit...</p>
+                    <p>You have unmasked High Priest Vesper and dismantled the entire shadow syndicate known as the
+                        <strong>Obsidian Circle</strong>. Every false alibi was broken, every trap was exposed, and the
+                        ancient Conduit of Abhedya is sealed forever.</p>
+                    <p class="finale-quote">"True deduction cannot be broken." — Chief Investigator Dossier</p>
+                </div>
+
+                <div class="finale-stats">
+                    <div class="stat-box">
+                        <div class="stat-num">10 / 10</div>
+                        <div class="stat-desc">CASES SOLVED</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">MASTER</div>
+                        <div class="stat-desc">DETECTIVE RANK</div>
+                    </div>
+                </div>
+
+                <div class="finale-actions">
+                    <button id="btn-finale-credits" class="mc-btn mc-btn-primary mc-btn-pulse">
+                        <span class="btn-icon">★</span>
+                        <span class="btn-label">CREDITS</span>
+                    </button>
+                    <button id="btn-finale-files" class="mc-btn mc-btn-secondary">
+                        <span class="btn-icon">📁</span>
+                        <span class="btn-label">CASE ARCHIVES</span>
+                    </button>
+                    <button id="btn-finale-restart" class="mc-btn">
+                        <span class="btn-icon">🔄</span>
+                        <span class="btn-label">PLAY AGAIN</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. DEDICATED EVIDENCE DETAIL MODAL -->
+        <dialog id="modal-evidence" class="pixel-dialog" aria-labelledby="modal-evidence-title" aria-modal="true">
+            <div class="dialog-frame">
+                <header class="dialog-header">
+                    <div class="evidence-type-tag" id="modal-evidence-type">01 — BLOCK PRINTS</div>
+                    <h3 id="modal-evidence-title" class="dialog-title">EVIDENCE TITLE</h3>
+                    <button id="btn-close-evidence-modal" class="btn-pixel-close"
+                        aria-label="Close Evidence Detail">✕</button>
+                </header>
+
+                <div class="dialog-content">
+                    <div class="evidence-display-area" id="modal-evidence-display">
+                        <!-- Injected dynamically: text, blueprint grid, transcript, etc. -->
+                    </div>
+
+                    <div class="evidence-analysis-box">
+                        <div class="analysis-label">🔍 DETECTIVE'S NOTEBOOK ANALYSIS</div>
+                        <p id="modal-evidence-description" class="analysis-text">Description goes here.</p>
+                    </div>
+
+                    <div class="evidence-crossref-box" id="modal-evidence-crossref-container">
+                        <div class="crossref-label">🔗 CROSS-REFERENCE CLUES</div>
+                        <div id="modal-evidence-crossref" class="crossref-text">Cross-reference hints...</div>
+                    </div>
+                </div>
+
+                <footer class="dialog-footer">
+                    <span class="status-inspected-tag">✓ CLUE RECORDED IN CASE LOG</span>
+                    <button id="btn-done-inspecting" class="mc-btn mc-btn-sm mc-btn-primary">DONE INSPECTING</button>
+                </footer>
+            </div>
+        </dialog>
+
+        <!-- 11. SUSPECT PROFILE MODAL -->
+        <dialog id="modal-suspect" class="pixel-dialog" aria-labelledby="modal-suspect-name" aria-modal="true">
+            <div class="dialog-frame">
+                <header class="dialog-header">
+                    <div class="evidence-type-tag">SUSPECT DOSSIER</div>
+                    <h3 id="modal-suspect-name" class="dialog-title">SUSPECT NAME</h3>
+                    <button id="btn-close-suspect-modal" class="btn-pixel-close"
+                        aria-label="Close Suspect Dossier">✕</button>
+                </header>
+
+                <div class="dialog-content suspect-modal-body">
+                    <div class="suspect-bio-grid">
+                        <div class="suspect-avatar-large" id="modal-suspect-avatar">
+                            <span class="avatar-emoji">👤</span>
+                        </div>
+                        <div class="suspect-meta-info">
+                            <div class="meta-row"><strong>OCCUPATION:</strong> <span
+                                    id="modal-suspect-occupation">Miner</span></div>
+                            <div class="meta-row"><strong>RELATION:</strong> <span id="modal-suspect-relation">Trade
+                                    Partner</span></div>
+                            <div class="meta-row"><strong>PERSONALITY:</strong> <span
+                                    id="modal-suspect-personality">Secretive, calculating</span></div>
+                        </div>
+                    </div>
+
+                    <div class="suspect-statement-section">
+                        <h4>OFFICIAL ALIBI STATEMENT:</h4>
+                        <blockquote id="modal-suspect-alibi" class="pixel-quote">"I was nowhere near the scene..."
+                        </blockquote>
+                    </div>
+
+                    <div class="suspect-motive-section">
+                        <h4>POTENTIAL MOTIVE / BACKGROUND:</h4>
+                        <p id="modal-suspect-motive" class="motive-desc">Background details...</p>
+                    </div>
+                </div>
+
+                <footer class="dialog-footer">
+                    <button id="btn-close-suspect-dossier" class="mc-btn mc-btn-sm mc-btn-primary">CLOSE
+                        DOSSIER</button>
+                </footer>
+            </div>
+        </dialog>
+
+        <!-- 12. CASE NOTEBOOK MODAL -->
+        <dialog id="modal-notebook" class="pixel-dialog" aria-labelledby="modal-notebook-title" aria-modal="true">
+            <div class="dialog-frame notebook-frame">
+                <header class="dialog-header">
+                    <div class="evidence-type-tag">INVESTIGATOR'S LOG</div>
+                    <h3 id="modal-notebook-title" class="dialog-title">CASE DEDUCTION NOTES</h3>
+                    <button id="btn-close-notebook-modal" class="btn-pixel-close" aria-label="Close Notebook">✕</button>
+                </header>
+
+                <div class="dialog-content notebook-body">
+                    <div id="notebook-clues-list" class="notebook-clues-list">
+                        <!-- Dynamically filled with inspected clues and auto-crosslinks -->
+                    </div>
+                </div>
+
+                <footer class="dialog-footer">
+                    <button id="btn-close-notebook-action" class="mc-btn mc-btn-sm mc-btn-primary">BACK TO CASE</button>
+                </footer>
+            </div>
+        </dialog>
+
+        <!-- 13. CREDITS MODAL -->
+        <dialog id="modal-credits" class="pixel-dialog" aria-labelledby="modal-credits-title" aria-modal="true">
+            <div class="dialog-frame">
+                <header class="dialog-header">
+                    <h3 id="modal-credits-title" class="dialog-title">CREDITS & INTEL</h3>
+                    <button id="btn-close-credits-modal" class="btn-pixel-close" aria-label="Close Credits">✕</button>
+                </header>
+
+                <div class="dialog-content credits-content">
+                    <h4>CASE: ABHEDYA</h4>
+                    <p class="credits-role">A 10-Level Voxel Detective Mystery Game</p>
+                    <div class="credits-divider"></div>
+                    <div class="credits-list">
+                        <div class="credit-item">
+                            <span class="c-role">Lead Game Design & Architecture:</span>
+                            <span class="c-name">Abhedya Investigation Bureau</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="c-role">Visual Direction & Asset System:</span>
+                            <span class="c-name">Minecraft Voxel Aesthetic</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="c-role">Audio & Sfx Integration:</span>
+                            <span class="c-name">Voxel Audio Engine</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="c-role">Story & 10 Cases:</span>
+                            <span class="c-name">The Conduit Chronicles</span>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="dialog-footer">
+                    <button id="btn-close-credits-action" class="mc-btn mc-btn-sm mc-btn-primary">CLOSE</button>
+                </footer>
+            </div>
+        </dialog>
+
+        <!-- 14. TNT FAILURE DRAMATIC OVERLAY (Uses images/tnt.png) -->
+        <div id="tnt-overlay" class="tnt-overlay" hidden aria-hidden="true">
+            <div class="tnt-flash-screen"></div>
+            <div id="tnt-block-image-wrapper" class="tnt-block-image-wrapper">
+                <img id="tnt-asset-image" class="tnt-asset-image" src="images/tnt.png" alt="TNT Detonation Asset">
+            </div>
+            <div class="tnt-warning-text">DEFENSE ACTIVATED! DETONATION IMMINENT!</div>
+        </div>
+
+    </div>
+
+    <!-- Audio Preloader Elements for Zero-Latency Playback -->
+    <div id="audio-preloader" aria-hidden="true" style="display:none;">
+        <audio id="snd-click" preload="auto" src="audio/minecraft_click.mp3"></audio>
+        <audio id="snd-continue" preload="auto" src="audio/teleport1_Cw1ot9l.mp3"></audio>
+        <audio id="snd-level1" preload="auto" src="audio/minecraft-cave-sound-10.mp3"></audio>
+        <audio id="snd-level4" preload="auto" src="audio/nether-portal-travil-sound.mp3"></audio>
+        <audio id="snd-level7" preload="auto" src="audio/end_portal_activation.mp3"></audio>
+        <audio id="snd-accuse" preload="auto" src="audio/minecraft-chest-open-and-close.mp3"></audio>
+        <audio id="snd-clear" preload="auto" src="audio/levelup.mp3"></audio>
+        <audio id="snd-complete" preload="auto" src="audio/challenge_complete_uHsY1YS.mp3"></audio>
+        <audio id="snd-tnt" preload="auto" src="audio/tnt-explosion.mp3"></audio>
+    </div>
+
+    <!-- Scripts (Modular Architecture) -->
+    <script src="js/storage.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/cases.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

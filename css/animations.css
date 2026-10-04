@@ -1,0 +1,235 @@
+/* ==========================================================================
+   CASE: ABHEDYA — ANIMATIONS, SHAKES, TNT ASSET & VFX STYLES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TNT OVERLAY & TNT ASSET DROP ANIMATION (images/tnt.png)
+   -------------------------------------------------------------------------- */
+
+.tnt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.tnt-overlay[hidden] {
+    display: none !important;
+}
+
+.tnt-flash-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 250;
+}
+
+/* TNT Image Container */
+.tnt-block-image-wrapper {
+    width: 128px;
+    height: 128px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-600px);
+}
+
+.tnt-block-image-wrapper.tnt-drop {
+    animation: tntDropAndSwell 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.tnt-asset-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+}
+
+.tnt-warning-text {
+    margin-top: 40px;
+    font-size: 13px;
+    color: #ff3344;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #000;
+    animation: textBlink 0.25s infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   2. SCREEN SHAKES & FLASHES
+   -------------------------------------------------------------------------- */
+
+.shake-mild {
+    animation: screenShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.shake-heavy {
+    animation: screenShakeHeavy 0.6s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.flash-explosion,
+.flash-white,
+body.flash-white::after,
+.tnt-flash-screen.flash-white {
+    animation: explosionWhiteFlash 0.65s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+body.flash-white::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. KEYFRAME DEFINITIONS
+   -------------------------------------------------------------------------- */
+
+/* Unified 1.5s TNT Drop and Fuse Swell Animation — Exact match with 1500ms JS timer */
+@keyframes tntDropAndSwell {
+    0% {
+        transform: translateY(-600px) scale(0.6);
+        filter: brightness(1);
+        opacity: 0;
+    }
+    18% {
+        transform: translateY(18px) scale(1.06);
+        filter: brightness(1);
+        opacity: 1;
+    }
+    24% {
+        transform: translateY(-6px) scale(0.97);
+        filter: brightness(1.2);
+    }
+    30% {
+        transform: translateY(0px) scale(1);
+        filter: brightness(1.3);
+    }
+    45% {
+        transform: translateY(0px) scale(1.08);
+        filter: brightness(1.8) drop-shadow(0 0 14px #ff3333);
+    }
+    60% {
+        transform: translateY(0px) scale(0.96);
+        filter: brightness(1.2);
+    }
+    75% {
+        transform: translateY(0px) scale(1.22);
+        filter: brightness(2.8) drop-shadow(0 0 30px #ff4444);
+    }
+    88% {
+        transform: translateY(0px) scale(1.05);
+        filter: brightness(1.8);
+    }
+    94% {
+        transform: translateY(0px) scale(1.38);
+        filter: brightness(3.8) drop-shadow(0 0 55px #ffffff);
+    }
+    100% {
+        transform: translateY(0px) scale(1.6);
+        filter: brightness(5.2) drop-shadow(0 0 95px #ffffff);
+        opacity: 1;
+    }
+}
+
+/* Screen Flash for TNT explosion — Holds solid white mask during screen change then fades smoothly */
+@keyframes explosionWhiteFlash {
+    0% {
+        opacity: 1;
+        background: #ffffff;
+    }
+    40% {
+        opacity: 1;
+        background: #ffffff;
+    }
+    70% {
+        opacity: 0.75;
+        background: #ffffff;
+    }
+    88% {
+        opacity: 0.35;
+        background: #ffaa44;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Screen Shakes */
+@keyframes screenShake {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(3px, 1px, 0); }
+    30%, 50%, 70% { transform: translate3d(-3px, -2px, 0); }
+    40%, 60% { transform: translate3d(3px, 2px, 0); }
+}
+
+@keyframes screenShakeHeavy {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-8px, -6px) rotate(-1deg); }
+    20% { transform: translate(7px, 6px) rotate(1deg); }
+    30% { transform: translate(-7px, 5px) rotate(-1deg); }
+    40% { transform: translate(6px, -5px) rotate(1deg); }
+    50% { transform: translate(-5px, 4px) rotate(0deg); }
+    60% { transform: translate(5px, -3px); }
+    70% { transform: translate(-3px, 2px); }
+    80% { transform: translate(3px, -2px); }
+    90% { transform: translate(-1px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes tntShakeEscalate {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(4px, -3px) rotate(0.5deg); }
+    75% { transform: translate(-6px, 5px) rotate(-1deg); }
+    90% { transform: translate(8px, -7px) rotate(1.5deg); }
+    100% { transform: translate(-12px, 10px) rotate(-2deg); }
+}
+
+/* Pulse Buttons */
+.mc-btn-pulse {
+    animation: pulseGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 
+            inset 3px 3px 0px var(--btn-gold-top),
+            inset -3px -3px 0px var(--btn-gold-bot),
+            0 4px 0px #000,
+            0 0 10px rgba(252, 219, 56, 0.4);
+    }
+    50% {
+        box-shadow: 
+            inset 3px 3px 0px var(--btn-gold-top),
+            inset -3px -3px 0px var(--btn-gold-bot),
+            0 4px 0px #000,
+            0 0 22px rgba(252, 219, 56, 0.9);
+    }
+}
+
+@keyframes textBlink {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
