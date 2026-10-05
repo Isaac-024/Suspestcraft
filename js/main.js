@@ -19,8 +19,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Run Animated 3-Second Loading Sequence
     runLoadingSequence(() => {
         Game.showMainMenu();
-        // Prompt for Student ID / Name immediately when loading ends
-        promptUserRegistration();
+        
+        const existingUser = localStorage.getItem('CASE_ABHEDYA_USER');
+        const saveData = Storage.load();
+        
+        const statsTag = document.getElementById('quick-stats-tag');
+        if (statsTag && existingUser) {
+            statsTag.textContent = `${existingUser} • ${saveData.completedCases.length}/10 SOLVED`;
+        }
+
+        if (existingUser && typeof FirebaseService !== 'undefined') {
+            FirebaseService.recordCaseSolved(saveData.completedCases.length);
+        }
+
+        // Prompt for Student ID / Codename if not yet set
+        if (!existingUser) {
+            promptUserRegistration();
+        }
     });
 });
 

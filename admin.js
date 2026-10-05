@@ -143,29 +143,50 @@ const AdminPortal = (function () {
     }
 
     /**
-     * Setup Cross-Tab BroadcastChannel & Storage Event Listeners
+     * Setup Cross-Tab BroadcastChannel, Cloud Relay & Storage Event Listeners
      */
     function setupBroadcastListener() {
+        // 1. Direct In-Process Callback from FirebaseService
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.onPlayerUpdate) {
+            FirebaseService.onPlayerUpdate((updatedList) => {
+                console.log('[Admin] In-process player update received:', updatedList.length);
+                refreshLocalLeaderboard();
+            });
+        }
+
+        // 2. Custom Window Event Listener
+        window.addEventListener('abhedya:player_update', (e) => {
+            console.log('[Admin] abhedya:player_update event received');
+            refreshLocalLeaderboard();
+        });
+
+        // 3. BroadcastChannel for instant cross-tab sync
         try {
             if (typeof BroadcastChannel !== 'undefined') {
                 syncChannel = new BroadcastChannel('case_abhedya_leaderboard');
                 syncChannel.onmessage = (event) => {
                     console.log('[Admin] Real-time broadcast received:', event.data);
-                    if (!FirebaseService.isReady()) {
-                        refreshLocalLeaderboard();
-                    }
+                    refreshLocalLeaderboard();
                 };
             }
         } catch (e) {}
 
-        // Window storage listener fallback
+        // 4. Window storage listener fallback
         window.addEventListener('storage', (e) => {
-            if (e.key === 'CASE_ABHEDYA_LOCAL_PLAYERS' || e.key === 'CASE_ABHEDYA_USER') {
+            if (e.key === 'CASE_ABHEDYA_LOCAL_PLAYERS' || e.key === 'CASE_ABHEDYA_USER' || e.key === 'CASE_ABHEDYA_SAVE_V1') {
+                refreshLocalLeaderboard();
+            }
+        });
+
+        // 5. Active Live Interval Refresher (Every 2.5s to ensure projector is always up to date)
+        setInterval(() => {
+            const dashboard = document.getElementById('dashboard-container');
+            if (dashboard && dashboard.style.display !== 'none') {
                 if (!FirebaseService.isReady()) {
                     refreshLocalLeaderboard();
                 }
             }
-        });
+        }, 2500);
     }
 
     /**

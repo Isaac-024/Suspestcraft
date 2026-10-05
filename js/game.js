@@ -283,11 +283,6 @@ const Game = (function () {
         const currentId = parseInt(currentCase.id, 10);
         const isFinalCase = currentId >= 10;
 
-        // Sync progress to Firebase Cloud Leaderboard in real-time
-        if (typeof FirebaseService !== 'undefined') {
-            FirebaseService.recordCaseSolved(currentId);
-        }
-
         if (isFinalCase) {
             AudioEngine.playGameComplete();
             Storage.completeCase(currentId, null);
@@ -302,6 +297,11 @@ const Game = (function () {
             
             UI.renderCaseSolved(currentCase);
             UI.showScreen('caseSolved');
+        }
+
+        // Sync progress to Firebase Cloud Leaderboard & Cloud Relay in real-time
+        if (typeof FirebaseService !== 'undefined') {
+            FirebaseService.recordCaseSolved(currentId);
         }
     }
 
