@@ -478,7 +478,154 @@ const AdminPortal = (function () {
         }
     }
 
+    /* =========================================================================
+       MASTER ANSWER KEY CONTROLLER
+       ========================================================================= */
+    const ANSWERS_AUTH_HASH = "49d837fbb43cbdc0c25a3a669fe7175bcda2d36b95d99ec5ba18891f458d7365";
+    const ANSWERS_SESSION_KEY = "CASE_ABHEDYA_ANSWERS_UNLOCKED";
+
+    /**
+     * Open Master Answer Key (or Password Prompt)
+     */
+    function promptShowAnswers() {
+        const isUnlocked = sessionStorage.getItem(ANSWERS_SESSION_KEY) === "true";
+        if (isUnlocked) {
+            renderAnswersModal();
+            const modal = document.getElementById('modal-answers');
+            if (modal) modal.style.display = 'flex';
+        } else {
+            const authModal = document.getElementById('modal-answers-auth');
+            const passInput = document.getElementById('answers-password-input');
+            const errMsg = document.getElementById('answers-auth-error');
+            if (passInput) passInput.value = '';
+            if (errMsg) errMsg.style.display = 'none';
+            if (authModal) authModal.style.display = 'flex';
+            if (passInput) passInput.focus();
+        }
+    }
+
+    /**
+     * Verify Master Answer Key Password ("thisispasswordtoanswer")
+     */
+    async function verifyAnswersPassword() {
+        const input = document.getElementById('answers-password-input');
+        const errMsg = document.getElementById('answers-auth-error');
+        if (!input) return;
+
+        const pass = input.value.trim();
+        if (!pass) return;
+
+        const inputHash = await sha256(pass);
+        const isMatch = (pass === "thisispasswordtoanswer") || (inputHash === ANSWERS_AUTH_HASH);
+
+        if (isMatch) {
+            sessionStorage.setItem(ANSWERS_SESSION_KEY, "true");
+            closeAnswersAuthModal();
+            renderAnswersModal();
+            const modal = document.getElementById('modal-answers');
+            if (modal) modal.style.display = 'flex';
+        } else {
+            if (errMsg) {
+                errMsg.textContent = 'ACCESS DENIED: INCORRECT PASSWORD';
+                errMsg.style.display = 'block';
+            }
+            input.value = '';
+            input.focus();
+
+            // Shake effect
+            const card = document.querySelector('#modal-answers-auth .auth-card');
+            if (card) {
+                card.style.transform = 'translateX(-8px)';
+                setTimeout(() => card.style.transform = 'translateX(8px)', 80);
+                setTimeout(() => card.style.transform = 'translateX(-4px)', 160);
+                setTimeout(() => card.style.transform = 'translateX(0)', 240);
+            }
+        }
+    }
+
+    /**
+     * Close Answer Auth Modal
+     */
+    function closeAnswersAuthModal() {
+        const modal = document.getElementById('modal-answers-auth');
+        if (modal) modal.style.display = 'none';
+    }
+
+    /**
+     * Close Answer Display Modal
+     */
+    function closeAnswersModal() {
+        const modal = document.getElementById('modal-answers');
+        if (modal) modal.style.display = 'none';
+    }
+
+    /**
+     * Render the 10 Case Answers into the Grid
+     */
+    function renderAnswersModal() {
+        const container = document.getElementById('answers-list-container');
+        if (!container) return;
+
+        const casesList = (typeof CASES !== 'undefined' && Array.isArray(CASES)) 
+            ? CASES 
+            : ((typeof getAllCases === 'function') ? getAllCases() : []);
+
+        if (casesList.length === 0) {
+            container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--redstone); padding: 20px;">Unable to load case database.</div>';
+            return;
+        }
+
+        const dimensionColors = {
+            overworld: '#55ff55',
+            nether: '#ff5555',
+            end: '#d055ff',
+            deepdark: '#00ffff'
+        };
+
+        container.innerHTML = casesList.map(c => {
+            const dimColor = dimensionColors[c.dimension] || '#fcdb38';
+            return `
+                <div style="background: rgba(16, 16, 26, 0.95); border: 3px solid #32324a; box-shadow: inset 2px 2px 0 #4a4a66, inset -2px -2px 0 #0b0b0f; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; border-bottom: 2px solid #202030; padding-bottom: 8px;">
+                        <div>
+                            <span style="font-size: 10px; color: ${dimColor}; letter-spacing: 1px;">LEVEL ${c.id} • ${c.dimension.toUpperCase()}</span>
+                            <h4 style="color: var(--gold); font-size: 12px; margin-top: 4px;">${escapeHtml(c.title)}</h4>
+                        </div>
+                        <span style="font-size: 8px; padding: 4px 8px; border: 1px solid ${dimColor}; color: ${dimColor}; background: rgba(0,0,0,0.4);">
+                            DIFF ${c.difficulty || 1}
+                        </span>
+                    </div>
+
+                    <div style="font-size: 10px; color: var(--text-dim); display: flex; gap: 12px; flex-wrap: wrap;">
+                        <span>👤 <strong>Victim:</strong> <span style="color: #fff;">${escapeHtml(c.victim)}</span></span>
+                        <span>📍 <strong>Location:</strong> <span style="color: #fff;">${escapeHtml(c.location)}</span></span>
+                    </div>
+
+                    <div style="background: #000; border: 2px solid #252538; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; font-size: 10px; line-height: 1.4;">
+                        <div>
+                            <span style="color: var(--emerald); font-weight: bold;">👤 PRIME SUSPECT:</span>
+                            <strong style="color: #ffffff; margin-left: 4px;">${escapeHtml(c.correctAnswer.who)}</strong>
+                        </div>
+                        <div>
+                            <span style="color: #55aaff; font-weight: bold;">⚔️ METHOD:</span>
+                            <span style="color: #ffffff; margin-left: 4px;">${escapeHtml(c.correctAnswer.how)}</span>
+                        </div>
+                        <div>
+                            <span style="color: #ffaa00; font-weight: bold;">🎯 MOTIVE:</span>
+                            <span style="color: #ffffff; margin-left: 4px;">${escapeHtml(c.correctAnswer.why)}</span>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 9px; color: #a4a4c4; line-height: 1.5; border-left: 3px solid var(--gold); padding-left: 8px; background: rgba(252, 219, 56, 0.05); padding-top: 4px; padding-bottom: 4px;">
+                        <strong style="color: var(--gold);">EXPLANATION:</strong> ${escapeHtml(c.explanation.summary)}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
     function escapeHtml(text) {
+        if (!text) return '';
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
@@ -493,7 +640,11 @@ const AdminPortal = (function () {
         confirmResetData,
         openConfigModal,
         closeConfigModal,
-        saveCustomFirebaseConfig
+        saveCustomFirebaseConfig,
+        promptShowAnswers,
+        verifyAnswersPassword,
+        closeAnswersAuthModal,
+        closeAnswersModal
     };
 })();
 

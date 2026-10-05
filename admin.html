@@ -630,6 +630,9 @@
             </div>
 
             <div class="header-actions">
+                <button id="btn-show-answers" class="btn-projector" style="background: #1a4a6b; border-color: #00bcd4;" onclick="AdminPortal.promptShowAnswers()">
+                    <span>🔑</span> SHOW ANSWERS
+                </button>
                 <button id="btn-change-pass" class="btn-projector" onclick="AdminPortal.changeAdminPassword()">
                     <span>🔒</span> SET PASSWORD
                 </button>
@@ -722,7 +725,52 @@
         </div>
     </div>
 
-    <!-- Admin Controller -->
+    <!-- 4. ANSWER KEY AUTH MODAL -->
+    <div id="modal-answers-auth" class="modal-config" style="display: none;">
+        <div class="auth-card" style="max-width: 460px;">
+            <div style="font-size: 32px; margin-bottom: 12px;">🔑</div>
+            <h2>ANSWER KEY ACCESS</h2>
+            <p>Enter Master Answer Key Password to reveal solutions for all 10 levels.</p>
+
+            <form id="answers-auth-form" onsubmit="event.preventDefault(); AdminPortal.verifyAnswersPassword();">
+                <input type="password" id="answers-password-input" class="auth-input" placeholder="ENTER PASSWORD" autocomplete="off">
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="button" class="btn-projector" style="flex: 1; padding: 12px;" onclick="AdminPortal.closeAnswersAuthModal()">CANCEL</button>
+                    <button type="submit" class="btn-auth" style="flex: 2; margin: 0; padding: 12px;">UNLOCK ANSWERS →</button>
+                </div>
+                <div id="answers-auth-error" class="auth-error">ACCESS DENIED: INCORRECT PASSWORD</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. MASTER ANSWER KEY DISPLAY MODAL -->
+    <div id="modal-answers" class="modal-config" style="display: none;">
+        <div class="config-card" style="max-width: 1020px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--border-pixel); padding-bottom: 14px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 24px;">📜</span>
+                    <div>
+                        <h3 style="margin: 0; color: var(--gold); font-size: 14px; letter-spacing: 1px;">CASE: ABHEDYA — MASTER ANSWER KEY</h3>
+                        <span style="font-size: 9px; color: var(--emerald); letter-spacing: 1px;">OFFICIAL INSTRUCTOR SOLUTIONS (ALL 10 LEVELS)</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-projector btn-danger-reset" onclick="AdminPortal.closeAnswersModal()">✕ CLOSE</button>
+            </div>
+
+            <!-- Scrollable Cards Container -->
+            <div id="answers-list-container" style="overflow-y: auto; flex: 1; padding-right: 8px; display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 16px;">
+                <!-- Rendered dynamically from CASES data -->
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; border-top: 2px solid var(--border-pixel); padding-top: 12px;">
+                <span style="font-size: 9px; color: var(--text-dim);">Confidential Instructor Solution Sheet</span>
+                <button type="button" class="btn-projector" onclick="AdminPortal.closeAnswersModal()">DONE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Master Case Data & Admin Controller -->
+    <script src="js/cases.js"></script>
     <script src="admin.js"></script>
 </body>
 
