@@ -188,9 +188,13 @@ const AudioEngine = (function() {
         playSound('enterLevel4', 0.9);
     }
 
-    // 5. Enter Level 7 - End Portal (Trigger: enters Case 7)
+    // 5. Enter Level 7 / End Dimension (Trigger: enters Cases 7, 8, 9 - The End)
     function playEnterLevel7() {
-        playSound('enterLevel7', 0.9);
+        playSound('enterLevel7', 1.0);
+    }
+
+    function playEnterEndDimension() {
+        playSound('enterLevel7', 1.0);
     }
 
     // 6. Open Accuse Tab (Trigger: clicks ACCUSE button)

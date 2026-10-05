@@ -71,10 +71,9 @@ const Game = (function () {
      */
     function isMobileDevice() {
         try {
-            const uaMatch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(navigator.userAgent);
-            const smallScreen = window.innerWidth <= 768 || window.innerHeight <= 600;
-            const touchSupport = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
-            return uaMatch || (smallScreen && touchSupport);
+            const uaMatch = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+            const smallPhone = window.innerWidth <= 600;
+            return uaMatch || smallPhone;
         } catch (e) {
             return false;
         }
@@ -107,13 +106,18 @@ const Game = (function () {
         UI.renderBriefing(currentCase);
         UI.showScreen('briefing');
 
-        if (numericId === 1) AudioEngine.playEnterLevel1();
-        else if (numericId === 4) AudioEngine.playEnterLevel4();
-        else if (numericId === 7) AudioEngine.playEnterLevel7();
+        if (numericId === 1) {
+            AudioEngine.playEnterLevel1();
+        } else if (numericId === 4) {
+            AudioEngine.playEnterLevel4();
+        } else if (numericId === 7 || numericId === 8 || numericId === 9) {
+            // End Dimension sound plays for all End cases (7, 8, 9)
+            AudioEngine.playEnterLevel7();
+        }
     }
 
     /**
-     * Level 10 Video/Audio Sync (Desktop only with tap-to-skip and auto-recovery)
+     * Level 10 Video/Audio Sync (Plays full 22s video and audio completely, with optional skip button)
      */
     function playLevel10Animation(onComplete) {
         if (isMobileDevice()) {
@@ -124,6 +128,7 @@ const Game = (function () {
         const overlay = document.getElementById('animation-overlay');
         const video = document.getElementById('lvl10-video');
         const audio = document.getElementById('lvl10-audio');
+        const skipBtn = document.getElementById('btn-skip-anim');
 
         if (!overlay || !video || !audio) {
             if (typeof onComplete === 'function') onComplete();
@@ -131,9 +136,12 @@ const Game = (function () {
         }
 
         let finished = false;
+        let safetyTimer = null;
+
         const finish = () => {
             if (finished) return;
             finished = true;
+            if (safetyTimer) clearTimeout(safetyTimer);
             overlay.hidden = true;
             try { video.pause(); } catch (e) {}
             if (typeof onComplete === 'function') onComplete();
@@ -143,10 +151,15 @@ const Game = (function () {
         video.currentTime = 0;
         audio.currentTime = 0;
 
-        // Skip on click/tap anywhere on overlay
-        overlay.onclick = finish;
+        // Skip button handler
+        if (skipBtn) {
+            skipBtn.onclick = (e) => {
+                e.stopPropagation();
+                finish();
+            };
+        }
 
-        // Play both simultaneously
+        // Play both video and audio simultaneously
         const playPromise = video.play();
         if (playPromise !== undefined) {
             playPromise.catch(e => {
@@ -156,10 +169,14 @@ const Game = (function () {
         }
         audio.play().catch(e => console.log("Audio autoplay notice:", e));
 
-        video.onended = finish;
-        
-        // Safety timeout so game never gets stuck
-        setTimeout(finish, 12000);
+        // When video reaches natural completion (~22s), finish cleanly
+        video.onended = () => {
+            console.log("[Level 10] Video finished playing completely.");
+            finish();
+        };
+
+        // Generous safety timer (45 seconds) so the 22-second video is never cut off prematurely
+        safetyTimer = setTimeout(finish, 45000);
     }
 
     /**

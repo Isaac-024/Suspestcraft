@@ -258,3 +258,26 @@ body.flash-white::after {
     object-fit: contain;
     background: #000;
 }
+
+.btn-skip-anim {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: rgba(20, 20, 30, 0.85);
+    color: #ffffff;
+    border: 2px solid #555577;
+    font-family: var(--font-pixel, monospace);
+    font-size: 11px;
+    padding: 10px 16px;
+    cursor: pointer;
+    z-index: 100000;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.btn-skip-anim:hover {
+    background: #33334d;
+    border-color: #fcdb38;
+    color: #fcdb38;
+    transform: scale(1.05);
+}
