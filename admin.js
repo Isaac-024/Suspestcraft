@@ -426,31 +426,20 @@ const AdminPortal = (function () {
     }
 
     /**
-     * Wipe / Reset Leaderboard data
+     * Wipe / Reset Leaderboard data & Force Remote Session Reset on All Connected Devices
      */
     async function confirmResetData() {
-        const confirm1 = confirm("⚠️ DANGER: Are you sure you want to reset all leaderboard records?");
+        const confirm1 = confirm("⚠️ DANGER: Are you sure you want to reset all player and leaderboard records?\n\nThis will clear the leaderboard AND instantly reset/reload all active student screens so they must enter their name again.");
         if (!confirm1) return;
 
-        // Clear local players
-        FirebaseService.saveLocalPlayers([]);
-
-        // Clear cloud players if connected
-        if (FirebaseService.isReady()) {
-            try {
-                const snapshot = await db.collection(FirebaseService.COLLECTION_NAME).get();
-                const batch = db.batch();
-                snapshot.docs.forEach((doc) => {
-                    batch.delete(doc.ref);
-                });
-                await batch.commit();
-            } catch (err) {
-                console.error('Error wiping Firestore:', err);
-            }
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.wipeAllData) {
+            await FirebaseService.wipeAllData();
+        } else {
+            FirebaseService.saveLocalPlayers([]);
         }
 
         refreshLocalLeaderboard();
-        alert("✅ All leaderboard records have been cleared.");
+        alert("✅ All leaderboard records have been wiped, and all connected student screens have been reset to the registration screen.");
     }
 
     /**

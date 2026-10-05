@@ -1,8 +1,9 @@
 /**
  * CASE: ABHEDYA — TRI-ENGINE REAL-TIME LEADERBOARD & SYNC SERVICE (js/firebase-config.js)
  * 1. Global Cloud Relay (Internet-wide Real-Time Sync with Retained Messages across Vercel)
- * 2. Firebase Cloud Firestore (Optional permanent cloud database with custom keys)
- * 3. Local Multi-Tab BroadcastChannel & LocalStorage Auto-Recovery Engine.
+ * 2. Remote Instructor Control (Wipe & Force Session Reset on all connected devices)
+ * 3. Firebase Cloud Firestore (Optional permanent cloud database with custom keys)
+ * 4. Local Multi-Tab BroadcastChannel & LocalStorage Auto-Recovery Engine.
  */
 
 // 1. DEFAULT FIREBASE CONFIGURATION (Can be configured here or in the Admin Dashboard)
@@ -72,6 +73,11 @@ const FirebaseService = (function () {
     try {
         if (typeof BroadcastChannel !== 'undefined') {
             localChannel = new BroadcastChannel('case_abhedya_leaderboard');
+            localChannel.onmessage = (event) => {
+                if (event.data && event.data.type === 'REMOTE_RESET_ALL') {
+                    handleRemoteReset();
+                }
+            };
         }
     } catch (e) {}
 
@@ -109,11 +115,21 @@ const FirebaseService = (function () {
 
             mqttClient.on('message', (topic, message) => {
                 try {
-                    const data = JSON.parse(message.toString());
+                    const msgStr = message.toString();
+                    if (!msgStr) return;
+                    const data = JSON.parse(msgStr);
                     
                     if (topic === TOPIC_CONTROL) {
                         if (data && data.action === 'SYNC_REQUEST') {
                             announceCurrentPlayer();
+                        } else if (data && data.action === 'REMOTE_RESET_ALL') {
+                            handleRemoteReset();
+                        }
+                    } else if (topic === TOPIC_EVENTS) {
+                        if (data && data.type === 'REMOTE_RESET_ALL') {
+                            handleRemoteReset();
+                        } else {
+                            handleIncomingCloudPlayer(data);
                         }
                     } else {
                         handleIncomingCloudPlayer(data);
@@ -222,6 +238,85 @@ const FirebaseService = (function () {
         if (typeof callback === 'function') {
             listeners.push(callback);
         }
+    }
+
+    /**
+     * Handle incoming Remote Reset signal from Instructor
+     */
+    function handleRemoteReset() {
+        try {
+            localStorage.removeItem(USER_KEY);
+            localStorage.removeItem(ID_KEY);
+            localStorage.removeItem(LOCAL_PLAYERS_KEY);
+            localStorage.removeItem('CASE_ABHEDYA_SAVE_V1');
+        } catch (e) {}
+
+        const isAdminPage = window.location.pathname.includes('admin') || document.getElementById('dashboard-container') !== null;
+        if (!isAdminPage) {
+            console.log('[Remote Reset] Wipe command received from Instructor. Reloading game session...');
+            setTimeout(() => {
+                window.location.reload();
+            }, 250);
+        } else {
+            notifyListeners([]);
+        }
+    }
+
+    /**
+     * Admin Trigger: Wipe all data locally, in cloud, and force-reload all connected student devices
+     */
+    async function wipeAllData() {
+        const localList = getLocalPlayers();
+
+        // 1. Clear MQTT retained topics for all known players
+        if (mqttClient && isCloudRelayConnected) {
+            localList.forEach(p => {
+                const pId = p.id || p.playerId || sanitizePlayerId(p.username);
+                try {
+                    // Empty payload with retain: true removes the retained message on MQTT broker
+                    mqttClient.publish(TOPIC_PLAYER_PREFIX + pId, '', { qos: 1, retain: true });
+                } catch (e) {}
+            });
+
+            // Broadcast remote wipe command to all student phones and browsers
+            try {
+                mqttClient.publish(TOPIC_CONTROL, JSON.stringify({ action: 'REMOTE_RESET_ALL', sentAt: Date.now() }), { qos: 1 });
+                mqttClient.publish(TOPIC_EVENTS, JSON.stringify({ type: 'REMOTE_RESET_ALL', sentAt: Date.now() }), { qos: 1 });
+            } catch (e) {}
+        }
+
+        // 2. Broadcast over local BroadcastChannel
+        try {
+            if (localChannel) {
+                localChannel.postMessage({ type: 'REMOTE_RESET_ALL', sentAt: Date.now() });
+            }
+        } catch (e) {}
+
+        // 3. Clear LocalStorage
+        try {
+            localStorage.removeItem(LOCAL_PLAYERS_KEY);
+            localStorage.removeItem(USER_KEY);
+            localStorage.removeItem(ID_KEY);
+            localStorage.removeItem('CASE_ABHEDYA_SAVE_V1');
+        } catch (e) {}
+
+        // 4. Clear Firestore if connected
+        if (isReady()) {
+            try {
+                const snapshot = await db.collection(COLLECTION_NAME).get();
+                const batch = db.batch();
+                snapshot.docs.forEach((doc) => {
+                    batch.delete(doc.ref);
+                });
+                await batch.commit();
+                console.log('[Firebase] Cleared Firestore players collection.');
+            } catch (err) {
+                console.error('[Firebase] Error wiping Firestore collection:', err);
+            }
+        }
+
+        // 5. Update local UI
+        notifyListeners([]);
     }
 
     function isReady() {
@@ -459,6 +554,7 @@ const FirebaseService = (function () {
         recordCaseSolved,
         getLocalPlayers,
         saveLocalPlayers,
+        wipeAllData,
         saveCustomConfig,
         getConfig,
         sanitizePlayerId,
