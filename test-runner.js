@@ -39,6 +39,7 @@ requiredFiles.forEach(file => {
 
 // 2. Verify all local image assets
 const requiredImages = [
+    'images/logo.svg',
     'images/underwater.png',
     'images/overworld.png',
     'images/nether.jpg',
