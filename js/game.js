@@ -113,8 +113,7 @@ const Game = (function () {
             AudioEngine.playEnterLevel1();
         } else if (numericId === 4) {
             AudioEngine.playEnterLevel4();
-        } else if (numericId === 7 || numericId === 8 || numericId === 9) {
-            // End Dimension sound plays for all End cases (7, 8, 9)
+        } else if (numericId === 7) {
             AudioEngine.playEnterLevel7();
         }
     }
