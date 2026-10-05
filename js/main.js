@@ -19,8 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Run Animated 3-Second Loading Sequence
     runLoadingSequence(() => {
         Game.showMainMenu();
+        // Prompt for Student ID / Name immediately when loading ends
+        promptUserRegistration();
     });
 });
+
+/**
+ * Open Student Registration Modal
+ */
+function promptUserRegistration(onComplete) {
+    const modal = document.getElementById('modal-register');
+    const input = document.getElementById('input-username');
+    const errorMsg = document.getElementById('register-error-msg');
+    
+    if (input) {
+        input.value = localStorage.getItem('CASE_ABHEDYA_USER') || '';
+    }
+    if (errorMsg) errorMsg.style.display = 'none';
+
+    if (modal) {
+        if (typeof modal.showModal === 'function') modal.showModal();
+        else modal.setAttribute('open', '');
+        if (input) setTimeout(() => input.focus(), 200);
+    }
+}
 
 /**
  * Animated Loading Sequence (3 seconds 0% -> 100%)
@@ -87,10 +109,60 @@ function bindSafeClick(id, callback) {
 }
 
 /**
- * 1. Main Menu Navigation
+ * 1. Main Menu Navigation & Registration
  */
 function setupMenuEvents() {
-    bindSafeClick('btn-new-game', () => Game.startCase(1));
+    bindSafeClick('btn-new-game', () => {
+        const existingUser = localStorage.getItem('CASE_ABHEDYA_USER');
+        if (!existingUser) {
+            promptUserRegistration();
+        } else {
+            Storage.resetAllProgress();
+            Game.startCase(1);
+        }
+    });
+
+    // Registration Form Submission
+    const formRegister = document.getElementById('form-register');
+    if (formRegister) {
+        formRegister.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('input-username');
+            const errorMsg = document.getElementById('register-error-msg');
+            const username = input ? input.value.trim() : '';
+
+            if (!username) {
+                if (errorMsg) {
+                    errorMsg.textContent = 'Please enter a valid Student ID or Detective Codename.';
+                    errorMsg.style.display = 'block';
+                }
+                return;
+            }
+
+            if (errorMsg) errorMsg.style.display = 'none';
+
+            // Register in Firestore & LocalStorage
+            if (typeof FirebaseService !== 'undefined') {
+                await FirebaseService.registerPlayer(username);
+            }
+
+            const modal = document.getElementById('modal-register');
+            if (modal) UI.closeModal(modal);
+
+            // Update main menu stats badge with student codename
+            const statsTag = document.getElementById('quick-stats-tag');
+            if (statsTag) {
+                const saveData = Storage.load();
+                statsTag.textContent = `${username} • ${saveData.completedCases.length}/10 SOLVED`;
+            }
+        });
+    }
+
+    bindSafeClick('btn-register-cancel', () => {
+        const modal = document.getElementById('modal-register');
+        if (modal) UI.closeModal(modal);
+    });
+
     bindSafeClick('btn-continue', () => Game.continueGame());
     bindSafeClick('btn-case-files', () => Game.showCaseSelect());
     bindSafeClick('btn-close-case-select', () => Game.showMainMenu());
@@ -190,7 +262,8 @@ function setupModalEvents() {
         'btn-close-evidence-modal', 'btn-done-inspecting',
         'btn-close-suspect-modal', 'btn-close-suspect-dossier',
         'btn-close-notebook-modal', 'btn-close-notebook-action',
-        'btn-close-credits-modal', 'btn-close-credits-action'
+        'btn-close-credits-modal', 'btn-close-credits-action',
+        'btn-close-register-modal', 'btn-register-cancel'
     ];
 
     closeButtons.forEach(id => {

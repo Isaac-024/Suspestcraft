@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASE: ABHEDYA — Live Projector Leaderboard</title>
+    <meta name="description" content="Real-time live projector leaderboard and student progress tracker for Case: Abhedya.">
+
+    <!-- Google Pixel & Retro Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Firebase App & Firestore Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <!-- Shared Firebase & Real-time Configuration -->
+    <script src="js/firebase-config.js"></script>
+
+    <style>
+        :root {
+            --font-pixel: 'Press Start 2P', monospace;
+            --font-sub: 'VT323', monospace;
+            --font-heading: 'Silkscreen', monospace;
+
+            --bg-dark: #0a0a0f;
+            --bg-card: #14141f;
+            --bg-table-row: rgba(22, 22, 34, 0.85);
+            --bg-table-alt: rgba(16, 16, 26, 0.85);
+            
+            --gold: #fcdb38;
+            --gold-glow: rgba(252, 219, 56, 0.4);
+            --emerald: #55ff55;
+            --emerald-glow: rgba(85, 255, 85, 0.4);
+            --diamond: #00ffff;
+            --redstone: #ff5555;
+            --border-pixel: #3a3a52;
+            --border-gold: #8f7918;
+            --text-light: #f0f0f8;
+            --text-dim: #8b8baf;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(20, 30, 55, 0.6) 0%, rgba(10, 10, 15, 0.95) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px);
+            color: var(--text-light);
+            font-family: var(--font-pixel);
+            min-height: 100vh;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 6px 100%;
+            z-index: 9999;
+        }
+
+        /* 1. PASSWORD GATE OVERLAY */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(8, 8, 12, 0.98);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: var(--bg-card);
+            border: 4px solid var(--border-pixel);
+            box-shadow: inset 4px 4px 0 #525266, inset -4px -4px 0 #0b0b0f, 0 10px 40px rgba(0, 0, 0, 0.9);
+            padding: 32px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            color: var(--gold);
+            font-size: 14px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .auth-card p {
+            color: var(--text-dim);
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .auth-input {
+            width: 100%;
+            background: #000;
+            border: 3px solid var(--border-pixel);
+            color: var(--emerald);
+            font-family: var(--font-pixel);
+            font-size: 14px;
+            padding: 14px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .auth-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        .btn-auth {
+            width: 100%;
+            background: #2b742b;
+            color: #fff;
+            border: 3px solid #000;
+            box-shadow: inset 3px 3px 0 #4ebd4e, inset -3px -3px 0 #184818;
+            font-family: var(--font-pixel);
+            font-size: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .btn-auth:hover {
+            background: #399c39;
+            transform: translateY(-2px);
+        }
+
+        .btn-auth:active {
+            transform: translateY(2px);
+        }
+
+        .auth-error {
+            color: var(--redstone);
+            font-size: 9px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* 2. MAIN LEADERBOARD DASHBOARD */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Mode & Status Banner */
+        .mode-banner {
+            background: rgba(18, 22, 38, 0.9);
+            border: 2px solid var(--border-pixel);
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 10px;
+        }
+
+        .mode-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--emerald);
+        }
+
+        .btn-setup-link {
+            background: transparent;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            font-family: var(--font-pixel);
+            font-size: 9px;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+
+        .btn-setup-link:hover {
+            background: rgba(252, 219, 56, 0.15);
+        }
+
+        /* Header Bar */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 4px solid var(--border-pixel);
+            box-shadow: inset 3px 3px 0 #404058, inset -3px -3px 0 #0b0b0f;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .header-brand {
+            font-size: 9px;
+            color: var(--emerald);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--emerald);
+            animation: pulseDot 1.5s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .header-title {
+            font-size: 18px;
+            color: var(--gold);
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-projector {
+            background: #33334d;
+            border: 2px solid #000;
+            box-shadow: inset 2px 2px 0 #58587c, inset -2px -2px 0 #181828;
+            color: #ffffff;
+            font-family: var(--font-pixel);
+            font-size: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn-projector:hover {
+            background: #444466;
+        }
+
+        .btn-danger-reset {
+            background: #7a1c1c;
+            box-shadow: inset 2px 2px 0 #a83838, inset -2px -2px 0 #4a0d0d;
+        }
+
+        .btn-danger-reset:hover {
+            background: #992424;
+        }
+
+        /* Stats Cards Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 3px solid var(--border-pixel);
+            box-shadow: inset 2px 2px 0 #3a3a52, inset -2px -2px 0 #0b0b0f;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            font-size: 28px;
+        }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 9px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            color: var(--gold);
+        }
+
+        /* Leaderboard Table Container */
+        .table-container {
+            background: var(--bg-card);
+            border: 4px solid var(--border-pixel);
+            box-shadow: inset 3px 3px 0 #404058, inset -3px -3px 0 #0b0b0f;
+            padding: 12px;
+            overflow-x: auto;
+        }
+
+        table.leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: #0d0d16;
+            color: var(--gold);
+            font-size: 10px;
+            padding: 16px 14px;
+            border-bottom: 3px solid var(--border-pixel);
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 16px 14px;
+            font-size: 11px;
+            border-bottom: 2px solid #202030;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) td {
+            background: var(--bg-table-alt);
+        }
+
+        tr:nth-child(odd) td {
+            background: var(--bg-table-row);
+        }
+
+        tr:hover td {
+            background: rgba(45, 45, 75, 0.9);
+        }
+
+        /* Top 3 Highlighting */
+        tr.rank-1 td {
+            border-left: 6px solid #ffd700;
+            background: rgba(45, 38, 12, 0.65) !important;
+        }
+
+        tr.rank-2 td {
+            border-left: 6px solid #c0c0c0;
+            background: rgba(35, 35, 45, 0.65) !important;
+        }
+
+        tr.rank-3 td {
+            border-left: 6px solid #cd7f32;
+            background: rgba(40, 28, 20, 0.65) !important;
+        }
+
+        /* Badges & Elements */
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 48px;
+            padding: 6px 10px;
+            border: 2px solid #000;
+            background: #252538;
+        }
+
+        .badge-1 { background: #ffd700; color: #000; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .badge-2 { background: #e0e0e0; color: #000; }
+        .badge-3 { background: #cd7f32; color: #fff; }
+
+        .player-name {
+            color: #ffffff;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-outer {
+            width: 140px;
+            height: 14px;
+            background: #000;
+            border: 2px solid #444;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #1fa31f, #55ff55);
+            transition: width 0.5s ease;
+        }
+
+        .bar-inner.complete {
+            background: linear-gradient(90deg, #ffd700, #fffa7a);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+        }
+
+        .score-text {
+            color: var(--gold);
+            font-size: 11px;
+            min-width: 48px;
+        }
+
+        .time-text {
+            color: var(--text-dim);
+            font-family: var(--font-sub);
+            font-size: 16px;
+        }
+
+        .status-tag {
+            font-size: 9px;
+            padding: 6px 10px;
+            border: 2px solid #000;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .status-victory {
+            background: #008f85;
+            color: #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+        }
+
+        .status-active {
+            background: #855c34;
+            color: #fff6e0;
+        }
+
+        .status-idle {
+            background: #33334d;
+            color: #aaaacc;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 16px;
+            color: var(--text-dim);
+            font-size: 11px;
+            line-height: 2;
+        }
+
+        /* Config Modal */
+        .modal-config {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .config-card {
+            background: var(--bg-card);
+            border: 4px solid var(--border-pixel);
+            box-shadow: inset 3px 3px 0 #525266, inset -3px -3px 0 #0b0b0f;
+            padding: 24px;
+            max-width: 580px;
+            width: 100%;
+        }
+
+        .config-card h3 {
+            color: var(--gold);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .config-card p {
+            color: var(--text-dim);
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .config-textarea {
+            width: 100%;
+            height: 140px;
+            background: #000;
+            border: 2px solid var(--border-pixel);
+            color: #55ff55;
+            font-family: monospace;
+            font-size: 11px;
+            padding: 10px;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        /* Responsive Projector Enhancements */
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .header-title { font-size: 14px; }
+            th, td { font-size: 9px; padding: 10px 8px; }
+            .bar-outer { width: 80px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanlines"></div>
+
+    <!-- 1. PASSWORD GATE MODAL -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card">
+            <div style="font-size: 32px; margin-bottom: 12px;">🛡️</div>
+            <h2>COMMAND CENTER ACCESS</h2>
+            <p>Enter Master Instructor Password to reveal the live real-time detective leaderboard.</p>
+
+            <form id="auth-form" onsubmit="event.preventDefault(); AdminPortal.verifyPassword();">
+                <input type="password" id="auth-password" class="auth-input" placeholder="ENTER PASSWORD" autocomplete="current-password" autofocus>
+                <button type="submit" class="btn-auth">UNLOCK DASHBOARD →</button>
+                <div id="auth-error" class="auth-error">ACCESS DENIED: INCORRECT PASSWORD</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. MAIN LEADERBOARD DASHBOARD -->
+    <div id="dashboard-container" class="dashboard-container" style="display: none;">
+
+        <!-- Status & Sync Mode Indicator -->
+        <div class="mode-banner">
+            <div id="sync-mode-indicator" class="mode-info">
+                <div class="pulse-dot"></div>
+                <span id="sync-mode-text">REAL-TIME STREAM: ACTIVE</span>
+            </div>
+            <button class="btn-setup-link" onclick="AdminPortal.openConfigModal()">⚙️ FIREBASE CONFIG</button>
+        </div>
+
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <div class="header-title-box">
+                <div class="header-brand">
+                    <div class="pulse-dot"></div>
+                    <span>LIVE DETECTIVE STREAM • PROJECTOR MODE</span>
+                </div>
+                <h1 class="header-title">CASE: ABHEDYA — LEADERBOARD</h1>
+            </div>
+
+            <div class="header-actions">
+                <button id="btn-change-pass" class="btn-projector" onclick="AdminPortal.changeAdminPassword()">
+                    <span>🔒</span> SET PASSWORD
+                </button>
+                <button id="btn-fullscreen" class="btn-projector" onclick="AdminPortal.toggleFullscreen()">
+                    <span>⛶</span> FULLSCREEN
+                </button>
+                <button id="btn-refresh" class="btn-projector" onclick="AdminPortal.manualRefresh()">
+                    <span>🔄</span> REFRESH
+                </button>
+                <button id="btn-reset-data" class="btn-projector btn-danger-reset" onclick="AdminPortal.confirmResetData()">
+                    <span>⚠️</span> WIPE DATA
+                </button>
+                <a href="index.html" class="btn-projector">
+                    <span>🎮</span> PLAY GAME
+                </a>
+            </div>
+        </header>
+
+        <!-- Metrics Overview Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-content">
+                    <span class="stat-label">TOTAL DETECTIVES</span>
+                    <span id="stat-total-players" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">💎</div>
+                <div class="stat-content">
+                    <span class="stat-label">TOTAL SHARDS SECURED</span>
+                    <span id="stat-total-shards" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-content">
+                    <span class="stat-label">TOP DETECTIVE</span>
+                    <span id="stat-top-player" class="stat-value">—</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-content">
+                    <span class="stat-label">LAST SYNC</span>
+                    <span id="stat-last-sync" class="stat-value" style="font-size: 14px; font-family: var(--font-sub);">Live</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div class="table-container">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px; text-align: center;">RANK</th>
+                        <th>STUDENT / DETECTIVE ID</th>
+                        <th style="width: 280px;">PROGRESS (CASES SOLVED)</th>
+                        <th>LAST SOLVED AT</th>
+                        <th style="width: 160px; text-align: center;">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 3. FIREBASE CONFIG MODAL -->
+    <div id="modal-config" class="modal-config">
+        <div class="config-card">
+            <h3>⚙️ FIREBASE PROJECT SETTINGS</h3>
+            <p>Paste your <code>firebaseConfig</code> JSON object below to link your cloud Firestore backend:</p>
+            <textarea id="config-json-input" class="config-textarea" placeholder='{
+  "apiKey": "AIzaSy...",
+  "authDomain": "myproject.firebaseapp.com",
+  "projectId": "myproject",
+  "storageBucket": "myproject.appspot.com",
+  "messagingSenderId": "123456...",
+  "appId": "1:123456:web:..."
+}'></textarea>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button type="button" class="btn-projector" onclick="AdminPortal.closeConfigModal()">CANCEL</button>
+                <button type="button" class="btn-projector" style="background: #2b742b;" onclick="AdminPortal.saveCustomFirebaseConfig()">SAVE & CONNECT CLOUD →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Controller -->
+    <script src="admin.js"></script>
+</body>
+
+</html>

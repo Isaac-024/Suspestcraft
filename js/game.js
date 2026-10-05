@@ -67,33 +67,63 @@ const Game = (function () {
     }
 
     /**
-     * Load Case and show Briefing Dashboard
+     * Load Case and show Briefing Dashboard (With Level 10 Video Support)
      */
     function startCase(caseId) {
-        const targetCase = getCaseById(caseId);
-        if (!targetCase) {
-            console.error(`[Game] Case #${caseId} not found.`);
-            return;
-        }
+        const numericId = parseInt(caseId, 10);
+        const targetCase = getCaseById(numericId);
+        if (!targetCase) return;
 
-        if (!Storage.isCaseUnlocked(caseId)) {
-            console.warn(`[Game] Case #${caseId} is locked.`);
-            return;
-        }
+        if (!Storage.isCaseUnlocked(numericId)) return;
 
         currentCase = targetCase;
+
+        // Special Animation Trigger for Level 10
+        if (numericId === 10) {
+            playLevel10Animation(() => {
+                transitionToBriefing(numericId);
+            });
+        } else {
+            transitionToBriefing(numericId);
+        }
+    }
+
+    function transitionToBriefing(numericId) {
         setState(STATES.BRIEFING);
         UI.renderBriefing(currentCase);
         UI.showScreen('briefing');
 
-        // Play Dimension Entrance Audio Trigger
-        if (caseId === 1) {
-            AudioEngine.playEnterLevel1();
-        } else if (caseId === 4) {
-            AudioEngine.playEnterLevel4();
-        } else if (caseId === 7) {
-            AudioEngine.playEnterLevel7();
+        if (numericId === 1) AudioEngine.playEnterLevel1();
+        else if (numericId === 4) AudioEngine.playEnterLevel4();
+        else if (numericId === 7) AudioEngine.playEnterLevel7();
+    }
+
+    /**
+     * Level 10 Video/Audio Sync
+     */
+    function playLevel10Animation(onComplete) {
+        const overlay = document.getElementById('animation-overlay');
+        const video = document.getElementById('lvl10-video');
+        const audio = document.getElementById('lvl10-audio');
+
+        if (!overlay || !video || !audio) {
+            onComplete(); // Fallback if HTML is missing
+            return;
         }
+
+        overlay.hidden = false;
+        video.currentTime = 0;
+        audio.currentTime = 0;
+
+        // Play both simultaneously
+        video.play().catch(e => console.log("Video autoplay blocked:", e));
+        audio.play().catch(e => console.log("Audio autoplay blocked:", e));
+
+        // When the video ends, hide the video but let the longer audio keep playing!
+        video.onended = () => {
+            overlay.hidden = true;
+            onComplete();
+        };
     }
 
     /**
@@ -246,30 +276,48 @@ const Game = (function () {
         beginInvestigation();
     }
 
+    /**
+     * Solve Case (Enforcing numbers to prevent "4" + "1" = "41" bug)
+     */
     function solveCase() {
-        const isFinalCase = currentCase.id >= 10;
+        const currentId = parseInt(currentCase.id, 10);
+        const isFinalCase = currentId >= 10;
+
+        // Sync progress to Firebase Cloud Leaderboard in real-time
+        if (typeof FirebaseService !== 'undefined') {
+            FirebaseService.recordCaseSolved(currentId);
+        }
 
         if (isFinalCase) {
             AudioEngine.playGameComplete();
-            Storage.completeCase(currentCase.id, null);
+            Storage.completeCase(currentId, null);
             setState(STATES.ENDING);
             UI.showScreen('grandFinale');
         } else {
             setState(STATES.CASE_SOLVED);
             AudioEngine.playLevelClear();
-            const nextCaseId = currentCase.id + 1;
-            Storage.completeCase(currentCase.id, nextCaseId);
+            
+            const nextCaseId = currentId + 1; // Properly calculates 4 + 1 = 5
+            Storage.completeCase(currentId, nextCaseId);
+            
             UI.renderCaseSolved(currentCase);
             UI.showScreen('caseSolved');
         }
     }
 
+    /**
+     * Proceed to Next Case
+     */
     function nextCase() {
         AudioEngine.playClick();
         if (!currentCase) return;
 
-        if (currentCase.id < 10) {
-            const nextId = currentCase.id + 1;
+        const currentId = parseInt(currentCase.id, 10);
+        
+        if (currentId < 10) {
+            const nextId = currentId + 1;
+            // Force unlock just in case
+            Storage.completeCase(currentId, nextId); 
             startCase(nextId);
         } else {
             setState(STATES.ENDING);
@@ -277,11 +325,17 @@ const Game = (function () {
         }
     }
 
+    /**
+     * Continue highest unlocked case
+     */
     function continueGame() {
         AudioEngine.playContinue();
         const saveData = Storage.load();
-        const unlocked = saveData.unlockedCases;
+        
+        // Convert all IDs to clean numbers before finding the max
+        const unlocked = saveData.unlockedCases.map(id => parseInt(id, 10)).filter(id => !isNaN(id));
         const latestId = Math.max(...unlocked, 1);
+        
         startCase(latestId);
     }
 

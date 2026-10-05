@@ -43,7 +43,7 @@ const requiredImages = [
     'images/overworld.png',
     'images/nether.jpg',
     'images/end.png',
-    'images/sfit.jpg',
+    'images/sfit.png',
     'images/tnt.png'
 ];
 

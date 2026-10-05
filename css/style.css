@@ -14,7 +14,7 @@
     --bg-overworld: radial-gradient(circle at center, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.85) 100%), url('../images/overworld.png'), url('images/overworld.png');
     --bg-nether: radial-gradient(circle at center, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.88) 100%), url('../images/nether.jpg'), url('images/nether.jpg');
     --bg-end: radial-gradient(circle at center, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.88) 100%), url('../images/end.png'), url('images/end.png');
-    --bg-deepdark: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.92) 100%), url('../images/sfit.jpg'), url('images/sfit.jpg');
+    --bg-deepdark: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.92) 100%), url('../images/sfit.png'), url('images/sfit.png');
 
     /* Default Current Background */
     --bg-current: var(--bg-overworld);

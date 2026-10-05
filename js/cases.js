@@ -808,6 +808,211 @@ const CASES = [
         failureHint: "Look at who controlled the vault lever and whose mark was found on it."
     },
     // =========================================================================
+    // CASE 05 — THE MAGMA CROSSING (NETHER)
+    // =========================================================================
+    {
+        id: 5,
+        title: "THE MAGMA CROSSING",
+        dimension: "nether",
+        victim: "Navigator Cinder (Strider Master)",
+        location: "Nether Magma Sea Ferry Dock",
+        time: "16:45",
+        status: "MURDER",
+        difficulty: 1,
+
+        synopsis: "Navigator Cinder was thrown into the magma sea when his strider saddle strap was cut with a sharp flint knife. The 5th Nether Ember Shard was stolen from his cargo pouch.",
+
+        suspects: [
+            {
+                id: "krag",
+                name: "Krag the Strider Breeder",
+                role: "Strider Master",
+                relation: "Rival Ferryman",
+                personality: "Carries a sharp carved flint knife and wears obsidian gloves.",
+                alibi: "I was feeding striders in the back stables.",
+                motive: "Wanted the 5th Nether Ember Shard to control the ferry trade.",
+                avatarEmoji: "🐗"
+            },
+            {
+                id: "valka",
+                name: "Valka the Crimson Scout",
+                role: "Crimson Scout",
+                relation: "Guide",
+                personality: "Wears a red warped mushroom cloak and carries a wooden compass.",
+                alibi: "I was checking supply crates with Thorne at the dock gate.",
+                motive: "Had no reason to harm Cinder.",
+                avatarEmoji: "🧭"
+            },
+            {
+                id: "thorne",
+                name: "Thorne the Gate Sentry",
+                role: "Ferry Sentry",
+                relation: "Security",
+                personality: "Carries an iron spear and guards the dock walkway.",
+                alibi: "I was checking supply crates with Valka at the dock gate.",
+                motive: "No conflict with Cinder.",
+                avatarEmoji: "🛡️"
+            }
+        ],
+
+        evidence: {
+
+            blockPrints: {
+                title: "BLOCK PRINTS",
+                icon: "👣",
+                summary: "Obsidian dust and heavy hoof prints were found by Cinder's strider pen.",
+                details: "The obsidian dust matches Krag's obsidian work gloves.",
+                crossRefHint: "The obsidian glove marks belong to KRAG."
+            },
+
+            observerLog: {
+                title: "OBSERVER LOG",
+                icon: "👁️",
+                summary: "The dock log recorded a figure cutting the saddle strap before departure.",
+                details: [
+                    {
+                        time: "16:30",
+                        event: "Cinder ties his strider to dock post #2."
+                    },
+                    {
+                        time: "16:40",
+                        event: "A figure cuts the strider saddle strap with a sharp blade."
+                    },
+                    {
+                        time: "16:45",
+                        event: "Cinder mounts the strider; the saddle slips and he falls into the magma sea."
+                    },
+                    {
+                        time: "16:47",
+                        event: "The 5th Nether Ember Shard is stolen from the cargo dock."
+                    }
+                ],
+                crossRefHint: "The saddle strap was cut just before Cinder mounted the strider."
+            },
+
+            chatLog: {
+                title: "CHAT LOG",
+                icon: "💬",
+                summary: "Krag's message reveals his plan to take the ferry shard.",
+                messages: [
+                    {
+                        sender: "Krag",
+                        time: "15:00",
+                        text: "I will cut Cinder's saddle strap at dock #2 and take the 5th Nether Ember Shard."
+                    }
+                ],
+                crossRefHint: "KRAG planned to sabotage the saddle strap and steal the shard."
+            },
+
+            witness: {
+                title: "WITNESS STATEMENT",
+                icon: "📜",
+                summary: "Valka saw Krag tampering with the strider saddle.",
+                statement: "I saw Krag using his flint knife on Cinder's strider saddle right before Cinder went out onto the magma.",
+                witnessName: "Valka the Crimson Scout",
+                crossRefHint: "Valka saw KRAG with the sharp knife at the strider saddle."
+            },
+
+            weapon: {
+                title: "MURDER WEAPON",
+                icon: "🔪",
+                summary: "A carved flint knife was used to slice through the heavy leather strap.",
+                details: "Flint blade shavings were found on the severed saddle strap. Krag's name is engraved on the flint knife handle.",
+                weaponName: "Krag's Carved Flint Knife",
+                crossRefHint: "The severed strap matches KRAG'S carved flint knife."
+            },
+
+            roomLayout: {
+                title: "ROOM LAYOUT",
+                icon: "📐",
+                summary: "Dock Post #2 sits directly over the deep magma channel.",
+                layoutDesc: "The strider launch dock connects to the open magma sea.",
+                floorplanHotspots: [
+                    {
+                        name: "Dock Post #2",
+                        x: 40,
+                        y: 70,
+                        note: "Cinder's strider saddle was cut here."
+                    },
+                    {
+                        name: "Magma Channel",
+                        x: 50,
+                        y: 30,
+                        note: "Cinder fell into the magma sea here."
+                    }
+                ],
+                crossRefHint: "Dock #2 is isolated near Krag's stable."
+            },
+
+            timeline: {
+                title: "TIMELINE",
+                icon: "⏳",
+                summary: "The timeline shows Valka and Thorne were together at the gate.",
+                entries: [
+                    {
+                        time: "16:25",
+                        event: "Valka and Thorne meet at the dock gate.",
+                        verified: true
+                    },
+                    {
+                        time: "16:40",
+                        event: "Krag cuts the strider saddle strap.",
+                        verified: true
+                    },
+                    {
+                        time: "16:45",
+                        event: "Cinder falls as the saddle detaches in the magma.",
+                        verified: true
+                    },
+                    {
+                        time: "16:47",
+                        event: "The 5th Nether Ember Shard is stolen.",
+                        verified: true
+                    }
+                ],
+                crossRefHint: "Valka and Thorne were together at the gate. KRAG was alone at the strider dock."
+            }
+        },
+
+        options: {
+            who: [
+                "Krag the Strider Breeder",
+                "Valka the Crimson Scout",
+                "Thorne the Gate Sentry"
+            ],
+
+            how: [
+                "Sliced the Strider Saddle Strap with a Carved Flint Knife",
+                "Pushed Cinder from the dock with an iron spear",
+                "Distracted the strider with warped fungus"
+            ],
+
+            why: [
+                "To steal the 5th Nether Ember Shard and monopolize the ferry route",
+                "Over strider stable rental fees",
+                "Accidental saddle malfunction"
+            ]
+        },
+
+        correctAnswer: {
+            who: "Krag the Strider Breeder",
+            how: "Sliced the Strider Saddle Strap with a Carved Flint Knife",
+            why: "To steal the 5th Nether Ember Shard and monopolize the ferry route"
+        },
+
+        explanation: {
+            summary: "Krag used his carved flint knife to slice Cinder's strider saddle strap at Dock #2. When Cinder rode out onto the magma sea, the saddle detached, causing him to fall into the magma. Krag then stole the 5th Nether Ember Shard.",
+
+            clueChain: [
+                "Valka saw Krag tampering with the strider saddle with a flint knife.",
+                "Flint blade shavings matching Krag's engraved knife were found on the severed strap.",
+                "Krag's message revealed his scheme to seize the 5th Nether Ember Shard."
+            ]
+        },
+
+        failureHint: "Look at whose flint knife cut the saddle strap and who wanted to seize the 5th Nether Ember Shard."
+    },
+    // =========================================================================
     // CASE 06 — THE BASALT SHELTER (NETHER)
     // =========================================================================
     {

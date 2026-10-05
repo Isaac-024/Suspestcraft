@@ -376,7 +376,8 @@
                         high spires of The End, and the dark silence of The Slit...</p>
                     <p>You have unmasked High Priest Vesper and dismantled the entire shadow syndicate known as the
                         <strong>Obsidian Circle</strong>. Every false alibi was broken, every trap was exposed, and the
-                        ancient Conduit of Abhedya is sealed forever.</p>
+                        ancient Conduit of Abhedya is sealed forever.
+                    </p>
                     <p class="finale-quote">"True deduction cannot be broken." — Chief Investigator Dossier</p>
                 </div>
 
@@ -544,13 +545,48 @@
             </div>
         </dialog>
 
-        <!-- 14. TNT FAILURE DRAMATIC OVERLAY (Uses images/tnt.png) -->
+        <!-- 14. STUDENT REGISTRATION MODAL -->
+        <dialog id="modal-register" class="pixel-dialog" aria-labelledby="modal-register-title" aria-modal="true">
+            <div class="dialog-frame">
+                <header class="dialog-header">
+                    <div class="evidence-type-tag">AGENT REGISTRATION</div>
+                    <h3 id="modal-register-title" class="dialog-title">DETECTIVE DOSSIER</h3>
+                    <button id="btn-close-register-modal" class="btn-pixel-close" aria-label="Close Registration">✕</button>
+                </header>
+
+                <form id="form-register" class="dialog-content" onsubmit="event.preventDefault();">
+                    <p class="dialog-instruction" style="font-size: 11px; line-height: 1.6; color: var(--ui-text-muted); margin-bottom: 16px;">
+                        Enter your Student ID / Codename to track your cases on the Live Projector Leaderboard:
+                    </p>
+
+                    <div class="input-group" style="margin-bottom: 16px;">
+                        <label for="input-username" class="group-label" style="display:block; margin-bottom: 8px; font-size: 10px; color: var(--ui-text-highlight); letter-spacing: 1px;">STUDENT ID / USERNAME:</label>
+                        <input type="text" id="input-username" class="mc-input" placeholder="e.g. STUDENT_101 or ALEX_V" required maxlength="25" autocomplete="off" style="width: 100%; padding: 12px 14px; font-family: var(--font-pixel); font-size: 12px; background: #000; color: #55ff55; border: 3px solid var(--ui-border-light); outline: none;">
+                    </div>
+
+                    <div id="register-error-msg" style="color: #ff5555; font-size: 9px; margin-bottom: 12px; display: none;">Please enter a valid Student ID.</div>
+
+                    <footer class="dialog-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+                        <button type="button" id="btn-register-cancel" class="mc-btn mc-btn-secondary">CANCEL</button>
+                        <button type="submit" id="btn-register-submit" class="mc-btn mc-btn-primary mc-btn-pulse">CONFIRM & ENTER ARCHIVES →</button>
+                    </footer>
+                </form>
+            </div>
+        </dialog>
+
+        <!-- 15. TNT FAILURE DRAMATIC OVERLAY (Uses images/tnt.png) -->
         <div id="tnt-overlay" class="tnt-overlay" hidden aria-hidden="true">
             <div class="tnt-flash-screen"></div>
             <div id="tnt-block-image-wrapper" class="tnt-block-image-wrapper">
                 <img id="tnt-asset-image" class="tnt-asset-image" src="images/tnt.png" alt="TNT Detonation Asset">
             </div>
             <div class="tnt-warning-text">DEFENSE ACTIVATED! DETONATION IMMINENT!</div>
+        </div>
+
+        <!-- 16. LEVEL 10 INTRODUCTORY ANIMATION OVERLAY -->
+        <div id="animation-overlay" class="animation-overlay" hidden aria-hidden="true">
+            <video id="lvl10-video" class="animation-video" src="animation/video.mp4" playsinline></video>
+            <audio id="lvl10-audio" src="animation/audio.mp4" preload="auto"></audio>
         </div>
 
     </div>
@@ -567,6 +603,11 @@
         <audio id="snd-complete" preload="auto" src="audio/challenge_complete_uHsY1YS.mp3"></audio>
         <audio id="snd-tnt" preload="auto" src="audio/tnt-explosion.mp3"></audio>
     </div>
+
+    <!-- Firebase App & Firestore Compat SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
 
     <!-- Scripts (Modular Architecture) -->
     <script src="js/storage.js"></script>
