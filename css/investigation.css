@@ -990,36 +990,137 @@
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE INVESTIGATION LAYOUT
+   RESPONSIVE INVESTIGATION LAYOUT & MOBILE PHONE OPTIMIZATIONS
    -------------------------------------------------------------------------- */
 
 @media (max-width: 900px) {
     .investigation-layout {
         flex-direction: column;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .suspects-sidebar {
         width: 100%;
-        max-height: 220px;
+        max-height: 200px;
         border-right: none;
         border-bottom: 4px solid var(--ui-border-dark);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .evidence-board {
         flex: none;
         height: auto;
+        overflow-y: visible;
     }
 
     .evidence-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         padding: var(--space-md);
+        gap: 10px;
     }
 
     .accusation-actions,
     .briefing-actions,
-    .solved-actions {
+    .solved-actions,
+    .gameover-actions,
+    .finale-actions {
         flex-direction: column;
+        width: 100%;
+    }
+
+    .accusation-actions .mc-btn,
+    .briefing-actions .mc-btn,
+    .solved-actions .mc-btn,
+    .gameover-actions .mc-btn,
+    .finale-actions .mc-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .investigation-hud {
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .hud-left,
+    .hud-right {
+        gap: 6px;
+    }
+
+    .hud-tag {
+        font-size: 8px;
+        padding: 4px 6px;
+    }
+
+    .suspects-sidebar {
+        max-height: 150px;
+    }
+
+    .suspect-item {
+        padding: 6px 8px;
+        gap: 8px;
+    }
+
+    .suspect-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .suspect-name {
+        font-size: 9px;
+    }
+
+    .suspect-role {
+        font-size: 8px;
+    }
+
+    .evidence-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .clue-card {
+        padding: 8px 6px;
+        min-height: 90px;
+    }
+
+    .clue-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .clue-title {
+        font-size: 8px;
+        line-height: 1.2;
+    }
+
+    .briefing-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .briefing-card {
+        padding: 8px 10px;
+    }
+
+    .briefing-title {
+        font-size: 14px;
+    }
+
+    .accusation-step-box {
+        padding: 8px 10px;
+        margin-bottom: 8px;
+    }
+
+    .accusation-select {
+        font-size: 11px;
+        padding: 10px;
     }
 }
 
@@ -1028,8 +1129,11 @@
     background-color: #0b131e !important;
     border: 2px solid #3a5a80 !important;
     padding: 12px !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .chat-msg .chat-sender { color: #55ff55 !important; }
 .chat-msg .chat-body { color: #ffffff !important; text-shadow: 1px 1px 0 #000; }
 .chat-msg .chat-time { color: #88aaaa !important; }
+
 

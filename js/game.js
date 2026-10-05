@@ -67,7 +67,21 @@ const Game = (function () {
     }
 
     /**
-     * Load Case and show Briefing Dashboard (With Level 10 Video Support)
+     * Mobile phone detection helper
+     */
+    function isMobileDevice() {
+        try {
+            const uaMatch = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(navigator.userAgent);
+            const smallScreen = window.innerWidth <= 768 || window.innerHeight <= 600;
+            const touchSupport = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+            return uaMatch || (smallScreen && touchSupport);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    /**
+     * Load Case and show Briefing Dashboard (With Level 10 Video Support on Desktop, auto-skipped on mobile)
      */
     function startCase(caseId) {
         const numericId = parseInt(caseId, 10);
@@ -78,8 +92,8 @@ const Game = (function () {
 
         currentCase = targetCase;
 
-        // Special Animation Trigger for Level 10
-        if (numericId === 10) {
+        // Special Animation Trigger for Level 10 (Skipped on phones for smooth mobile performance)
+        if (numericId === 10 && !isMobileDevice()) {
             playLevel10Animation(() => {
                 transitionToBriefing(numericId);
             });
@@ -99,31 +113,53 @@ const Game = (function () {
     }
 
     /**
-     * Level 10 Video/Audio Sync
+     * Level 10 Video/Audio Sync (Desktop only with tap-to-skip and auto-recovery)
      */
     function playLevel10Animation(onComplete) {
+        if (isMobileDevice()) {
+            if (typeof onComplete === 'function') onComplete();
+            return;
+        }
+
         const overlay = document.getElementById('animation-overlay');
         const video = document.getElementById('lvl10-video');
         const audio = document.getElementById('lvl10-audio');
 
         if (!overlay || !video || !audio) {
-            onComplete(); // Fallback if HTML is missing
+            if (typeof onComplete === 'function') onComplete();
             return;
         }
+
+        let finished = false;
+        const finish = () => {
+            if (finished) return;
+            finished = true;
+            overlay.hidden = true;
+            try { video.pause(); } catch (e) {}
+            if (typeof onComplete === 'function') onComplete();
+        };
 
         overlay.hidden = false;
         video.currentTime = 0;
         audio.currentTime = 0;
 
-        // Play both simultaneously
-        video.play().catch(e => console.log("Video autoplay blocked:", e));
-        audio.play().catch(e => console.log("Audio autoplay blocked:", e));
+        // Skip on click/tap anywhere on overlay
+        overlay.onclick = finish;
 
-        // When the video ends, hide the video but let the longer audio keep playing!
-        video.onended = () => {
-            overlay.hidden = true;
-            onComplete();
-        };
+        // Play both simultaneously
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => {
+                console.log("Video autoplay blocked or unavailable:", e);
+                finish();
+            });
+        }
+        audio.play().catch(e => console.log("Audio autoplay notice:", e));
+
+        video.onended = finish;
+        
+        // Safety timeout so game never gets stuck
+        setTimeout(finish, 12000);
     }
 
     /**

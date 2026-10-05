@@ -572,28 +572,71 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE BASE BREAKPOINTS
+   RESPONSIVE BASE BREAKPOINTS & MOBILE TOUCH OPTIMIZATIONS
    -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
     :root {
-        --space-md: 12px;
-        --space-lg: 16px;
+        --space-sm: 6px;
+        --space-md: 10px;
+        --space-lg: 14px;
+        --space-xl: 18px;
     }
 
     html,
     body {
         font-size: 10px;
+        touch-action: manipulation;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    .app-root {
+        padding: 6px;
     }
 
     .panel-window {
-        padding: var(--space-md);
-        max-height: 95vh;
+        padding: 10px;
+        max-height: 94vh;
+        width: 96vw !important;
+        max-width: 96vw !important;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .window-header {
+        padding-bottom: 8px;
+        margin-bottom: 8px;
     }
 
     .mc-btn {
-        padding: 10px 14px;
+        padding: 10px 12px;
         font-size: 10px;
+        min-height: 42px;
+        touch-action: manipulation;
+    }
+
+    dialog {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        max-height: 90vh !important;
+        padding: 12px !important;
+        margin: auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-title {
+        font-size: 18px !important;
+    }
+
+    .menu-container {
+        padding: 16px 12px !important;
+        gap: 12px !important;
+    }
+
+    .menu-nav .mc-btn {
+        padding: 11px 12px !important;
+        font-size: 11px !important;
     }
 }
 
@@ -602,16 +645,16 @@ body {
     background-color: #0b131e !important;
     border: 2px solid #3a5a80 !important;
     padding: 12px !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .chat-msg .chat-sender {
     color: #55ff55 !important;
-    /* Bright green name */
 }
 
 .chat-msg .chat-body {
     color: #ffffff !important;
-    /* Pure white text */
     text-shadow: 1px 1px 0 #000;
 }
 
