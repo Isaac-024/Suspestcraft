@@ -167,20 +167,20 @@ const CASES = [
 
         options: {
             who: [
-                "Durand the Blacksmith",
                 "Steve the Woodcutter",
+                "Durand the Blacksmith",
                 "Alex the Guard"
             ],
 
             how: [
-                "Dropped a Heavy Blacksmith Anvil through the Skylight",
                 "Shot an arrow through the window",
-                "Cut the ceiling with an axe"
+                "Cut the ceiling with an axe",
+                "Dropped a Heavy Blacksmith Anvil through the Skylight"
             ],
 
             why: [
-                "To steal the Ancient Emerald Shard from the lectern",
                 "Over a 3-coin book debt",
+                "To steal the Ancient Emerald Shard from the lectern",
                 "By accident"
             ]
         },
@@ -369,21 +369,21 @@ const CASES = [
 
         options: {
             who: [
-                "Lin the Chemistry Brewer",
+                "Clara the Weaver",
                 "Tuck the Baker",
-                "Clara the Weaver"
+                "Lin the Chemistry Brewer"
             ],
 
             how: [
-                "Splashed a Green Poison Bottle through the Window",
                 "Hit with a wooden rolling pin",
+                "Splashed a Green Poison Bottle through the Window",
                 "Cut the windmill sails"
             ],
 
             why: [
-                "To steal the Golden Wheat Shard from the grain shelf",
+                "Accidental poison spill",
                 "Over bread flour prices",
-                "Accidental poison spill"
+                "To steal the Golden Wheat Shard from the grain shelf"
             ]
         },
 
@@ -570,21 +570,21 @@ const CASES = [
 
         options: {
             who: [
-                "Vance the Electrician",
                 "Bruno the Stonemason",
+                "Vance the Electrician",
                 "Selena the Merchant"
             ],
 
             how: [
-                "Channeled Thunderstorm Lightning through a Copper Wire",
                 "Hit with a heavy stone chisel",
-                "Poured water on the Sentinel"
+                "Poured water on the Sentinel",
+                "Channeled Thunderstorm Lightning through a Copper Wire"
             ],
 
             why: [
-                "To steal the Fortress Power Shard from the gate chest",
                 "Over delayed stone deliveries",
-                "By accident during the storm"
+                "By accident during the storm",
+                "To steal the Fortress Power Shard from the gate chest"
             ]
         },
 
@@ -771,20 +771,20 @@ const CASES = [
 
         options: {
             who: [
-                "Zul the Gold Merchant",
                 "Pyra the Lava Boat Pilot",
-                "Vorg the Gate Guard"
+                "Vorg the Gate Guard",
+                "Zul the Gold Merchant"
             ],
 
             how: [
-                "Pulled the Lever to Crush the Victim with the Heavy Vault Gate",
                 "Pushed the victim into the lava pool",
+                "Pulled the Lever to Crush the Victim with the Heavy Vault Gate",
                 "Shot the victim with a flaming crossbow"
             ],
 
             why: [
-                "To steal the Nether Gold Shard from the vault",
                 "Over boat repair costs",
+                "To steal the Nether Gold Shard from the vault",
                 "Accidental gate failure"
             ]
         },
@@ -976,21 +976,21 @@ const CASES = [
 
         options: {
             who: [
-                "Krag the Strider Breeder",
                 "Valka the Crimson Scout",
+                "Krag the Strider Breeder",
                 "Thorne the Gate Sentry"
             ],
 
             how: [
-                "Sliced the Strider Saddle Strap with a Carved Flint Knife",
                 "Pushed Cinder from the dock with an iron spear",
-                "Distracted the strider with warped fungus"
+                "Distracted the strider with warped fungus",
+                "Sliced the Strider Saddle Strap with a Carved Flint Knife"
             ],
 
             why: [
-                "To steal the 5th Nether Ember Shard and monopolize the ferry route",
                 "Over strider stable rental fees",
-                "Accidental saddle malfunction"
+                "Accidental saddle malfunction",
+                "To steal the 5th Nether Ember Shard and monopolize the ferry route"
             ]
         },
 
@@ -1181,20 +1181,20 @@ const CASES = [
 
         options: {
             who: [
-                "Solas the Fire Mage",
                 "Varren the Stonecutter",
-                "Nari the Sand Trader"
+                "Nari the Sand Trader",
+                "Solas the Fire Mage"
             ],
 
             how: [
-                "Planted an Explosive Yellow Powder Trap at the Doorway",
                 "Hit with a stone hand-saw",
+                "Planted an Explosive Yellow Powder Trap at the Doorway",
                 "Flooded the shelter with lava"
             ],
 
             why: [
-                "To steal the Soulfire Shard from the safe",
                 "Over an unpaid construction bill",
+                "To steal the Soulfire Shard from the safe",
                 "Accidental explosion"
             ]
         },
@@ -1382,21 +1382,21 @@ const CASES = [
 
         options: {
             who: [
-                "Nyx the Glider Assassin",
                 "Brak the Tower Guard",
+                "Nyx the Glider Assassin",
                 "Lyra the Astrologist"
             ],
 
             how: [
-                "Dropped a Splash Water Bottle from a Flying Glider",
                 "Hit with a wooden guard baton",
-                "Pushed off the balcony"
+                "Pushed off the balcony",
+                "Dropped a Splash Water Bottle from a Flying Glider"
             ],
 
             why: [
-                "To steal the Purple Sky Shard from the altar",
                 "Over an astronomy book dispute",
-                "Accidental balcony accident"
+                "Accidental balcony accident",
+                "To steal the Purple Sky Shard from the altar"
             ]
         },
 
@@ -1583,20 +1583,20 @@ const CASES = [
 
         options: {
             who: [
-                "Brak the Rocket Mechanic",
                 "High Priest Vesper",
-                "Tuck the Airship Courier"
+                "Tuck the Airship Courier",
+                "Brak the Rocket Mechanic"
             ],
 
             how: [
-                "Swapped Boosters with Red Explosive Firework Rockets",
                 "Cut the airship ropes with shears",
+                "Swapped Boosters with Red Explosive Firework Rockets",
                 "Pushed the navigator from the pier"
             ],
 
             why: [
-                "To steal the Void Star Shard from the airship cabin",
                 "Over fruit crate delivery fees",
+                "To steal the Void Star Shard from the airship cabin",
                 "Accidental firework accident"
             ]
         },
@@ -1789,21 +1789,21 @@ const CASES = [
 
         options: {
             who: [
-                "High Priest Vesper",
                 "Master Omen the Archivist",
+                "High Priest Vesper",
                 "Mira the Messenger"
             ],
 
             how: [
-                "Turned the Crystal Laser Beam on Pillar 3 toward the Altar",
                 "Hit with a heavy ancient book",
-                "Pushed Lyra from the altar"
+                "Pushed Lyra from the altar",
+                "Turned the Crystal Laser Beam on Pillar 3 toward the Altar"
             ],
 
             why: [
-                "To steal the 9th Sanctuary Shard for the Secret Syndicate",
                 "Over a messenger delivery dispute",
-                "Accidental crystal reflection"
+                "Accidental crystal reflection",
+                "To steal the 9th Sanctuary Shard for the Secret Syndicate"
             ]
         },
 
@@ -2024,23 +2024,23 @@ const CASES = [
 
         options: {
             who: [
-                "High Priest Vesper (The Syndicate Leader)",
-                "Durand the Blacksmith",
                 "Solas the Fire Mage",
+                "Durand the Blacksmith",
+                "High Priest Vesper (The Syndicate Leader)",
                 "Nyx the Assassin"
             ],
 
             how: [
-                "Dropped a Tuning Fork onto the Acoustic Sound Alarm to trigger a Sonic Blast",
                 "Hit with a heavy iron blacksmith hammer",
                 "Planted an explosive yellow powder trap",
+                "Dropped a Tuning Fork onto the Acoustic Sound Alarm to trigger a Sonic Blast",
                 "Dropped splash water from a flying glider"
             ],
 
             why: [
-                "To unite all 10 Shards and awaken the Abhedya Singularity",
                 "To buy forging metals for blacksmith tools",
                 "To practice dark fire magic",
+                "To unite all 10 Shards and awaken the Abhedya Singularity",
                 "Over a surface tunnel mercenary contract"
             ]
         },
