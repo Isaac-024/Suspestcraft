@@ -560,7 +560,7 @@ const AdminPortal = (function () {
     }
 
     /**
-     * Render the 10 Case Answers into the Clean Table
+     * Render the 10 Case Answers into the Clean Minecraft-Themed Table
      */
     function renderAnswersModal() {
         const container = document.getElementById('answers-list-container');
@@ -571,7 +571,7 @@ const AdminPortal = (function () {
             : ((typeof getAllCases === 'function') ? getAllCases() : []);
 
         if (casesList.length === 0) {
-            container.innerHTML = '<div style="text-align: center; color: #ff5555; padding: 20px; font-family: sans-serif;">Unable to load case database.</div>';
+            container.innerHTML = '<div style="text-align: center; color: #ff5555; padding: 20px; font-family: var(--font-pixel);">Unable to load case database.</div>';
             return;
         }
 
@@ -581,28 +581,28 @@ const AdminPortal = (function () {
         }
 
         const rows = casesList.map(c => `
-            <tr style="border-bottom: 1px solid #24252c; transition: background 0.15s ease;">
-                <td style="padding: 12px 14px; font-weight: 700; color: #ffffff; text-align: left; vertical-align: middle;">${c.id}</td>
-                <td style="padding: 12px 14px; color: #d0d1db; vertical-align: middle; white-space: nowrap;">${escapeHtml(c.title)}</td>
-                <td style="padding: 12px 14px; color: #d0d1db; vertical-align: middle;">${escapeHtml(capitalize(c.dimension))}</td>
-                <td style="padding: 12px 14px; color: #d0d1db; vertical-align: middle;">${escapeHtml(c.victim)}</td>
-                <td style="padding: 12px 14px; font-weight: 700; color: #ffffff; vertical-align: middle;">${escapeHtml(c.correctAnswer.who)}</td>
-                <td style="padding: 12px 14px; font-style: italic; color: #c4c5cf; vertical-align: middle;">${escapeHtml(c.correctAnswer.how)}</td>
-                <td style="padding: 12px 14px; font-style: italic; color: #c4c5cf; vertical-align: middle;">${escapeHtml(c.correctAnswer.why)}</td>
+            <tr style="border-bottom: 2px solid #252538; transition: background 0.15s ease;">
+                <td style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: center; vertical-align: middle; font-size: 10px;">${c.id}</td>
+                <td style="padding: 14px 10px; color: #ffffff; vertical-align: middle; white-space: nowrap; font-size: 9px; letter-spacing: 0.5px;">${escapeHtml(c.title)}</td>
+                <td style="padding: 14px 10px; color: #55ff55; vertical-align: middle; font-size: 9px;">${escapeHtml(capitalize(c.dimension))}</td>
+                <td style="padding: 14px 10px; color: #e0e0e8; vertical-align: middle; font-size: 9px;">${escapeHtml(c.victim)}</td>
+                <td style="padding: 14px 10px; font-weight: bold; color: #ffff55; vertical-align: middle; font-size: 9px;">${escapeHtml(c.correctAnswer.who)}</td>
+                <td style="padding: 14px 10px; font-style: italic; color: #00ffff; vertical-align: middle; font-size: 9px; line-height: 1.7;">${escapeHtml(c.correctAnswer.how)}</td>
+                <td style="padding: 14px 10px; font-style: italic; color: #ffaa00; vertical-align: middle; font-size: 9px; line-height: 1.7;">${escapeHtml(c.correctAnswer.why)}</td>
             </tr>
         `).join('');
 
         container.innerHTML = `
-            <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: #d0d1db; background: #16171b; min-width: 800px;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: var(--font-pixel), 'Press Start 2P', monospace; font-size: 9px; line-height: 1.6; color: #d0d1db; background: #14141f; min-width: 960px;">
                 <thead>
-                    <tr style="border-bottom: 2px solid #2d2e35; background: #1f2026;">
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left; width: 44px;">#</th>
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Title</th>
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Dimension</th>
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Victim</th>
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Culprit</th>
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">How (6 words)</th>
-                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Why (6 words)</th>
+                    <tr style="border-bottom: 3px solid #3a3a52; background: #0c0c14;">
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: center; width: 48px; font-size: 9px; letter-spacing: 1px;">#</th>
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: left; font-size: 9px; letter-spacing: 1px;">Title</th>
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: left; font-size: 9px; letter-spacing: 1px;">Dimension</th>
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: left; font-size: 9px; letter-spacing: 1px;">Victim</th>
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: left; font-size: 9px; letter-spacing: 1px;">Culprit</th>
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: left; font-size: 9px; letter-spacing: 1px;">How (6 words)</th>
+                        <th style="padding: 14px 10px; font-weight: bold; color: #fcdb38; text-align: left; font-size: 9px; letter-spacing: 1px;">Why (6 words)</th>
                     </tr>
                 </thead>
                 <tbody>
