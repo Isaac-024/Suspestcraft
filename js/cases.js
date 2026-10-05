@@ -1,2072 +1,1083 @@
 /**
- * CASE: ABHEDYA — DATA-DRIVEN CASE DATABASE (js/cases.js)
- * 10-Level Cozy Mystery Engine with Clean, Punchy, Capitalized Clues & Intuitive Matching Logic.
- * Accessible for casual players and non-gamers with zero jargon.
+ * CASE: ABHEDYA - Master Case Database
+ * 10 Brand New Mystery Cases with balanced options and relaxed deduction logic.
  */
 
 const CASES = [
-    // =========================================================================
-    // CASE 01 — THE SILENT VILLAGE (OVERWORLD)
-    // =========================================================================
     {
         id: 1,
-        title: "THE SILENT VILLAGE",
+        title: "THE MISSING COIN",
         dimension: "overworld",
-        victim: "Elder Eldred the Librarian",
-        location: "Cozy Village Library",
-        time: "23:47",
+        victim: "Bob",
+        location: "Village Town Hall",
+        time: "06:00 AM",
         status: "MURDER",
         difficulty: 1,
-
-        synopsis: "Elder Eldred was crushed by a falling anvil inside the library. The Ancient Emerald Shard was stolen from his desk.",
-
+        synopsis: "Bob was struck in his office. The town ancient gold coin is missing.",
         suspects: [
-            {
-                id: "durand",
-                name: "Durand the Blacksmith",
-                role: "Village Blacksmith",
-                relation: "Neighbor",
-                personality: "Strong blacksmith who owns a heavy iron anvil.",
-                alibi: "I was in my workshop.",
-                motive: "Wanted the Ancient Emerald Shard.",
-                avatarEmoji: "⚒️"
-            },
-            {
-                id: "steve",
-                name: "Steve the Woodcutter",
-                role: "Village Woodcutter",
-                relation: "Library Visitor",
-                personality: "Carries a wooden axe.",
-                alibi: "I was at the tavern with Alex.",
-                motive: "Had no reason to attack Eldred.",
-                avatarEmoji: "🪓"
-            },
-            {
-                id: "alex",
-                name: "Alex the Guard",
-                role: "Village Guard",
-                relation: "First Responder",
-                personality: "Carries a wooden bow and protects the village.",
-                alibi: "I was at the tavern with Steve.",
-                motive: "Had no reason to attack Eldred.",
-                avatarEmoji: "🏹"
-            }
+            { id: "lin", name: "Lin", role: "Farmer", relation: "Friend", personality: "Always carries a metal shovel.", alibi: "I was planting wheat seeds.", motive: "Angry about high land taxes.", avatarEmoji: "🌾" },
+            { id: "garth", name: "Garth", role: "Woodcutter", relation: "Neighbor", personality: "Always carries a wooden axe.", alibi: "I was chopping pine trees.", motive: "Needs gold for new tools.", avatarEmoji: "🪓" },
+            { id: "sam", name: "Sam", role: "Guard", relation: "Security", personality: "Always carries a long rope.", alibi: "I was sleeping at home.", motive: "Wants a new shiny shield.", avatarEmoji: "🛡️" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Boot prints marked with the letter 'D' were found on the library roof.",
-                details: "The prints match Durand's boots.",
-                crossRefHint: "The 'D' prints match DURAND."
+                summary: "Deep boot prints filled with pine needles.",
+                details: "Fresh mud and pine needles were found on the floor.",
+                crossRefHint: "HINT: Match the pine needles to the suspect's alibi."
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "The roof sensor recorded an anvil falling through the skylight at 23:45.",
+                summary: "Camera shows a heavy tool smashing the lock.",
                 details: [
-                    { time: "23:30", event: "Eldred locked the front door." },
-                    { time: "23:45", event: "A heavy anvil fell through the roof skylight." },
-                    { time: "23:47", event: "The Ancient Emerald Shard was stolen." }
+                    { time: "05:55", event: "Figure raises a wooden axe at the door." }
                 ],
-                crossRefHint: "The killer entered through the roof, not the locked front door."
+                crossRefHint: "HINT: Match the weapon on camera to the suspect."
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Durand wrote about stealing the Emerald Shard.",
+                summary: "A dropped note about stealing gold.",
                 messages: [
-                    {
-                        sender: "Durand",
-                        time: "21:00",
-                        text: "I will take the Ancient Emerald Shard tonight."
-                    }
+                    { sender: "Garth", time: "05:00", text: "I will use my axe to get that gold coin." }
                 ],
-                crossRefHint: "Durand clearly planned to steal the shard."
+                crossRefHint: "HINT: Read the sender's name on the note."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Alex saw Durand carrying his anvil toward the library roof.",
-                statement: "I saw Durand carrying his heavy anvil up to the library roof.",
-                witnessName: "Alex the Guard",
-                crossRefHint: "Alex saw DURAND with the murder weapon."
+                summary: "The baker saw the suspect running.",
+                statement: "I saw Garth running away with a wooden axe!",
+                witnessName: "Tuck",
+                crossRefHint: "HINT: Trust the witness statement."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "🔨",
-                summary: "Durand's heavy blacksmith anvil was found on the crushed desk.",
-                details: "The anvil has 'DURAND' engraved on it.",
-                weaponName: "Durand's Heavy Blacksmith Anvil",
-                crossRefHint: "The murder weapon belongs to DURAND."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A heavy wooden axe left on the desk.",
+                details: "The axe is covered in wood splinters.",
+                weaponName: "Wooden Axe",
+                crossRefHint: "HINT: Which suspect carries an axe?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "The reading desk was directly below the roof skylight.",
-                layoutDesc: "The anvil could fall directly from the skylight onto the desk.",
+                summary: "The front door was smashed open.",
+                layoutDesc: "Only a heavy chopping tool could break this door.",
                 floorplanHotspots: [
-                    {
-                        name: "Locked Front Door",
-                        x: 45,
-                        y: 88,
-                        note: "Locked from inside."
-                    },
-                    {
-                        name: "Reading Desk",
-                        x: 50,
-                        y: 50,
-                        note: "Eldred was found here."
-                    },
-                    {
-                        name: "Roof Skylight",
-                        x: 50,
-                        y: 15,
-                        note: "Open directly above the desk."
-                    }
+                    { name: "Smashed Door", x: 50, y: 80, note: "Broken with an axe." }
                 ],
-                crossRefHint: "The skylight is directly above the victim."
+                crossRefHint: "HINT: Look at how the door was broken."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The events clearly point to Durand.",
+                summary: "Sequence of the break-in.",
                 entries: [
-                    {
-                        time: "23:30",
-                        event: "Eldred locks the library.",
-                        verified: true
-                    },
-                    {
-                        time: "23:40",
-                        event: "Steve and Alex are seen at the tavern.",
-                        verified: true
-                    },
-                    {
-                        time: "23:45",
-                        event: "Durand drops his anvil through the skylight.",
-                        verified: true
-                    },
-                    {
-                        time: "23:47",
-                        event: "The Ancient Emerald Shard is stolen.",
-                        verified: true
-                    }
+                    { time: "05:50", event: "Lin and Sam are seen across town.", verified: true },
+                    { time: "05:55", event: "Door is smashed open.", verified: false }
                 ],
-                crossRefHint: "Steve and Alex were at the tavern. DURAND was at the library."
+                crossRefHint: "HINT: Lin and Sam have verified alibis."
             }
         },
-
         options: {
-            who: [
-                "Steve the Woodcutter",
-                "Durand the Blacksmith",
-                "Alex the Guard"
-            ],
-
+            who: ["Lin", "Garth", "Sam"],
             how: [
-                "Shot an arrow through the window",
-                "Cut the ceiling with an axe",
-                "Dropped a Heavy Blacksmith Anvil through the Skylight"
+                "Dug a tunnel with a shovel",
+                "Broke the door using an axe",
+                "Climbed the roof with a rope"
             ],
-
             why: [
-                "Over a 3-coin book debt",
-                "To steal the Ancient Emerald Shard from the lectern",
-                "By accident"
+                "To protest the high land taxes",
+                "To steal the ancient gold coin",
+                "To take back a stolen shield"
             ]
         },
-
         correctAnswer: {
-            who: "Durand the Blacksmith",
-            how: "Dropped a Heavy Blacksmith Anvil through the Skylight",
-            why: "To steal the Ancient Emerald Shard from the lectern"
+            who: "Garth",
+            how: "Broke the door using an axe",
+            why: "To steal the ancient gold coin"
         },
-
         explanation: {
-            summary: "Durand wanted the Ancient Emerald Shard. He climbed onto the library roof, dropped his anvil through the skylight, killed Eldred, and stole the shard.",
-
+            summary: "Garth used his wooden axe to smash the door and steal the gold coin because he needed money for tools.",
             clueChain: [
-                "Durand's boot prints were found on the roof.",
-                "Alex saw Durand carrying the anvil to the roof.",
-                "The anvil had DURAND's name engraved on it."
+                "The witness saw Garth running.",
+                "A wooden axe was left behind.",
+                "Pine needles matched his alibi."
             ]
         },
-
-        failureHint: "Look at the roof prints, the anvil, and Alex's statement. They all point to DURAND."
+        failureHint: "HINT: Look at who carries a wooden axe and works with pine trees."
     },
 
-    // =========================================================================
-    // CASE 02 — WHISPERS IN THE WINDMILL (OVERWORLD)
-    // =========================================================================
     {
         id: 2,
-        title: "WHISPERS IN THE WINDMILL",
+        title: "THE BROKEN FLOUR MILL",
         dimension: "overworld",
-        victim: "Farmer Giles",
-        location: "Hillside Windmill Grain Room",
-        time: "02:00",
+        victim: "Milo",
+        location: "Hilltop Windmill",
+        time: "08:00 AM",
         status: "MURDER",
         difficulty: 1,
-
-        synopsis: "Farmer Giles was poisoned inside the windmill. The Golden Wheat Shard was stolen from the grain shelf.",
-
+        synopsis: "Milo was attacked in the flour mill. The golden grain sack was stolen.",
         suspects: [
-            {
-                id: "lin",
-                name: "Lin the Chemistry Brewer",
-                role: "Chemistry Brewer",
-                relation: "Neighbor",
-                personality: "Wears a green robe and makes different potions.",
-                alibi: "I was in my chemistry hut.",
-                motive: "Wanted the Golden Wheat Shard.",
-                avatarEmoji: "🧪"
-            },
-            {
-                id: "tuck",
-                name: "Tuck the Baker",
-                role: "Village Baker",
-                relation: "Flour Buyer",
-                personality: "Wears a white baker hat and makes bread.",
-                alibi: "I was baking bread with Clara.",
-                motive: "Was unhappy about grain prices.",
-                avatarEmoji: "🍞"
-            },
-            {
-                id: "clara",
-                name: "Clara the Weaver",
-                role: "Cloth Maker",
-                relation: "Friend",
-                personality: "Wears a brown dress and works with wool.",
-                alibi: "I was helping Tuck at the bakery.",
-                motive: "Had no reason to hurt Giles.",
-                avatarEmoji: "🧶"
-            }
+            { id: "clara", name: "Clara", role: "Baker", relation: "Partner", personality: "Always carries a rolling pin.", alibi: "I was baking sweet bread.", motive: "Upset about high flour prices.", avatarEmoji: "🥖" },
+            { id: "tuck", name: "Tuck", role: "Carpenter", relation: "Friend", personality: "Always carries a metal saw.", alibi: "I was cutting cedar planks.", motive: "Argued over wooden mill parts.", avatarEmoji: "🪚" },
+            { id: "finn", name: "Finn", role: "Gardener", relation: "Neighbor", personality: "Always carries green plant poison.", alibi: "I was spraying rose bushes.", motive: "Wants money for rare seeds.", avatarEmoji: "🧪" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Green poison drops were found leading toward the windmill.",
-                details: "The poison trail starts near Lin's chemistry hut and leads to the windmill.",
-                crossRefHint: "The poison trail leads back to LIN."
+                summary: "Shoe prints smelling strongly of rose bushes.",
+                details: "Wet soil smelling of rose spray was tracked into the mill.",
+                crossRefHint: "HINT: Match the rose spray smell to the gardener."
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "A green poison bottle was thrown through the windmill window.",
+                summary: "Camera captured green liquid thrown into the window.",
                 details: [
-                    {
-                        time: "01:50",
-                        event: "Giles enters the grain room."
-                    },
-                    {
-                        time: "02:00",
-                        event: "A green poison bottle is thrown through the open window."
-                    },
-                    {
-                        time: "02:05",
-                        event: "The Golden Wheat Shard is stolen."
-                    }
+                    { time: "07:55", event: "Green liquid flask is hurled through the glass." }
                 ],
-                crossRefHint: "The killer used poison through the open window."
+                crossRefHint: "HINT: Who carries green plant poison?"
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Lin wrote about using poison to steal the shard.",
+                summary: "A message about stealing the golden grain sack.",
                 messages: [
-                    {
-                        sender: "Lin",
-                        time: "18:00",
-                        text: "I will use my green poison to get the Golden Wheat Shard tonight."
-                    }
+                    { sender: "Finn", time: "07:30", text: "I will throw my poison and take that golden grain sack." }
                 ],
-                crossRefHint: "Lin planned to use poison and steal the shard."
+                crossRefHint: "HINT: Look at the author of the note."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Tuck saw Lin near the windmill.",
-                statement: "I saw Lin in his green robe near the windmill window. He threw something inside.",
-                witnessName: "Tuck the Baker",
-                crossRefHint: "Tuck saw LIN at the windmill."
+                summary: "The mailman saw Finn running with a green bottle.",
+                statement: "I saw Finn running from the mill holding green poison!",
+                witnessName: "Sam",
+                crossRefHint: "HINT: Trust the witness statement."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "🧪",
-                summary: "A green poison bottle labeled with Lin's name.",
-                details: "The broken bottle found inside the grain room is labeled 'LIN'S GREEN POISON'.",
-                weaponName: "Lin's Green Poison Bottle",
-                crossRefHint: "The poison bottle belongs to LIN."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A shattered flask of green plant poison.",
+                details: "The glass shards still smell of plant pesticide.",
+                weaponName: "Green Poison Flask",
+                crossRefHint: "HINT: Who carries plant poison?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "An open window leads directly into the grain room.",
-                layoutDesc: "The killer could throw the poison bottle directly through the open window.",
+                summary: "Green liquid marks under the broken window.",
+                layoutDesc: "The poison was tossed directly from the outside garden.",
                 floorplanHotspots: [
-                    {
-                        name: "Open Window",
-                        x: 20,
-                        y: 50,
-                        note: "The poison bottle was thrown through here."
-                    },
-                    {
-                        name: "Grain Room Shelf",
-                        x: 70,
-                        y: 50,
-                        note: "The Golden Wheat Shard was kept here."
-                    }
+                    { name: "Broken Window", x: 60, y: 30, note: "Stained with green poison." }
                 ],
-                crossRefHint: "The poison was thrown through the open window."
+                crossRefHint: "HINT: Check the poison on the window."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The events point directly to Lin.",
+                summary: "Verified events at the mill.",
                 entries: [
-                    {
-                        time: "01:50",
-                        event: "Giles enters the windmill.",
-                        verified: true
-                    },
-                    {
-                        time: "01:55",
-                        event: "Tuck and Clara are together at the bakery.",
-                        verified: true
-                    },
-                    {
-                        time: "02:00",
-                        event: "Lin throws green poison through the window.",
-                        verified: true
-                    },
-                    {
-                        time: "02:05",
-                        event: "The Golden Wheat Shard is stolen.",
-                        verified: true
-                    }
+                    { time: "07:45", event: "Clara and Tuck are seen together at the bakery.", verified: true },
+                    { time: "07:55", event: "Green poison splashed into mill.", verified: false }
                 ],
-                crossRefHint: "Tuck and Clara were at the bakery. LIN was responsible for the poison attack."
+                crossRefHint: "HINT: Clara and Tuck were together at the bakery."
             }
         },
-
         options: {
-            who: [
-                "Clara the Weaver",
-                "Tuck the Baker",
-                "Lin the Chemistry Brewer"
-            ],
-
+            who: ["Clara", "Tuck", "Finn"],
             how: [
-                "Hit with a wooden rolling pin",
-                "Splashed a Green Poison Bottle through the Window",
-                "Cut the windmill sails"
+                "Smashed the mill with a pin",
+                "Cut the gears with a saw",
+                "Threw toxic poison through the window"
             ],
-
             why: [
-                "Accidental poison spill",
-                "Over bread flour prices",
-                "To steal the Golden Wheat Shard from the grain shelf"
+                "To protest high bread flour prices",
+                "To settle a wooden mill dispute",
+                "To steal the golden grain sack"
             ]
         },
-
         correctAnswer: {
-            who: "Lin the Chemistry Brewer",
-            how: "Splashed a Green Poison Bottle through the Window",
-            why: "To steal the Golden Wheat Shard from the grain shelf"
+            who: "Finn",
+            how: "Threw toxic poison through the window",
+            why: "To steal the golden grain sack"
         },
-
         explanation: {
-            summary: "Lin used his green poison bottle to attack Farmer Giles through the windmill window and then stole the Golden Wheat Shard.",
-
+            summary: "Finn threw green plant poison through the window to knock out Milo and steal the golden grain sack for seed money.",
             clueChain: [
-                "The poison bottle was labeled with LIN'S name.",
-                "Tuck saw LIN near the windmill window.",
-                "The poison trail led back toward LIN'S chemistry hut."
+                "The witness spotted Finn running with poison.",
+                "Shattered green flask found on the floor.",
+                "Footprints smelled of rose garden spray."
             ]
         },
-
-        failureHint: "Look at the poison bottle, the green robe, and the witness statement. They all point to LIN."
+        failureHint: "HINT: Look at who carries green plant poison and sprays rose bushes."
     },
-    // =========================================================================
-    // CASE 03 — THE IRON FORTRESS (OVERWORLD)
-    // =========================================================================
+
     {
         id: 3,
-        title: "THE IRON FORTRESS",
+        title: "THE LIGHTNING TOWER",
         dimension: "overworld",
-        victim: "Iron Sentinel Guard",
-        location: "Fortress Watchtower Gate",
-        time: "03:00 (Midnight Thunderstorm)",
+        victim: "Bruno",
+        location: "Fortress Watchtower",
+        time: "10:00 PM",
         status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "The Iron Sentinel was destroyed by a lightning strike during a storm. The Fortress Power Shard was stolen from the gate chest.",
-
+        difficulty: 2,
+        synopsis: "Bruno was struck during a storm. The fortress power crystal is gone.",
         suspects: [
-            {
-                id: "vance",
-                name: "Vance the Electrician",
-                role: "Fortress Electrician",
-                relation: "Fortress Mechanic",
-                personality: "Wears rubber gloves and carries copper wire.",
-                alibi: "I was reading in my bedroom.",
-                motive: "Wanted the Fortress Power Shard for his generator.",
-                avatarEmoji: "⚡"
-            },
-            {
-                id: "bruno",
-                name: "Bruno the Stonemason",
-                role: "Castle Builder",
-                relation: "Contractor",
-                personality: "Wears grey overalls and carries a stone chisel.",
-                alibi: "I was drinking tea with Selena in the barracks.",
-                motive: "Was unhappy about stone supply delays.",
-                avatarEmoji: "🧱"
-            },
-            {
-                id: "selena",
-                name: "Selena the Merchant",
-                role: "Traveling Merchant",
-                relation: "Visitor",
-                personality: "Wears a blue cloak and travels with pack ponies.",
-                alibi: "I was drinking tea with Bruno in the barracks.",
-                motive: "Had no reason to attack the Sentinel.",
-                avatarEmoji: "🧳"
-            }
+            { id: "tara", name: "Tara", role: "Stonemason", relation: "Builder", personality: "Always carries a heavy chisel.", alibi: "I was carving granite stones.", motive: "Upset about unpaid building fees.", avatarEmoji: "🧱" },
+            { id: "vance", name: "Vance", role: "Electrician", relation: "Technician", personality: "Always carries long copper wire.", alibi: "I was fixing copper wires.", motive: "Wants the crystal for power.", avatarEmoji: "⚡" },
+            { id: "cole", name: "Cole", role: "Courier", relation: "Delivery", personality: "Always carries a leather pouch.", alibi: "I was resting by the fire.", motive: "Wants to sell rare gems.", avatarEmoji: "📦" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Copper wire pieces were found beside the fortress lightning rod.",
-                details: "The wire matches the copper wire carried by Vance.",
-                crossRefHint: "The copper wire belongs to VANCE."
+                summary: "Boot prints with copper wire clippings.",
+                details: "Small cut pieces of orange copper wire were pressed into the steps.",
+                crossRefHint: "HINT: Who works with copper wires?"
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "Copper wire connected the lightning rod to the Iron Sentinel.",
+                summary: "Camera shows copper wire tied to the roof rod.",
                 details: [
-                    {
-                        time: "02:50",
-                        event: "Copper wire is connected from the roof lightning rod to the Iron Sentinel."
-                    },
-                    {
-                        time: "03:00",
-                        event: "Lightning strikes the rod and travels through the copper wire into the Sentinel."
-                    },
-                    {
-                        time: "03:05",
-                        event: "The Fortress Power Shard is stolen."
-                    }
+                    { time: "09:55", event: "A figure attaches long copper wire to the lightning rod." }
                 ],
-                crossRefHint: "The copper wire caused the lightning to hit the Sentinel."
+                crossRefHint: "HINT: Look at the copper wire on camera."
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Vance wrote about using the storm to destroy the Sentinel.",
+                summary: "A written note about lightning power.",
                 messages: [
-                    {
-                        sender: "Vance",
-                        time: "20:00",
-                        text: "Tonight's storm will let me use my copper wire to destroy the Sentinel and take the Fortress Power Shard."
-                    }
+                    { sender: "Vance", time: "09:00", text: "I can channel lightning through copper wire to take the power crystal." }
                 ],
-                crossRefHint: "Vance planned to use the storm and copper wire."
+                crossRefHint: "HINT: Check Vance's plan in the note."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Selena saw Vance near the lightning rod.",
-                statement: "I saw Vance connecting copper wire to the lightning rod before the storm struck.",
-                witnessName: "Selena the Merchant",
-                crossRefHint: "Selena saw VANCE setting up the copper wire."
+                summary: "The gate guard saw Vance running in the rain.",
+                statement: "I saw Vance running from the watchtower holding glowing crystals!",
+                witnessName: "Sam",
+                crossRefHint: "HINT: Trust the guard's witness report."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "⚡",
-                summary: "Copper wire marked with Vance's name was found attached to the Sentinel.",
-                details: "The wire used in the attack has a tag reading 'PROPERTY OF VANCE'.",
-                weaponName: "Vance's Copper Lightning Wire",
-                crossRefHint: "The wire used in the attack belongs to VANCE."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A burnt copper wire connected to the rod.",
+                details: "The copper wire directed lightning straight to the floor.",
+                weaponName: "Long Copper Wire",
+                crossRefHint: "HINT: Who carries copper wires?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "The lightning rod was directly above the Iron Sentinel.",
-                layoutDesc: "A copper wire could connect the roof lightning rod directly to the Sentinel.",
+                summary: "Scorched wire running along the wall.",
+                layoutDesc: "The wire channeled the storm strike into the power safe.",
                 floorplanHotspots: [
-                    {
-                        name: "Roof Lightning Rod",
-                        x: 50,
-                        y: 10,
-                        note: "The copper wire was connected here."
-                    },
-                    {
-                        name: "Iron Sentinel",
-                        x: 50,
-                        y: 60,
-                        note: "The wire carried the lightning to the Sentinel."
-                    }
+                    { name: "Scorched Safe", x: 45, y: 70, note: "Burned by channeled lightning." }
                 ],
-                crossRefHint: "The wire connected the lightning rod directly to the Sentinel."
+                crossRefHint: "HINT: Examine the scorched wire line."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The timeline points directly to Vance.",
+                summary: "Timeline during the heavy thunderstorm.",
                 entries: [
-                    {
-                        time: "02:45",
-                        event: "Bruno and Selena are together in the barracks.",
-                        verified: true
-                    },
-                    {
-                        time: "02:50",
-                        event: "Vance connects copper wire to the lightning rod.",
-                        verified: true
-                    },
-                    {
-                        time: "03:00",
-                        event: "Lightning strikes the Sentinel through the copper wire.",
-                        verified: true
-                    },
-                    {
-                        time: "03:05",
-                        event: "The Fortress Power Shard is stolen.",
-                        verified: true
-                    }
+                    { time: "09:40", event: "Tara and Cole are seen inside the warm inn.", verified: true },
+                    { time: "09:55", event: "Lightning hits the watchtower wire.", verified: false }
                 ],
-                crossRefHint: "Bruno and Selena were together. VANCE was responsible for the lightning setup."
+                crossRefHint: "HINT: Tara and Cole stayed inside the inn."
             }
         },
-
         options: {
-            who: [
-                "Bruno the Stonemason",
-                "Vance the Electrician",
-                "Selena the Merchant"
-            ],
-
+            who: ["Tara", "Vance", "Cole"],
             how: [
-                "Hit with a heavy stone chisel",
-                "Poured water on the Sentinel",
-                "Channeled Thunderstorm Lightning through a Copper Wire"
+                "Cracked the wall with a chisel",
+                "Channeled lightning with a copper wire",
+                "Pulled the lock with a pouch"
             ],
-
             why: [
-                "Over delayed stone deliveries",
-                "By accident during the storm",
-                "To steal the Fortress Power Shard from the gate chest"
+                "Over unpaid stone building fee disputes",
+                "To steal the fortress power crystal",
+                "To sell stolen shiny trade gems"
             ]
         },
-
         correctAnswer: {
-            who: "Vance the Electrician",
-            how: "Channeled Thunderstorm Lightning through a Copper Wire",
-            why: "To steal the Fortress Power Shard from the gate chest"
+            who: "Vance",
+            how: "Channeled lightning with a copper wire",
+            why: "To steal the fortress power crystal"
         },
-
         explanation: {
-            summary: "Vance connected his copper wire to the fortress lightning rod. When lightning struck, the electricity traveled through the wire and destroyed the Iron Sentinel. Vance then stole the Fortress Power Shard.",
-
+            summary: "Vance hooked copper wire to the lightning rod to channel lightning into the watchtower and steal the power crystal.",
             clueChain: [
-                "The attack used copper wire belonging to Vance.",
-                "Selena saw Vance setting up the wire.",
-                "Vance wanted the Fortress Power Shard."
+                "The witness spotted Vance leaving the tower.",
+                "Scorched copper wire found at the scene.",
+                "Copper wire clippings found in the footprints."
             ]
         },
-
-        failureHint: "Look at the copper wire, who set it up, and who wanted the Fortress Power Shard."
+        failureHint: "HINT: Look at who carries copper wire and understands electricity."
     },
-    // =========================================================================
-    // CASE 04 — THE CRIMSON VAULT (NETHER)
-    // =========================================================================
+
     {
         id: 4,
-        title: "THE CRIMSON VAULT",
+        title: "THE LAVA GATE",
         dimension: "nether",
-        victim: "Chieftain Gorg",
-        location: "Volcanic Bastion Vault",
-        time: "14:10",
+        victim: "Vorg",
+        location: "Crimson Lava Vault",
+        time: "02:00 PM",
         status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "Chieftain Gorg was crushed by the heavy vault gate. The Nether Gold Shard was stolen from the vault.",
-
+        difficulty: 2,
+        synopsis: "Vorg was trapped beneath the heavy gate. The glowing red ruby is missing.",
         suspects: [
-            {
-                id: "zul",
-                name: "Zul the Gold Merchant",
-                role: "Treasury Keeper",
-                relation: "Treasurer",
-                personality: "Wears a gold crown and a large gold signet ring. Controls the vault gate lever.",
-                alibi: "I was sleeping in my bedroom.",
-                motive: "Wanted the Nether Gold Shard.",
-                avatarEmoji: "🐷"
-            },
-            {
-                id: "pyra",
-                name: "Pyra the Lava Boat Pilot",
-                role: "Boat Ferryman",
-                relation: "Worker",
-                personality: "Carries a wooden boat oar.",
-                alibi: "I was repairing boats with Vorg at the lava dock.",
-                motive: "Had no reason to attack Gorg.",
-                avatarEmoji: "🛶"
-            },
-            {
-                id: "vorg",
-                name: "Vorg the Gate Guard",
-                role: "Bastion Guard",
-                relation: "Security",
-                personality: "Wears red armor and carries an iron shield.",
-                alibi: "I was repairing boats with Pyra at the lava dock.",
-                motive: "Had no reason to attack Gorg.",
-                avatarEmoji: "🛡️"
-            }
+            { id: "pyra", name: "Pyra", role: "Boat Pilot", relation: "Transporter", personality: "Always carries a wooden oar.", alibi: "I was rowing across lava.", motive: "Needs gold to fix boat.", avatarEmoji: "🛶" },
+            { id: "kira", name: "Kira", role: "Scout", relation: "Guard", personality: "Always carries a heavy crossbow.", alibi: "I was scouting distant hills.", motive: "Wants to buy armor upgrades.", avatarEmoji: "🏹" },
+            { id: "zul", name: "Zul", role: "Gate Operator", relation: "Coworker", personality: "Always carries an iron lever.", alibi: "I was oiling iron levers.", motive: "Wants the ruby for wealth.", avatarEmoji: "⚙️" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Zul's gold ring left a mark on the vault lever.",
-                details: "The lever has a fingerprint mark matching Zul's large gold signet ring.",
-                crossRefHint: "The mark belongs to ZUL."
+                summary: "Boot prints coated in black lever grease.",
+                details: "Slick gear oil and lever grease were smeared on the vault stones.",
+                crossRefHint: "HINT: Who was oiling iron levers?"
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "The vault gate was activated from Zul's lever booth.",
+                summary: "Camera shows someone pulling down the gate switch.",
                 details: [
-                    {
-                        time: "14:05",
-                        event: "Gorg walks under the vault gate."
-                    },
-                    {
-                        time: "14:10",
-                        event: "The vault gate lever is pulled and the gate crushes Gorg."
-                    },
-                    {
-                        time: "14:12",
-                        event: "The Nether Gold Shard is stolen."
-                    }
+                    { time: "01:55", event: "Figure uses an iron lever to trigger the heavy gate." }
                 ],
-                crossRefHint: "The gate was controlled from ZUL'S booth."
+                crossRefHint: "HINT: Look at the lever mechanism on camera."
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Zul wrote about using the vault gate.",
+                summary: "A message about the red vault ruby.",
                 messages: [
-                    {
-                        sender: "Zul",
-                        time: "11:00",
-                        text: "I will pull the vault gate lever when Gorg enters and take the Nether Gold Shard."
-                    }
+                    { sender: "Zul", time: "01:15", text: "I will pull the gate lever and grab the glowing ruby." }
                 ],
-                crossRefHint: "Zul planned the attack."
+                crossRefHint: "HINT: Read Zul's plan in the message."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Pyra saw Zul at the vault lever.",
-                statement: "I saw Zul inside his lever booth when the vault gate suddenly came down on Gorg.",
-                witnessName: "Pyra the Lava Boat Pilot",
-                crossRefHint: "Pyra saw ZUL at the lever."
+                summary: "A miner saw Zul running from the vault.",
+                statement: "I saw Zul sprint out of the vault with the glowing red ruby!",
+                witnessName: "Garth",
+                crossRefHint: "HINT: Trust the miner's statement."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "🚪",
-                summary: "The heavy vault gate was used to crush Gorg.",
-                details: "The gate can only be activated using the lever inside Zul's private booth.",
-                weaponName: "Heavy Vault Gate",
-                crossRefHint: "The vault gate was controlled by ZUL."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "An iron lever pulled down to drop the gate.",
+                details: "The iron lever is covered in fresh mechanical oil.",
+                weaponName: "Heavy Iron Lever",
+                crossRefHint: "HINT: Which suspect carries iron levers?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "Zul's lever booth overlooks the vault gate.",
-                layoutDesc: "The lever booth has a clear view of the gate.",
+                summary: "The heavy stone gate dropped from the ceiling.",
+                layoutDesc: "The gate is triggered only from the main lever switch.",
                 floorplanHotspots: [
-                    {
-                        name: "Zul's Lever Booth",
-                        x: 80,
-                        y: 20,
-                        note: "The vault gate lever is located here."
-                    },
-                    {
-                        name: "Vault Gate",
-                        x: 50,
-                        y: 50,
-                        note: "Gorg was crushed here."
-                    }
+                    { name: "Gate Lever", x: 75, y: 40, note: "Oiled lever pulled down." }
                 ],
-                crossRefHint: "Zul could see and control the vault gate from his booth."
+                crossRefHint: "HINT: Check the lever that dropped the gate."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The timeline points directly to Zul.",
+                summary: "Recorded movements near the lava river.",
                 entries: [
-                    {
-                        time: "14:00",
-                        event: "Pyra and Vorg are together at the lava dock.",
-                        verified: true
-                    },
-                    {
-                        time: "14:05",
-                        event: "Gorg enters the vault.",
-                        verified: true
-                    },
-                    {
-                        time: "14:10",
-                        event: "Zul pulls the vault gate lever.",
-                        verified: true
-                    },
-                    {
-                        time: "14:12",
-                        event: "The Nether Gold Shard is stolen.",
-                        verified: true
-                    }
+                    { time: "01:45", event: "Pyra and Kira are seen rowing across the river.", verified: true },
+                    { time: "01:55", event: "Vault gate slammed shut.", verified: false }
                 ],
-                crossRefHint: "Pyra and Vorg were together. ZUL controlled the gate."
+                crossRefHint: "HINT: Pyra and Kira were out on the river."
             }
         },
-
         options: {
-            who: [
-                "Pyra the Lava Boat Pilot",
-                "Vorg the Gate Guard",
-                "Zul the Gold Merchant"
-            ],
-
+            who: ["Pyra", "Kira", "Zul"],
             how: [
-                "Pushed the victim into the lava pool",
-                "Pulled the Lever to Crush the Victim with the Heavy Vault Gate",
-                "Shot the victim with a flaming crossbow"
+                "Pushed the victim with an oar",
+                "Shot an arrow from the hills",
+                "Dropped the gate with a lever"
             ],
-
             why: [
-                "Over boat repair costs",
-                "To steal the Nether Gold Shard from the vault",
-                "Accidental gate failure"
+                "To pay for broken boat repairs",
+                "To purchase new heavy armor upgrades",
+                "To steal the glowing red ruby"
             ]
         },
-
         correctAnswer: {
-            who: "Zul the Gold Merchant",
-            how: "Pulled the Lever to Crush the Victim with the Heavy Vault Gate",
-            why: "To steal the Nether Gold Shard from the vault"
+            who: "Zul",
+            how: "Dropped the gate with a lever",
+            why: "To steal the glowing red ruby"
         },
-
         explanation: {
-            summary: "Zul used the vault gate lever to crush Gorg and then stole the Nether Gold Shard.",
-
+            summary: "Zul pulled the heavy iron lever to drop the stone gate on Vorg and steal the glowing red ruby.",
             clueChain: [
-                "Zul controlled the vault gate.",
-                "His fingerprint was found on the lever.",
-                "He wanted the Nether Gold Shard."
+                "The witness saw Zul flee with the ruby.",
+                "The gate was dropped using an iron lever.",
+                "Footprints were smeared with lever grease."
             ]
         },
-
-        failureHint: "Look at who controlled the vault lever and whose mark was found on it."
+        failureHint: "HINT: Look at who works with iron levers and has grease on their boots."
     },
-    // =========================================================================
-    // CASE 05 — THE MAGMA CROSSING (NETHER)
-    // =========================================================================
+
     {
         id: 5,
-        title: "THE MAGMA CROSSING",
+        title: "THE ROPE BRIDGE",
         dimension: "nether",
-        victim: "Navigator Cinder (Strider Master)",
-        location: "Nether Magma Sea Ferry Dock",
-        time: "16:45",
+        victim: "Cinder",
+        location: "Magma River Crossing",
+        time: "04:00 PM",
         status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "Navigator Cinder was thrown into the magma sea when his strider saddle strap was cut with a sharp flint knife. The 5th Nether Ember Shard was stolen from his cargo pouch.",
-
+        difficulty: 2,
+        synopsis: "Cinder fell from the high rope bridge. The fire amulet was taken from him.",
         suspects: [
-            {
-                id: "krag",
-                name: "Krag the Strider Breeder",
-                role: "Strider Master",
-                relation: "Rival Ferryman",
-                personality: "Carries a sharp carved flint knife and wears obsidian gloves.",
-                alibi: "I was feeding striders in the back stables.",
-                motive: "Wanted the 5th Nether Ember Shard to control the ferry trade.",
-                avatarEmoji: "🐗"
-            },
-            {
-                id: "valka",
-                name: "Valka the Crimson Scout",
-                role: "Crimson Scout",
-                relation: "Guide",
-                personality: "Wears a red warped mushroom cloak and carries a wooden compass.",
-                alibi: "I was checking supply crates with Thorne at the dock gate.",
-                motive: "Had no reason to harm Cinder.",
-                avatarEmoji: "🧭"
-            },
-            {
-                id: "thorne",
-                name: "Thorne the Gate Sentry",
-                role: "Ferry Sentry",
-                relation: "Security",
-                personality: "Carries an iron spear and guards the dock walkway.",
-                alibi: "I was checking supply crates with Valka at the dock gate.",
-                motive: "No conflict with Cinder.",
-                avatarEmoji: "🛡️"
-            }
+            { id: "valka", name: "Valka", role: "Explorer", relation: "Rival", personality: "Always carries a long spear.", alibi: "I was mapping dark caves.", motive: "Wants fame from new discoveries.", avatarEmoji: "🗺️" },
+            { id: "krag", name: "Krag", role: "Climber", relation: "Guide", personality: "Always carries a sharp flint knife.", alibi: "I was carving flint tools.", motive: "Wants the rare fire amulet.", avatarEmoji: "🔪" },
+            { id: "thorne", name: "Thorne", role: "Sentry", relation: "Guard", personality: "Always carries an iron shield.", alibi: "I was guarding the gate.", motive: "Upset about guard shift hours.", avatarEmoji: "🛡️" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Obsidian dust and heavy hoof prints were found by Cinder's strider pen.",
-                details: "The obsidian dust matches Krag's obsidian work gloves.",
-                crossRefHint: "The obsidian glove marks belong to KRAG."
+                summary: "Bridge planks covered in flint shavings.",
+                details: "Small grey flint chips from knife sharpening were left on the wooden bridge.",
+                crossRefHint: "HINT: Who was carving flint tools?"
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "The dock log recorded a figure cutting the saddle strap before departure.",
+                summary: "Camera captured a knife slicing the bridge rope.",
                 details: [
-                    {
-                        time: "16:30",
-                        event: "Cinder ties his strider to dock post #2."
-                    },
-                    {
-                        time: "16:40",
-                        event: "A figure cuts the strider saddle strap with a sharp blade."
-                    },
-                    {
-                        time: "16:45",
-                        event: "Cinder mounts the strider; the saddle slips and he falls into the magma sea."
-                    },
-                    {
-                        time: "16:47",
-                        event: "The 5th Nether Ember Shard is stolen from the cargo dock."
-                    }
+                    { time: "03:55", event: "Figure uses a sharp flint knife to cut support ropes." }
                 ],
-                crossRefHint: "The saddle strap was cut just before Cinder mounted the strider."
+                crossRefHint: "HINT: Match the flint knife on camera to the suspect."
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Krag's message reveals his plan to take the ferry shard.",
+                summary: "A message about the bridge ropes.",
                 messages: [
-                    {
-                        sender: "Krag",
-                        time: "15:00",
-                        text: "I will cut Cinder's saddle strap at dock #2 and take the 5th Nether Ember Shard."
-                    }
+                    { sender: "Krag", time: "03:10", text: "I will cut the bridge ropes to take the fire amulet." }
                 ],
-                crossRefHint: "KRAG planned to sabotage the saddle strap and steal the shard."
+                crossRefHint: "HINT: Check who sent the message."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Valka saw Krag tampering with the strider saddle.",
-                statement: "I saw Krag using his flint knife on Cinder's strider saddle right before Cinder went out onto the magma.",
-                witnessName: "Valka the Crimson Scout",
-                crossRefHint: "Valka saw KRAG with the sharp knife at the strider saddle."
+                summary: "A scout saw Krag on the bridge post.",
+                statement: "I saw Krag slicing the rope and snatching the fire amulet!",
+                witnessName: "Lin",
+                crossRefHint: "HINT: Trust the scout's witness testimony."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "🔪",
-                summary: "A carved flint knife was used to slice through the heavy leather strap.",
-                details: "Flint blade shavings were found on the severed saddle strap. Krag's name is engraved on the flint knife handle.",
-                weaponName: "Krag's Carved Flint Knife",
-                crossRefHint: "The severed strap matches KRAG'S carved flint knife."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A sharp flint knife stuck in the bridge post.",
+                details: "The blade is sharp and has rope fibers on its edge.",
+                weaponName: "Sharp Flint Knife",
+                crossRefHint: "HINT: Which suspect carries a flint knife?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "Dock Post #2 sits directly over the deep magma channel.",
-                layoutDesc: "The strider launch dock connects to the open magma sea.",
+                summary: "Cleanly sliced bridge support rope.",
+                layoutDesc: "The thick hemp rope was cut cleanly by a sharp blade.",
                 floorplanHotspots: [
-                    {
-                        name: "Dock Post #2",
-                        x: 40,
-                        y: 70,
-                        note: "Cinder's strider saddle was cut here."
-                    },
-                    {
-                        name: "Magma Channel",
-                        x: 50,
-                        y: 30,
-                        note: "Cinder fell into the magma sea here."
-                    }
+                    { name: "Cut Rope", x: 50, y: 50, note: "Sliced cleanly with a knife." }
                 ],
-                crossRefHint: "Dock #2 is isolated near Krag's stable."
+                crossRefHint: "HINT: Look at the sliced rope end."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The timeline shows Valka and Thorne were together at the gate.",
+                summary: "Movements at the magma crossing.",
                 entries: [
-                    {
-                        time: "16:25",
-                        event: "Valka and Thorne meet at the dock gate.",
-                        verified: true
-                    },
-                    {
-                        time: "16:40",
-                        event: "Krag cuts the strider saddle strap.",
-                        verified: true
-                    },
-                    {
-                        time: "16:45",
-                        event: "Cinder falls as the saddle detaches in the magma.",
-                        verified: true
-                    },
-                    {
-                        time: "16:47",
-                        event: "The 5th Nether Ember Shard is stolen.",
-                        verified: true
-                    }
+                    { time: "03:45", event: "Valka and Thorne are stationed at the main gate.", verified: true },
+                    { time: "03:55", event: "Bridge rope is cut.", verified: false }
                 ],
-                crossRefHint: "Valka and Thorne were together at the gate. KRAG was alone at the strider dock."
+                crossRefHint: "HINT: Valka and Thorne were at the gate."
             }
         },
-
         options: {
-            who: [
-                "Valka the Crimson Scout",
-                "Krag the Strider Breeder",
-                "Thorne the Gate Sentry"
-            ],
-
+            who: ["Valka", "Krag", "Thorne"],
             how: [
-                "Pushed Cinder from the dock with an iron spear",
-                "Distracted the strider with warped fungus",
-                "Sliced the Strider Saddle Strap with a Carved Flint Knife"
+                "Pushed from dock with a spear",
+                "Cut bridge ropes with a knife",
+                "Blocked the path with a shield"
             ],
-
             why: [
-                "Over strider stable rental fees",
-                "Accidental saddle malfunction",
-                "To steal the 5th Nether Ember Shard and monopolize the ferry route"
+                "To gain fame from cave maps",
+                "To steal the rare fire amulet",
+                "To protest long guard shift hours"
             ]
         },
-
         correctAnswer: {
-            who: "Krag the Strider Breeder",
-            how: "Sliced the Strider Saddle Strap with a Carved Flint Knife",
-            why: "To steal the 5th Nether Ember Shard and monopolize the ferry route"
+            who: "Krag",
+            how: "Cut bridge ropes with a knife",
+            why: "To steal the rare fire amulet"
         },
-
         explanation: {
-            summary: "Krag used his carved flint knife to slice Cinder's strider saddle strap at Dock #2. When Cinder rode out onto the magma sea, the saddle detached, causing him to fall into the magma. Krag then stole the 5th Nether Ember Shard.",
-
+            summary: "Krag used his sharp flint knife to cut the bridge ropes, causing Cinder to fall so he could steal the fire amulet.",
             clueChain: [
-                "Valka saw Krag tampering with the strider saddle with a flint knife.",
-                "Flint blade shavings matching Krag's engraved knife were found on the severed strap.",
-                "Krag's message revealed his scheme to seize the 5th Nether Ember Shard."
+                "The witness saw Krag cut the ropes.",
+                "A sharp flint knife was left in the post.",
+                "Flint shavings matched his carving alibi."
             ]
         },
-
-        failureHint: "Look at whose flint knife cut the saddle strap and who wanted to seize the 5th Nether Ember Shard."
+        failureHint: "HINT: Look at who carries a sharp flint knife and carves tools."
     },
-    // =========================================================================
-    // CASE 06 — THE BASALT SHELTER (NETHER)
-    // =========================================================================
+
     {
         id: 6,
-        title: "THE BASALT SHELTER",
+        title: "THE STONE VAULT",
         dimension: "nether",
-        victim: "Researcher Ignis",
-        location: "Fortified Stone Shelter",
-        time: "22:00",
+        victim: "Jada",
+        location: "Basalt Shelter",
+        time: "07:00 PM",
         status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "Researcher Ignis was killed by an explosive trap at his shelter door. The Soulfire Shard was stolen from his safe.",
-
+        difficulty: 2,
+        synopsis: "Jada was injured by an explosion. The ancient flame core was stolen.",
         suspects: [
-            {
-                id: "solas",
-                name: "Solas the Fire Mage",
-                role: "Fire Mage",
-                relation: "Rival Researcher",
-                personality: "Wears a flame-patterned cloak and carries explosive powder.",
-                alibi: "I was reading fire scrolls in my cave.",
-                motive: "Wanted the Soulfire Shard for his fire magic.",
-                avatarEmoji: "🔥"
-            },
-            {
-                id: "varren",
-                name: "Varren the Stonecutter",
-                role: "Stone Builder",
-                relation: "Contractor",
-                personality: "Carries a stone hand-saw and wears a grey apron.",
-                alibi: "I was working with Nari at the workshop.",
-                motive: "Had a dispute over construction payment.",
-                avatarEmoji: "⛏️"
-            },
-            {
-                id: "nari",
-                name: "Nari the Sand Trader",
-                role: "Sand Merchant",
-                relation: "Supplier",
-                personality: "Carries bags of sand and wears a blue scarf.",
-                alibi: "I was working with Varren at the workshop.",
-                motive: "Had no reason to attack Ignis.",
-                avatarEmoji: "📦"
-            }
+            { id: "varren", name: "Varren", role: "Mason", relation: "Builder", personality: "Always carries a stone hammer.", alibi: "I was chipping basalt rock.", motive: "Wants money for stone blocks.", avatarEmoji: "🔨" },
+            { id: "nari", name: "Nari", role: "Trader", relation: "Merchant", personality: "Always carries a silver scale.", alibi: "I was weighing trade items.", motive: "Argued over trade tax debts.", avatarEmoji: "⚖️" },
+            { id: "solas", name: "Solas", role: "Alchemist", relation: "Neighbor", personality: "Always carries yellow explosive powder.", alibi: "I was mixing yellow powder.", motive: "Needs the core for experiments.", avatarEmoji: "💥" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Explosive powder was found around the shelter doorway.",
-                details: "The powder matches the explosive powder carried by Solas.",
-                crossRefHint: "The explosive powder belongs to SOLAS."
+                summary: "Dusty boot tracks covered in yellow powder.",
+                details: "Bright yellow sulfur powder residue was left around the doorway.",
+                crossRefHint: "HINT: Who was mixing yellow explosive powder?"
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "An explosive trap was placed at the shelter door.",
+                summary: "Camera shows yellow powder placed at the door.",
                 details: [
-                    {
-                        time: "21:50",
-                        event: "An explosive trap is placed at the shelter doorway."
-                    },
-                    {
-                        time: "21:55",
-                        event: "The explosive trap is armed."
-                    },
-                    {
-                        time: "22:00",
-                        event: "Ignis opens the door and the trap explodes."
-                    },
-                    {
-                        time: "22:05",
-                        event: "The Soulfire Shard is stolen from the damaged safe."
-                    }
+                    { time: "06:55", event: "Figure lays a bag of yellow powder by the shelter entrance." }
                 ],
-                crossRefHint: "The trap was placed directly at the shelter entrance."
+                crossRefHint: "HINT: Look at the yellow powder bag on camera."
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Solas wrote about attacking Ignis with an explosive trap.",
+                summary: "A note regarding the flame core.",
                 messages: [
-                    {
-                        sender: "Solas",
-                        time: "18:00",
-                        text: "I will place an explosive trap at Ignis's door and take the Soulfire Shard."
-                    }
+                    { sender: "Solas", time: "06:15", text: "My explosive yellow powder will blast the vault and give me the flame core." }
                 ],
-                crossRefHint: "Solas planned to use an explosive trap."
+                crossRefHint: "HINT: Check Solas's note."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Nari saw Solas placing the trap.",
-                statement: "I saw Solas in his flame cloak place a glowing explosive trap at Ignis's door before running away.",
-                witnessName: "Nari the Sand Trader",
-                crossRefHint: "Nari saw SOLAS place the trap."
+                summary: "A merchant saw Solas ignite the powder.",
+                statement: "I saw Solas light yellow powder and run away with the flame core!",
+                witnessName: "Tuck",
+                crossRefHint: "HINT: Trust the merchant's witness account."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "💥",
-                summary: "The explosive trap was marked with Solas's name.",
-                details: "Pieces of the destroyed trap were found at the doorway. The base was engraved with 'SOLAS'.",
-                weaponName: "Solas's Explosive Trap",
-                crossRefHint: "The explosive trap belongs to SOLAS."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A scorched sack of yellow explosive powder.",
+                details: "Remnants of yellow powder and a burnt fuse wire.",
+                weaponName: "Yellow Explosive Powder",
+                crossRefHint: "HINT: Who carries yellow explosive powder?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "The shelter has one main entrance.",
-                layoutDesc: "The explosive trap was placed directly outside the only entrance.",
+                summary: "The shelter door was blasted outward.",
+                layoutDesc: "An explosive charge at the threshold blew the door open.",
                 floorplanHotspots: [
-                    {
-                        name: "Shelter Doorway",
-                        x: 50,
-                        y: 80,
-                        note: "The explosive trap was placed here."
-                    },
-                    {
-                        name: "Soulfire Safe",
-                        x: 50,
-                        y: 20,
-                        note: "The shard was kept inside this safe."
-                    }
+                    { name: "Blown Doorway", x: 50, y: 85, note: "Scorched with yellow residue." }
                 ],
-                crossRefHint: "The trap was placed directly at the shelter entrance."
+                crossRefHint: "HINT: Check the scorched entrance."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The timeline points directly to Solas.",
+                summary: "Market and shelter logs.",
                 entries: [
-                    {
-                        time: "21:45",
-                        event: "Varren and Nari are together at the workshop.",
-                        verified: true
-                    },
-                    {
-                        time: "21:55",
-                        event: "Solas places and arms the explosive trap.",
-                        verified: true
-                    },
-                    {
-                        time: "22:00",
-                        event: "The trap explodes when Ignis opens the door.",
-                        verified: true
-                    },
-                    {
-                        time: "22:05",
-                        event: "The Soulfire Shard is stolen.",
-                        verified: true
-                    }
+                    { time: "06:45", event: "Varren and Nari are seen trading at the public market.", verified: true },
+                    { time: "06:55", event: "Yellow powder detonates at shelter.", verified: false }
                 ],
-                crossRefHint: "Varren and Nari were together. SOLAS was responsible for the trap."
+                crossRefHint: "HINT: Varren and Nari were at the market."
             }
         },
-
         options: {
-            who: [
-                "Varren the Stonecutter",
-                "Nari the Sand Trader",
-                "Solas the Fire Mage"
-            ],
-
+            who: ["Varren", "Nari", "Solas"],
             how: [
-                "Hit with a stone hand-saw",
-                "Planted an Explosive Yellow Powder Trap at the Doorway",
-                "Flooded the shelter with lava"
+                "Smashed the wall with a hammer",
+                "Damaged the door with a scale",
+                "Planted explosive yellow powder at doorway"
             ],
-
             why: [
-                "Over an unpaid construction bill",
-                "To steal the Soulfire Shard from the safe",
-                "Accidental explosion"
+                "To pay for heavy stone blocks",
+                "To settle trade market tax debts",
+                "To steal the ancient flame core"
             ]
         },
-
         correctAnswer: {
-            who: "Solas the Fire Mage",
-            how: "Planted an Explosive Yellow Powder Trap at the Doorway",
-            why: "To steal the Soulfire Shard from the safe"
+            who: "Solas",
+            how: "Planted explosive yellow powder at doorway",
+            why: "To steal the ancient flame core"
         },
-
         explanation: {
-            summary: "Solas placed an explosive trap at Ignis's door. When Ignis opened the door, the trap exploded. Solas then took the Soulfire Shard from the damaged safe.",
-
+            summary: "Solas planted explosive yellow powder at the doorway to blow open the shelter and steal the ancient flame core.",
             clueChain: [
-                "Nari saw Solas place the explosive trap.",
-                "The trap was marked with Solas's name.",
-                "The explosive powder matched Solas's equipment."
+                "The witness saw Solas ignite the powder.",
+                "Scorched yellow powder found at the entrance.",
+                "Yellow powder traces matched his boot prints."
             ]
         },
-
-        failureHint: "Look at who placed the trap and whose name was written on it."
+        failureHint: "HINT: Look at who works with yellow explosive powder."
     },
-    // =========================================================================
-    // CASE 07 — THE HIGH SKY SPIRE (THE END)
-    // =========================================================================
+
     {
         id: 7,
-        title: "THE HIGH SKY SPIRE",
+        title: "THE SKY SPIRE",
         dimension: "end",
-        victim: "Sage Kael (High Sky Scholar)",
-        location: "Open Spire Balcony",
-        time: "00:30",
-        status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "Sage Kael was killed when water was dropped onto his open balcony from above. The Purple Sky Shard was stolen from the altar.",
-
-        suspects: [
-            {
-                id: "nyx",
-                name: "Nyx the Glider Assassin",
-                role: "Shadow Assassin",
-                relation: "Invader",
-                personality: "Wears purple glider wings and carries splash water bottles.",
-                alibi: "I was flying over distant sky islands.",
-                motive: "Wanted to steal the Purple Sky Shard.",
-                avatarEmoji: "🥷"
-            },
-            {
-                id: "brak",
-                name: "Brak the Tower Guard",
-                role: "Spire Guard",
-                relation: "Guard",
-                personality: "Wears a brass helmet and carries a wooden guard baton.",
-                alibi: "I was guarding the ground floor with Lyra.",
-                motive: "No reason to attack Kael.",
-                avatarEmoji: "🐚"
-            },
-            {
-                id: "lyra",
-                name: "Lyra the Astrologist",
-                role: "Spire Astrologist",
-                relation: "Scholar",
-                personality: "Carries a brass telescope and wears white robes.",
-                alibi: "I was studying star charts with Brak.",
-                motive: "No reason to attack Kael.",
-                avatarEmoji: "🔮"
-            }
-        ],
-
-        evidence: {
-
-            blockPrints: {
-                title: "BLOCK PRINTS",
-                icon: "👣",
-                summary: "A purple glider feather was found beside the water puddle.",
-                details: "The feather matches the purple glider wings worn by Nyx.",
-                crossRefHint: "The purple feather belongs to NYX."
-            },
-
-            observerLog: {
-                title: "OBSERVER LOG",
-                icon: "👁️",
-                summary: "A flying figure dropped a water bottle onto the balcony.",
-                details: [
-                    {
-                        time: "00:20",
-                        event: "Sage Kael sits on the open balcony."
-                    },
-                    {
-                        time: "00:30",
-                        event: "A glider flies above the balcony and drops a splash water bottle."
-                    },
-                    {
-                        time: "00:32",
-                        event: "The Purple Sky Shard is missing from the altar."
-                    }
-                ],
-                crossRefHint: "The attacker dropped the water bottle from above."
-            },
-
-            chatLog: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "Nyx's message reveals her plan.",
-                messages: [
-                    {
-                        sender: "Nyx",
-                        time: "21:00",
-                        text: "I will fly over Kael's open balcony, drop water on him, and take the Purple Sky Shard."
-                    }
-                ],
-                crossRefHint: "NYX planned to drop water from her glider."
-            },
-
-            witness: {
-                title: "WITNESS STATEMENT",
-                icon: "📜",
-                summary: "Brak saw the attacker from the ground.",
-                statement: "I looked up and saw Nyx flying her purple glider above the balcony. She dropped a water bottle before flying away.",
-                witnessName: "Brak the Tower Guard",
-                crossRefHint: "Brak saw NYX flying overhead and dropping the bottle."
-            },
-
-            weapon: {
-                title: "MURDER WEAPON",
-                icon: "💧",
-                summary: "A broken splash water bottle marked with Nyx's emblem.",
-                details: "The broken bottle was found on the balcony. It has Nyx's glider emblem on it.",
-                weaponName: "Nyx's Splash Water Bottle",
-                crossRefHint: "The water bottle has NYX'S emblem."
-            },
-
-            roomLayout: {
-                title: "ROOM LAYOUT",
-                icon: "📐",
-                summary: "The balcony has no roof.",
-                layoutDesc: "The open balcony allowed someone flying above to drop a water bottle directly onto Kael.",
-                floorplanHotspots: [
-                    {
-                        name: "Meditation Pad",
-                        x: 50,
-                        y: 50,
-                        note: "Where Kael was standing when the water hit him."
-                    },
-                    {
-                        name: "Open Sky",
-                        x: 50,
-                        y: 15,
-                        note: "Nyx flew here before dropping the water bottle."
-                    }
-                ],
-                crossRefHint: "The open roof made an attack from above possible."
-            },
-
-            timeline: {
-                title: "TIMELINE",
-                icon: "⏳",
-                summary: "The timeline shows when the attack happened.",
-                entries: [
-                    {
-                        time: "00:15",
-                        event: "Brak and Lyra guard the ground floor together.",
-                        verified: true
-                    },
-                    {
-                        time: "00:25",
-                        event: "Kael sits on the open balcony.",
-                        verified: true
-                    },
-                    {
-                        time: "00:30",
-                        event: "Nyx flies over the balcony and drops the water bottle.",
-                        verified: true
-                    },
-                    {
-                        time: "00:32",
-                        event: "The Purple Sky Shard is stolen.",
-                        verified: true
-                    }
-                ],
-                crossRefHint: "Brak and Lyra were together. NYX was the person flying above the balcony."
-            }
-        },
-
-        options: {
-            who: [
-                "Brak the Tower Guard",
-                "Nyx the Glider Assassin",
-                "Lyra the Astrologist"
-            ],
-
-            how: [
-                "Hit with a wooden guard baton",
-                "Pushed off the balcony",
-                "Dropped a Splash Water Bottle from a Flying Glider"
-            ],
-
-            why: [
-                "Over an astronomy book dispute",
-                "Accidental balcony accident",
-                "To steal the Purple Sky Shard from the altar"
-            ]
-        },
-
-        correctAnswer: {
-            who: "Nyx the Glider Assassin",
-            how: "Dropped a Splash Water Bottle from a Flying Glider",
-            why: "To steal the Purple Sky Shard from the altar"
-        },
-
-        explanation: {
-            summary: "Nyx flew her glider above the open balcony and dropped a splash water bottle onto Sage Kael. After Kael was killed, Nyx took the Purple Sky Shard from the altar.",
-
-            clueChain: [
-                "Brak saw Nyx flying above the balcony and dropping the bottle.",
-                "A purple glider feather matching Nyx was found at the scene.",
-                "The broken water bottle had Nyx's glider emblem."
-            ]
-        },
-
-        failureHint: "Look at who can fly above the balcony and whose water bottle was found at the scene."
-    },
-    // =========================================================================
-    // CASE 08 — THE SKY SHIP SABOTAGE (THE END)
-    // =========================================================================
-    {
-        id: 8,
-        title: "THE SKY SHIP SABOTAGE",
-        dimension: "end",
-        victim: "Navigator Corvus",
-        location: "Airship Takeoff Pier",
-        time: "03:15",
-        status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "Navigator Corvus was killed when explosive rockets were used during takeoff. The Void Star Shard was stolen from the airship cabin.",
-
-        suspects: [
-            {
-                id: "brak",
-                name: "Brak the Rocket Mechanic",
-                role: "Airship Mechanic",
-                relation: "Ship Crew",
-                personality: "Wears a leather tool belt and carries explosive firework rockets.",
-                alibi: "I was sleeping in the lower cargo hold.",
-                motive: "Wanted to steal the Void Star Shard.",
-                avatarEmoji: "🚀"
-            },
-            {
-                id: "vesper",
-                name: "High Priest Vesper",
-                role: "Ceremonial Priest",
-                relation: "Passenger",
-                personality: "Wears dark ceremonial robes and carries an ancient stone tablet.",
-                alibi: "I was chanting in the airship chapel with Tuck.",
-                motive: "Wanted sacred relics, not the Void Star Shard.",
-                avatarEmoji: "🕯️"
-            },
-            {
-                id: "tuck",
-                name: "Tuck the Airship Courier",
-                role: "Supply Runner",
-                relation: "Crew",
-                personality: "Carries supply crates and wears a woolen cap.",
-                alibi: "I was in the chapel with Vesper.",
-                motive: "No reason to attack Corvus.",
-                avatarEmoji: "📦"
-            }
-        ],
-
-        evidence: {
-
-            blockPrints: {
-                title: "BLOCK PRINTS",
-                icon: "👣",
-                summary: "Red firework paper was found inside the rocket holster.",
-                details: "The paper matches the red explosive fireworks used by Brak.",
-                crossRefHint: "The explosive firework material belongs to BRAK."
-            },
-
-            observerLog: {
-                title: "OBSERVER LOG",
-                icon: "👁️",
-                summary: "The normal launch rockets were replaced with explosive fireworks.",
-                details: [
-                    {
-                        time: "03:00",
-                        event: "Brak replaces the normal boosters with red explosive fireworks."
-                    },
-                    {
-                        time: "03:15",
-                        event: "Corvus starts the airship and the explosive rockets detonate."
-                    },
-                    {
-                        time: "03:18",
-                        event: "The Void Star Shard is missing from the cabin."
-                    }
-                ],
-                crossRefHint: "The launch rockets were deliberately replaced with explosives."
-            },
-
-            chatLog: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "Brak's message reveals his plan.",
-                messages: [
-                    {
-                        sender: "Brak",
-                        time: "01:30",
-                        text: "I will replace Corvus's launch rockets with explosive fireworks. When he takes off, I will take the Void Star Shard."
-                    }
-                ],
-                crossRefHint: "BRAK planned to replace the rockets with explosives."
-            },
-
-            witness: {
-                title: "WITNESS STATEMENT",
-                icon: "📜",
-                summary: "Tuck saw Brak working on the rockets.",
-                statement: "I saw Brak putting red explosive firework rockets into Corvus's rocket holder before the launch.",
-                witnessName: "Tuck the Airship Courier",
-                crossRefHint: "Tuck saw BRAK replacing the rockets."
-            },
-
-            weapon: {
-                title: "MURDER WEAPON",
-                icon: "🚀",
-                summary: "An explosive rocket marked with Brak's name.",
-                details: "An unused red explosive rocket was found near the launch area. It was labeled 'BRAK'S BLAST ROCKET'.",
-                weaponName: "Brak's Explosive Firework Rocket",
-                crossRefHint: "The explosive rocket is marked with BRAK'S name."
-            },
-
-            roomLayout: {
-                title: "ROOM LAYOUT",
-                icon: "📐",
-                summary: "The rocket dispenser is next to the takeoff pier.",
-                layoutDesc: "The rocket dispenser is located directly beside the launch platform.",
-                floorplanHotspots: [
-                    {
-                        name: "Takeoff Pier",
-                        x: 50,
-                        y: 70,
-                        note: "Where Corvus launched the airship."
-                    },
-                    {
-                        name: "Rocket Dispenser",
-                        x: 80,
-                        y: 30,
-                        note: "Where the normal rockets were replaced."
-                    }
-                ],
-                crossRefHint: "The rocket dispenser was right beside the launch platform."
-            },
-
-            timeline: {
-                title: "TIMELINE",
-                icon: "⏳",
-                summary: "The timeline shows Brak's actions before the explosion.",
-                entries: [
-                    {
-                        time: "02:50",
-                        event: "Vesper and Tuck are together in the chapel.",
-                        verified: true
-                    },
-                    {
-                        time: "03:00",
-                        event: "Brak replaces the normal rockets with explosives.",
-                        verified: true
-                    },
-                    {
-                        time: "03:15",
-                        event: "Corvus launches and the rockets explode.",
-                        verified: true
-                    },
-                    {
-                        time: "03:18",
-                        event: "The Void Star Shard is stolen.",
-                        verified: true
-                    }
-                ],
-                crossRefHint: "Vesper and Tuck were together. BRAK was working with the rockets."
-            }
-        },
-
-        options: {
-            who: [
-                "High Priest Vesper",
-                "Tuck the Airship Courier",
-                "Brak the Rocket Mechanic"
-            ],
-
-            how: [
-                "Cut the airship ropes with shears",
-                "Swapped Boosters with Red Explosive Firework Rockets",
-                "Pushed the navigator from the pier"
-            ],
-
-            why: [
-                "Over fruit crate delivery fees",
-                "To steal the Void Star Shard from the airship cabin",
-                "Accidental firework accident"
-            ]
-        },
-
-        correctAnswer: {
-            who: "Brak the Rocket Mechanic",
-            how: "Swapped Boosters with Red Explosive Firework Rockets",
-            why: "To steal the Void Star Shard from the airship cabin"
-        },
-
-        explanation: {
-            summary: "Brak replaced Corvus's normal launch rockets with explosive fireworks. When Corvus launched the airship, the rockets exploded and killed him. Brak then stole the Void Star Shard from the cabin.",
-
-            clueChain: [
-                "Tuck saw Brak replacing the rockets.",
-                "The explosive rocket was marked with Brak's name.",
-                "The red firework material matched Brak's equipment."
-            ]
-        },
-
-        failureHint: "Look at who replaced the rockets and whose name was written on the explosive rocket."
-    },
-
-    // =========================================================================
-    // CASE 09 — THE CRYSTAL SANCTUARY (THE END)
-    // =========================================================================
-    {
-        id: 9,
-        title: "THE CRYSTAL SANCTUARY",
-        dimension: "end",
-        victim: "Arch-Priestess Lyra",
-        location: "Central Sanctuary Altar & Pillar #3",
-        time: "04:45",
-        status: "MURDER",
-        difficulty: 1,
-
-        synopsis: "Arch-Priestess Lyra was killed when the crystal laser on Pillar #3 was turned toward the altar. The 9th Sanctuary Shard was stolen.",
-
-        suspects: [
-            {
-                id: "vesper",
-                name: "High Priest Vesper",
-                role: "Ceremonial Priest",
-                relation: "Co-Officiant",
-                personality: "Wears dark ceremonial robes and carries a purple-tipped tuning rod.",
-                alibi: "I was praying at the bottom of the stairs.",
-                motive: "Wanted to steal the 9th Sanctuary Shard.",
-                avatarEmoji: "🕯️"
-            },
-            {
-                id: "omen",
-                name: "Master Omen the Archivist",
-                role: "Grand Archivist",
-                relation: "Visitor",
-                personality: "Wears blue robes and carries an ancient history book.",
-                alibi: "I was at the entrance gate with Mira.",
-                motive: "Wanted to protect the ancient records.",
-                avatarEmoji: "📜"
-            },
-            {
-                id: "mira",
-                name: "Mira the Messenger",
-                role: "Sanctuary Messenger",
-                relation: "Courier",
-                personality: "Wears a green scarf and carries a scroll satchel.",
-                alibi: "I was delivering scrolls with Omen at the entrance.",
-                motive: "No reason to attack Lyra.",
-                avatarEmoji: "🧭"
-            }
-        ],
-
-        evidence: {
-
-            blockPrints: {
-                title: "BLOCK PRINTS",
-                icon: "👣",
-                summary: "Purple marks from a tuning rod were found on Pillar #3.",
-                details: "The purple residue matches Vesper's purple-tipped tuning rod.",
-                crossRefHint: "The purple residue matches VESPER'S tuning rod."
-            },
-
-            observerLog: {
-                title: "OBSERVER LOG",
-                icon: "👁️",
-                summary: "Pillar #3 was turned toward the central altar.",
-                details: [
-                    {
-                        time: "04:30",
-                        event: "Lyra stands at the central altar."
-                    },
-                    {
-                        time: "04:40",
-                        event: "A figure turns the crystal beam on Pillar #3 toward the altar."
-                    },
-                    {
-                        time: "04:45",
-                        event: "The crystal beam fires and strikes Lyra."
-                    },
-                    {
-                        time: "04:48",
-                        event: "The 9th Sanctuary Shard is taken from the altar."
-                    }
-                ],
-                crossRefHint: "Someone deliberately turned Pillar #3 toward the altar."
-            },
-
-            chatLog: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "Vesper's message reveals his plan.",
-                messages: [
-                    {
-                        sender: "Vesper",
-                        time: "02:00",
-                        text: "I will turn the crystal beam on Pillar #3 toward the altar and take the 9th Sanctuary Shard."
-                    }
-                ],
-                crossRefHint: "VESPER planned to turn the crystal beam toward the altar."
-            },
-
-            witness: {
-                title: "WITNESS STATEMENT",
-                icon: "📜",
-                summary: "Mira saw Vesper at Pillar #3.",
-                statement: "I saw High Priest Vesper standing on Pillar #3 and using his purple tuning rod to turn the crystal beam toward Lyra.",
-                witnessName: "Mira the Messenger",
-                crossRefHint: "Mira saw VESPER controlling the crystal beam."
-            },
-
-            weapon: {
-                title: "MURDER WEAPON",
-                icon: "🔮",
-                summary: "The crystal laser on Pillar #3 was used as the weapon.",
-                details: "Vesper's purple-tipped tuning rod was found beside the beam control.",
-                weaponName: "Vesper's Redirected Crystal Laser",
-                crossRefHint: "VESPER'S tuning rod was found beside the beam control."
-            },
-
-            roomLayout: {
-                title: "ROOM LAYOUT",
-                icon: "📐",
-                summary: "Pillar #3 has a clear path to the central altar.",
-                layoutDesc: "The crystal beam from Pillar #3 can reach the central altar directly.",
-                floorplanHotspots: [
-                    {
-                        name: "Pillar #3",
-                        x: 25,
-                        y: 25,
-                        note: "The crystal beam was redirected from here."
-                    },
-                    {
-                        name: "Central Altar",
-                        x: 50,
-                        y: 50,
-                        note: "Where Lyra was standing."
-                    }
-                ],
-                crossRefHint: "Pillar #3 has a direct line to the central altar."
-            },
-
-            timeline: {
-                title: "TIMELINE",
-                icon: "⏳",
-                summary: "The timeline shows who controlled the beam.",
-                entries: [
-                    {
-                        time: "04:25",
-                        event: "Omen and Mira are together at the entrance gate.",
-                        verified: true
-                    },
-                    {
-                        time: "04:40",
-                        event: "Vesper turns the crystal beam on Pillar #3.",
-                        verified: true
-                    },
-                    {
-                        time: "04:45",
-                        event: "The beam fires at the altar.",
-                        verified: true
-                    },
-                    {
-                        time: "04:48",
-                        event: "The 9th Sanctuary Shard is stolen.",
-                        verified: true
-                    }
-                ],
-                crossRefHint: "Omen and Mira were together. VESPER was at Pillar #3."
-            }
-        },
-
-        options: {
-            who: [
-                "Master Omen the Archivist",
-                "High Priest Vesper",
-                "Mira the Messenger"
-            ],
-
-            how: [
-                "Hit with a heavy ancient book",
-                "Pushed Lyra from the altar",
-                "Turned the Crystal Laser Beam on Pillar 3 toward the Altar"
-            ],
-
-            why: [
-                "Over a messenger delivery dispute",
-                "Accidental crystal reflection",
-                "To steal the 9th Sanctuary Shard for the Secret Syndicate"
-            ]
-        },
-
-        correctAnswer: {
-            who: "High Priest Vesper",
-            how: "Turned the Crystal Laser Beam on Pillar 3 toward the Altar",
-            why: "To steal the 9th Sanctuary Shard for the Secret Syndicate"
-        },
-
-        explanation: {
-            summary: "High Priest Vesper used his purple-tipped tuning rod to turn the crystal laser on Pillar #3 toward the altar. The beam struck Lyra, and Vesper then stole the 9th Sanctuary Shard.",
-
-            clueChain: [
-                "Mira saw Vesper turning the crystal beam toward the altar.",
-                "Vesper's purple-tipped tuning rod was found beside the beam control.",
-                "Vesper's message revealed his plan to steal the 9th Sanctuary Shard."
-            ]
-        },
-
-        failureHint: "Look at who was seen controlling Pillar #3 and whose tuning rod was found beside the beam."
-    },
-    // =========================================================================
-    // CASE 10 — THE ABHEDYA AWAKENING (THE FINALE)
-    // =========================================================================
-    {
-        id: 10,
-        title: "THE ABHEDYA AWAKENING",
-        dimension: "deepdark",
-        victim: "Master Omen (Grand Archivist)",
-        location: "Ancient Underground Shrine",
-        time: "00:00 (The Midnight Hour)",
+        victim: "Lyra",
+        location: "High Sky Tower",
+        time: "11:00 AM",
         status: "MURDER",
         difficulty: 3,
-
-        synopsis: "Master Omen was killed by a sonic blast inside the ancient shrine. The final shard was stolen, revealing the mastermind behind the entire conspiracy.",
-
+        synopsis: "Lyra was pushed from the high platform. The purple sky star is missing.",
         suspects: [
-            {
-                id: "vesper",
-                name: "High Priest Vesper (The Syndicate Leader)",
-                role: "Leader of the Secret Syndicate",
-                relation: "Chief Conspirator",
-                personality: "Wears silent wool boots and carries an iron tuning fork.",
-                alibi: "I was meditating near the library ruins.",
-                motive: "Wanted to unite all 10 Shards and awaken the Abhedya Singularity.",
-                avatarEmoji: "👑"
-            },
-            {
-                id: "durand",
-                name: "Durand the Blacksmith",
-                role: "Syndicate Blacksmith",
-                relation: "Accomplice",
-                personality: "Wears heavy iron boots that make loud sounds.",
-                alibi: "I was working at the surface camp.",
-                motive: "Was paid to make equipment for the Syndicate.",
-                avatarEmoji: "⚒️"
-            },
-            {
-                id: "solas",
-                name: "Solas the Fire Mage",
-                role: "Syndicate Mage",
-                relation: "Accomplice",
-                personality: "Carries bright torches and glowing crystals.",
-                alibi: "I was at the surface tunnel entrance.",
-                motive: "Wanted to learn dark fire magic.",
-                avatarEmoji: "🔥"
-            },
-            {
-                id: "nyx",
-                name: "Nyx the Assassin",
-                role: "Syndicate Scout",
-                relation: "Accomplice",
-                personality: "Carries glider wings and watches the surface exit.",
-                alibi: "I was guarding the surface escape tunnel.",
-                motive: "Was hired by the Syndicate.",
-                avatarEmoji: "🥷"
-            }
+            { id: "brak", name: "Brak", role: "Guard", relation: "Tower Watch", personality: "Always carries a wooden baton.", alibi: "I was inspecting the stairs.", motive: "Wants money to buy armor.", avatarEmoji: "🪵" },
+            { id: "nyx", name: "Nyx", role: "Glider", relation: "Messenger", personality: "Always carries flying cloth wings.", alibi: "I was flying between towers.", motive: "Wants the sky star trophy.", avatarEmoji: "🪽" },
+            { id: "zane", name: "Zane", role: "Scholar", relation: "Colleague", personality: "Always carries an old telescope.", alibi: "I was studying distant clouds.", motive: "Angry over stolen research notes.", avatarEmoji: "🔭" }
         ],
-
         evidence: {
-
             blockPrints: {
-                title: "BLOCK PRINTS",
+                title: "FOOTPRINTS",
                 icon: "👣",
-                summary: "Soft wool fibers were found beside the acoustic alarm.",
-                details: "The fibers match Vesper's silent wool boots.",
-                crossRefHint: "Only VESPER wears silent wool boots."
+                summary: "White feathers from flying cloth wings.",
+                details: "Soft wing feathers were caught in the platform metal railings.",
+                crossRefHint: "HINT: Who carries flying cloth wings?"
             },
-
             observerLog: {
-                title: "OBSERVER LOG",
+                title: "CAMERA LOG",
                 icon: "👁️",
-                summary: "A tuning fork triggered the acoustic alarm at midnight.",
+                summary: "Camera shows a winged figure gliding from above.",
                 details: [
-                    {
-                        time: "23:50",
-                        event: "Master Omen guards the final shard inside the shrine."
-                    },
-                    {
-                        time: "23:55",
-                        event: "A figure enters the shrine wearing silent boots."
-                    },
-                    {
-                        time: "23:59",
-                        event: "The figure drops an iron tuning fork onto the acoustic alarm."
-                    },
-                    {
-                        time: "00:00",
-                        event: "The alarm releases a powerful sonic blast and strikes Omen."
-                    },
-                    {
-                        time: "00:02",
-                        event: "The final shard is taken from the shrine."
-                    }
+                    { time: "10:55", event: "A person with cloth wings lands silently on the high platform." }
                 ],
-                crossRefHint: "The killer used an iron tuning fork to trigger the sonic blast."
+                crossRefHint: "HINT: Match the winged flyer on camera to the suspect."
             },
-
             chatLog: {
                 title: "CHAT LOG",
                 icon: "💬",
-                summary: "Vesper's message reveals the entire plan.",
+                summary: "A message about the purple star.",
                 messages: [
-                    {
-                        sender: "High Priest Vesper",
-                        time: "23:00",
-                        text: "The first 9 shards are already secured. Tonight I will take the final shard and awaken the Abhedya Singularity."
-                    },
-                    {
-                        sender: "Durand",
-                        time: "23:10",
-                        text: "The shard frame is ready, Master Vesper."
-                    }
+                    { sender: "Nyx", time: "10:20", text: "I will glide from the sky and steal that purple star." }
                 ],
-                crossRefHint: "VESPER planned to take the final shard and awaken the Abhedya Singularity."
+                crossRefHint: "HINT: Read Nyx's message."
             },
-
             witness: {
-                title: "WITNESS STATEMENT",
+                title: "WITNESS",
                 icon: "📜",
-                summary: "Omen's final recorded message names the killer.",
-                statement: "The Syndicate Leader... Vesper... he came into the shrine with silent boots and an iron tuning fork. Stop him before he unites the shards!",
-                witnessName: "Master Omen's Final Recording",
-                crossRefHint: "Omen directly names VESPER."
+                summary: "An astronomer saw Nyx glide away with the star.",
+                statement: "I saw Nyx glide off the platform holding the glowing purple star!",
+                witnessName: "Omen",
+                crossRefHint: "HINT: Trust the astronomer's testimony."
             },
-
             weapon: {
-                title: "MURDER WEAPON",
-                icon: "🔊",
-                summary: "The acoustic alarm was triggered by an iron tuning fork.",
-                details: "The tuning fork was used to activate the sonic alarm that struck Omen.",
-                weaponName: "Acoustic Sound Alarm Sonic Blast",
-                crossRefHint: "The sonic blast was triggered by the IRON TUNING FORK."
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A pair of flying cloth wings left on the rail.",
+                details: "Lightweight gliding wings used to swoop down onto the tower.",
+                weaponName: "Flying Cloth Wings",
+                crossRefHint: "HINT: Who uses flying cloth wings?"
             },
-
             roomLayout: {
-                title: "ROOM LAYOUT",
+                title: "LAYOUT",
                 icon: "📐",
-                summary: "The acoustic alarm was positioned directly behind Omen.",
-                layoutDesc: "The alarm had a clear path toward Omen's position.",
+                summary: "The platform has no stairs connecting to it.",
+                layoutDesc: "The high platform is accessible only by gliding from above.",
                 floorplanHotspots: [
-                    {
-                        name: "Acoustic Sound Alarm",
-                        x: 30,
-                        y: 70,
-                        note: "The tuning fork was dropped here."
-                    },
-                    {
-                        name: "Ancient Gateway",
-                        x: 50,
-                        y: 50,
-                        note: "Omen was standing here when the sonic blast fired."
-                    },
-                    {
-                        name: "Shard Chamber",
-                        x: 70,
-                        y: 30,
-                        note: "The final shard was stored here."
-                    }
+                    { name: "High Balcony", x: 50, y: 25, note: "Accessible only by air." }
                 ],
-                crossRefHint: "The alarm had a direct path toward Omen."
+                crossRefHint: "HINT: The balcony is reachable only by gliding."
             },
-
             timeline: {
                 title: "TIMELINE",
                 icon: "⏳",
-                summary: "The final timeline reveals Vesper's movements.",
+                summary: "Stairway and tower logs.",
                 entries: [
-                    {
-                        time: "23:50",
-                        event: "Durand, Solas, and Nyx remain at the surface.",
-                        verified: true
-                    },
-                    {
-                        time: "23:55",
-                        event: "Vesper enters the deep shrine.",
-                        verified: true
-                    },
-                    {
-                        time: "23:59",
-                        event: "Vesper drops the iron tuning fork onto the acoustic alarm.",
-                        verified: true
-                    },
-                    {
-                        time: "00:00",
-                        event: "The sonic blast strikes Omen.",
-                        verified: true
-                    },
-                    {
-                        time: "00:02",
-                        event: "The final shard is taken.",
-                        verified: true
-                    }
+                    { time: "10:45", event: "Brak and Zane are logged on the ground stairs.", verified: true },
+                    { time: "10:55", event: "Glider lands on top platform.", verified: false }
                 ],
-                crossRefHint: "The other suspects were at the surface. VESPER was inside the shrine."
+                crossRefHint: "HINT: Brak and Zane were down on the ground stairs."
             }
         },
-
         options: {
-            who: [
-                "Solas the Fire Mage",
-                "Durand the Blacksmith",
-                "High Priest Vesper (The Syndicate Leader)",
-                "Nyx the Assassin"
-            ],
-
+            who: ["Brak", "Nyx", "Zane"],
             how: [
-                "Hit with a heavy iron blacksmith hammer",
-                "Planted an explosive yellow powder trap",
-                "Dropped a Tuning Fork onto the Acoustic Sound Alarm to trigger a Sonic Blast",
-                "Dropped splash water from a flying glider"
+                "Hit victim with a wooden baton",
+                "Dived from above using cloth wings",
+                "Pushed victim with a heavy telescope"
             ],
-
             why: [
-                "To buy forging metals for blacksmith tools",
-                "To practice dark fire magic",
-                "To unite all 10 Shards and awaken the Abhedya Singularity",
-                "Over a surface tunnel mercenary contract"
+                "To buy expensive new tower armor",
+                "To steal the purple sky star",
+                "To reclaim stolen ancient research notes"
             ]
         },
-
         correctAnswer: {
-            who: "High Priest Vesper (The Syndicate Leader)",
-            how: "Dropped a Tuning Fork onto the Acoustic Sound Alarm to trigger a Sonic Blast",
-            why: "To unite all 10 Shards and awaken the Abhedya Singularity"
+            who: "Nyx",
+            how: "Dived from above using cloth wings",
+            why: "To steal the purple sky star"
         },
-
         explanation: {
-            summary: "High Priest Vesper was the mastermind behind the entire Syndicate. He entered the shrine wearing silent wool boots, used his iron tuning fork to trigger the acoustic alarm, and killed Master Omen with the sonic blast. He then took the final shard to unite all 10 Shards and awaken the Abhedya Singularity.",
-
+            summary: "Nyx used flying cloth wings to swoop onto the isolated high platform and steal the purple sky star.",
             clueChain: [
-                "Omen's final recording directly names Vesper.",
-                "Silent wool fibers matching Vesper's boots were found beside the alarm.",
-                "Vesper's plan revealed that he wanted the final shard.",
-                "The other suspects were at the surface."
+                "The witness saw Nyx glide away with the star.",
+                "Cloth wing feathers were left on the railing.",
+                "The platform could only be reached from the sky."
             ]
         },
-
-        failureHint: "Look at who was inside the shrine, who wore silent boots, and who wanted to unite all 10 Shards."
+        failureHint: "HINT: Look at who uses cloth wings to fly between high towers."
     },
+
+    {
+        id: 8,
+        title: "THE SKY SHIP",
+        dimension: "end",
+        victim: "Rex",
+        location: "Docked Sky Airship",
+        time: "01:00 PM",
+        status: "MURDER",
+        difficulty: 3,
+        synopsis: "Rex was injured when the airship engine burst. The golden navigation compass was stolen.",
+        suspects: [
+            { id: "tuck", name: "Tuck", role: "Courier", relation: "Deckhand", personality: "Always carries a fruit crate.", alibi: "I was loading food crates.", motive: "Angry about crate loading pay.", avatarEmoji: "🍎" },
+            { id: "maya", name: "Maya", role: "Pilot", relation: "Captain", personality: "Always carries metal rope shears.", alibi: "I was trimming ship sails.", motive: "Wants to control the fleet.", avatarEmoji: "✂️" },
+            { id: "brak", name: "Brak", role: "Mechanic", relation: "Engineer", personality: "Always carries red fire crackers.", alibi: "I was testing red rockets.", motive: "Wants the golden compass.", avatarEmoji: "🧨" }
+        ],
+        evidence: {
+            blockPrints: {
+                title: "FOOTPRINTS",
+                icon: "👣",
+                summary: "Red paper wrappers found by the engine hatch.",
+                details: "Small pieces of red fire cracker casings were dropped by the fuel chamber.",
+                crossRefHint: "HINT: Who carries red fire crackers?"
+            },
+            observerLog: {
+                title: "CAMERA LOG",
+                icon: "👁️",
+                summary: "Camera shows red fire crackers stuffed in the fuel tank.",
+                details: [
+                    { time: "12:55", event: "A mechanic inserts red fire crackers into the fuel box." }
+                ],
+                crossRefHint: "HINT: Look at the red fire crackers on camera."
+            },
+            chatLog: {
+                title: "CHAT LOG",
+                icon: "💬",
+                summary: "A message about the navigation compass.",
+                messages: [
+                    { sender: "Brak", time: "12:15", text: "I will blow the engine with fire crackers and grab the compass." }
+                ],
+                crossRefHint: "HINT: Read Brak's note."
+            },
+            witness: {
+                title: "WITNESS",
+                icon: "📜",
+                summary: "A sailor saw Brak running with the compass.",
+                statement: "I saw Brak run off the ship holding the golden compass right after the blast!",
+                witnessName: "Sam",
+                crossRefHint: "HINT: Trust the sailor's testimony."
+            },
+            weapon: {
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "Burnt red fire crackers inside the engine.",
+                details: "Red paper casings and gunpowder remnants from fire crackers.",
+                weaponName: "Red Fire Crackers",
+                crossRefHint: "HINT: Which suspect carries red fire crackers?"
+            },
+            roomLayout: {
+                title: "LAYOUT",
+                icon: "📐",
+                summary: "The engine compartment was blown open from within.",
+                layoutDesc: "Internal explosion caused by ignited fire crackers.",
+                floorplanHotspots: [
+                    { name: "Engine Tank", x: 50, y: 75, note: "Damaged by red fire crackers." }
+                ],
+                crossRefHint: "HINT: Inspect the damaged engine tank."
+            },
+            timeline: {
+                title: "TIMELINE",
+                icon: "⏳",
+                summary: "Airship dock logs.",
+                entries: [
+                    { time: "12:45", event: "Tuck and Maya are seen on the front cargo deck.", verified: true },
+                    { time: "12:55", event: "Engine explodes at the rear.", verified: false }
+                ],
+                crossRefHint: "HINT: Tuck and Maya were on the front cargo deck."
+            }
+        },
+        options: {
+            who: ["Tuck", "Maya", "Brak"],
+            how: [
+                "Dropped heavy food crates onto engine",
+                "Cut fuel lines with metal shears",
+                "Put red fire crackers inside engine"
+            ],
+            why: [
+                "Over low food crate loading wages",
+                "To gain control of the fleet",
+                "To steal the golden navigation compass"
+            ]
+        },
+        correctAnswer: {
+            who: "Brak",
+            how: "Put red fire crackers inside engine",
+            why: "To steal the golden navigation compass"
+        },
+        explanation: {
+            summary: "Brak placed red fire crackers into the fuel tank to blow up the engine and steal the golden navigation compass.",
+            clueChain: [
+                "The witness saw Brak run with the compass.",
+                "Burnt red fire crackers were found in the engine.",
+                "Red paper wrappers matched his rocket supplies."
+            ]
+        },
+        failureHint: "HINT: Look at who carries red fire crackers and works on engines."
+    },
+
+    {
+        id: 9,
+        title: "THE CRYSTAL ROOM",
+        dimension: "end",
+        victim: "Nora",
+        location: "Sacred Glass Altar",
+        time: "05:00 PM",
+        status: "MURDER",
+        difficulty: 3,
+        synopsis: "Nora was blinded by a heat ray. The sacred white crystal was taken.",
+        suspects: [
+            { id: "omen", name: "Omen", role: "Archivist", relation: "Librarian", personality: "Always carries heavy ancient books.", alibi: "I was reading library scrolls.", motive: "Upset about damaged old books.", avatarEmoji: "📖" },
+            { id: "vesper", name: "Vesper", role: "Priest", relation: "Temple Leader", personality: "Always carries a polished glass mirror.", alibi: "I was aligning temple mirrors.", motive: "Wants the white crystal power.", avatarEmoji: "🪞" },
+            { id: "mira", name: "Mira", role: "Messenger", relation: "Courier", personality: "Always carries a silver bell.", alibi: "I was ringing evening bells.", motive: "Wants gold to travel abroad.", avatarEmoji: "🔔" }
+        ],
+        evidence: {
+            blockPrints: {
+                title: "FOOTPRINTS",
+                icon: "👣",
+                summary: "Polished glass dust on altar steps.",
+                details: "Fine glass polishing powder was brushed across the marble altar floor.",
+                crossRefHint: "HINT: Who carries a polished glass mirror?"
+            },
+            observerLog: {
+                title: "CAMERA LOG",
+                icon: "👁️",
+                summary: "Camera captured a mirror directing a sun ray.",
+                details: [
+                    { time: "04:55", event: "Figure aims a handheld glass mirror toward the central altar." }
+                ],
+                crossRefHint: "HINT: Match the mirror on camera to the priest."
+            },
+            chatLog: {
+                title: "CHAT LOG",
+                icon: "💬",
+                summary: "A message about the sun ray.",
+                messages: [
+                    { sender: "Vesper", time: "04:15", text: "I will direct the sun beam with my mirror to take the crystal." }
+                ],
+                crossRefHint: "HINT: Check Vesper's message."
+            },
+            witness: {
+                title: "WITNESS",
+                icon: "📜",
+                summary: "A monk saw Vesper leave with the crystal.",
+                statement: "I saw Vesper flee the temple holding the glowing white crystal!",
+                witnessName: "Garth",
+                crossRefHint: "HINT: Trust the monk's witness report."
+            },
+            weapon: {
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A polished glass mirror mounted on a stand.",
+                details: "A concave glass mirror used to focus intense sunlight.",
+                weaponName: "Polished Glass Mirror",
+                crossRefHint: "HINT: Who carries a glass mirror?"
+            },
+            roomLayout: {
+                title: "LAYOUT",
+                icon: "📐",
+                summary: "Focused beam line from pillar to altar.",
+                layoutDesc: "The beam was reflected from the mirror stand directly onto the altar.",
+                floorplanHotspots: [
+                    { name: "Mirror Stand", x: 40, y: 60, note: "Aimed at the altar." }
+                ],
+                crossRefHint: "HINT: Look at the mirror angle."
+            },
+            timeline: {
+                title: "TIMELINE",
+                icon: "⏳",
+                summary: "Temple visitor records.",
+                entries: [
+                    { time: "04:40", event: "Omen and Mira are seen together in the library.", verified: true },
+                    { time: "04:55", event: "Sunlight beam focuses on the altar.", verified: false }
+                ],
+                crossRefHint: "HINT: Omen and Mira were in the library."
+            }
+        },
+        options: {
+            who: ["Omen", "Vesper", "Mira"],
+            how: [
+                "Struck victim with heavy ancient books",
+                "Aimed sun rays with a mirror",
+                "Distracted victim with a silver bell"
+            ],
+            why: [
+                "Over damaged ancient temple library scrolls",
+                "To steal the sacred white crystal",
+                "To buy tickets to travel abroad"
+            ]
+        },
+        correctAnswer: {
+            who: "Vesper",
+            how: "Aimed sun rays with a mirror",
+            why: "To steal the sacred white crystal"
+        },
+        explanation: {
+            summary: "Vesper used a polished glass mirror to focus sun rays on Nora, allowing him to steal the sacred white crystal.",
+            clueChain: [
+                "The witness saw Vesper flee with the crystal.",
+                "A polished glass mirror was found on the stand.",
+                "Glass dust matched his mirror polishing alibi."
+            ]
+        },
+        failureHint: "HINT: Look at who works with mirrors and understands optical reflection."
+    },
+
+    {
+        id: 10,
+        title: "THE DEEP CHAMBER",
+        dimension: "deepdark",
+        victim: "Leo",
+        location: "Underground Echo Chamber",
+        time: "11:30 PM",
+        status: "MURDER",
+        difficulty: 3,
+        synopsis: "Leo was knocked out by a sonic vibration. The legendary master key was taken.",
+        suspects: [
+            { id: "solas", name: "Solas", role: "Explorer", relation: "Rival", personality: "Always carries a fire torch.", alibi: "I was lighting dark tunnels.", motive: "Wants to find cave treasures.", avatarEmoji: "🔥" },
+            { id: "garth", name: "Garth", role: "Miner", relation: "Partner", personality: "Always carries a stone pickaxe.", alibi: "I was mining blue rocks.", motive: "Wants to pay mining debts.", avatarEmoji: "⛏️" },
+            { id: "vesper", name: "Vesper", role: "Scholar", relation: "Historian", personality: "Always carries a silver tuning fork.", alibi: "I was studying cave sounds.", motive: "Wants the master key secret.", avatarEmoji: "🎵" },
+            { id: "nyx", name: "Nyx", role: "Scout", relation: "Guide", personality: "Always carries a leather whip.", alibi: "I was scouting monster dens.", motive: "Wants money for cave gear.", avatarEmoji: "🧗" }
+        ],
+        evidence: {
+            blockPrints: {
+                title: "FOOTPRINTS",
+                icon: "👣",
+                summary: "Silver metal dust by the acoustic pillar.",
+                details: "Silver metal filings and vibration marks were left on the stone pillar.",
+                crossRefHint: "HINT: Who carries a silver tuning fork?"
+            },
+            observerLog: {
+                title: "CAMERA LOG",
+                icon: "👁️",
+                summary: "Camera shows someone striking the giant sonic bell.",
+                details: [
+                    { time: "11:25", event: "Figure strikes the acoustic sound pillar with a silver tuning fork." }
+                ],
+                crossRefHint: "HINT: Look at the tuning fork on camera."
+            },
+            chatLog: {
+                title: "CHAT LOG",
+                icon: "💬",
+                summary: "A note about the sonic wave.",
+                messages: [
+                    { sender: "Vesper", time: "11:00", text: "Striking the acoustic bell with my tuning fork will stun Leo and unlock the master key." }
+                ],
+                crossRefHint: "HINT: Read Vesper's plan in the note."
+            },
+            witness: {
+                title: "WITNESS",
+                icon: "📜",
+                summary: "A cave scout saw Vesper pocket the master key.",
+                statement: "I saw Vesper take the master key and sprint into the dark tunnel!",
+                witnessName: "Tuck",
+                crossRefHint: "HINT: Trust the scout's testimony."
+            },
+            weapon: {
+                title: "WEAPON",
+                icon: "⚔️",
+                summary: "A silver tuning fork left on the pillar.",
+                details: "A tuning fork vibrating at the exact frequency of the echo chamber.",
+                weaponName: "Silver Tuning Fork",
+                crossRefHint: "HINT: Which suspect carries a tuning fork?"
+            },
+            roomLayout: {
+                title: "LAYOUT",
+                icon: "📐",
+                summary: "Sound waves reverberated across the chamber.",
+                layoutDesc: "The acoustic bell focused a powerful sonic wave straight at the pedestal.",
+                floorplanHotspots: [
+                    { name: "Acoustic Bell", x: 50, y: 35, note: "Struck with a tuning fork." }
+                ],
+                crossRefHint: "HINT: Examine the acoustic sound pillar."
+            },
+            timeline: {
+                title: "TIMELINE",
+                icon: "⏳",
+                summary: "Underground base camp logs.",
+                entries: [
+                    { time: "11:15", event: "Solas, Garth, and Nyx are logged at the base camp.", verified: true },
+                    { time: "11:25", event: "Sonic blast reverberates through the cave.", verified: false }
+                ],
+                crossRefHint: "HINT: Solas, Garth, and Nyx were at base camp."
+            }
+        },
+        options: {
+            who: ["Solas", "Garth", "Vesper", "Nyx"],
+            how: [
+                "Burned the chamber with a torch",
+                "Smashed the door with a pickaxe",
+                "Struck sonic bell with tuning fork",
+                "Struck the pillars with a whip"
+            ],
+            why: [
+                "To discover secret ancient cave treasures",
+                "To pay off heavy mining debts",
+                "To steal the legendary master key",
+                "To purchase new dark cave gear"
+            ]
+        },
+        correctAnswer: {
+            who: "Vesper",
+            how: "Struck sonic bell with tuning fork",
+            why: "To steal the legendary master key"
+        },
+        explanation: {
+            summary: "Vesper used a silver tuning fork on the acoustic bell to trigger a sonic wave that stunned Leo, allowing him to steal the master key.",
+            clueChain: [
+                "The witness saw Vesper take the master key.",
+                "A silver tuning fork was left on the pillar.",
+                "Silver metal dust matched his tuning fork."
+            ]
+        },
+        failureHint: "HINT: Look at who studies cave sounds and carries a silver tuning fork."
+    }
 ];
 
-// Helper getters
 function getCaseById(id) {
     const numId = parseInt(id, 10);
     return CASES.find(c => c.id === numId) || null;
