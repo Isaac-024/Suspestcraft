@@ -560,7 +560,7 @@ const AdminPortal = (function () {
     }
 
     /**
-     * Render the 10 Case Answers into the Grid
+     * Render the 10 Case Answers into the Clean Table
      */
     function renderAnswersModal() {
         const container = document.getElementById('answers-list-container');
@@ -571,57 +571,45 @@ const AdminPortal = (function () {
             : ((typeof getAllCases === 'function') ? getAllCases() : []);
 
         if (casesList.length === 0) {
-            container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--redstone); padding: 20px;">Unable to load case database.</div>';
+            container.innerHTML = '<div style="text-align: center; color: #ff5555; padding: 20px; font-family: sans-serif;">Unable to load case database.</div>';
             return;
         }
 
-        const dimensionColors = {
-            overworld: '#55ff55',
-            nether: '#ff5555',
-            end: '#d055ff',
-            deepdark: '#00ffff'
-        };
+        function capitalize(s) {
+            if (!s) return '';
+            return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+        }
 
-        container.innerHTML = casesList.map(c => {
-            const dimColor = dimensionColors[c.dimension] || '#fcdb38';
-            return `
-                <div style="background: rgba(16, 16, 26, 0.95); border: 3px solid #32324a; box-shadow: inset 2px 2px 0 #4a4a66, inset -2px -2px 0 #0b0b0f; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; border-bottom: 2px solid #202030; padding-bottom: 8px;">
-                        <div>
-                            <span style="font-size: 10px; color: ${dimColor}; letter-spacing: 1px;">LEVEL ${c.id} • ${c.dimension.toUpperCase()}</span>
-                            <h4 style="color: var(--gold); font-size: 12px; margin-top: 4px;">${escapeHtml(c.title)}</h4>
-                        </div>
-                        <span style="font-size: 8px; padding: 4px 8px; border: 1px solid ${dimColor}; color: ${dimColor}; background: rgba(0,0,0,0.4);">
-                            DIFF ${c.difficulty || 1}
-                        </span>
-                    </div>
+        const rows = casesList.map(c => `
+            <tr style="border-bottom: 1px solid #24252c; transition: background 0.15s ease;">
+                <td style="padding: 12px 14px; font-weight: 700; color: #ffffff; text-align: left; vertical-align: middle;">${c.id}</td>
+                <td style="padding: 12px 14px; color: #d0d1db; vertical-align: middle; white-space: nowrap;">${escapeHtml(c.title)}</td>
+                <td style="padding: 12px 14px; color: #d0d1db; vertical-align: middle;">${escapeHtml(capitalize(c.dimension))}</td>
+                <td style="padding: 12px 14px; color: #d0d1db; vertical-align: middle;">${escapeHtml(c.victim)}</td>
+                <td style="padding: 12px 14px; font-weight: 700; color: #ffffff; vertical-align: middle;">${escapeHtml(c.correctAnswer.who)}</td>
+                <td style="padding: 12px 14px; font-style: italic; color: #c4c5cf; vertical-align: middle;">${escapeHtml(c.correctAnswer.how)}</td>
+                <td style="padding: 12px 14px; font-style: italic; color: #c4c5cf; vertical-align: middle;">${escapeHtml(c.correctAnswer.why)}</td>
+            </tr>
+        `).join('');
 
-                    <div style="font-size: 10px; color: var(--text-dim); display: flex; gap: 12px; flex-wrap: wrap;">
-                        <span>👤 <strong>Victim:</strong> <span style="color: #fff;">${escapeHtml(c.victim)}</span></span>
-                        <span>📍 <strong>Location:</strong> <span style="color: #fff;">${escapeHtml(c.location)}</span></span>
-                    </div>
-
-                    <div style="background: #000; border: 2px solid #252538; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; font-size: 10px; line-height: 1.4;">
-                        <div>
-                            <span style="color: var(--emerald); font-weight: bold;">👤 PRIME SUSPECT:</span>
-                            <strong style="color: #ffffff; margin-left: 4px;">${escapeHtml(c.correctAnswer.who)}</strong>
-                        </div>
-                        <div>
-                            <span style="color: #55aaff; font-weight: bold;">⚔️ METHOD:</span>
-                            <span style="color: #ffffff; margin-left: 4px;">${escapeHtml(c.correctAnswer.how)}</span>
-                        </div>
-                        <div>
-                            <span style="color: #ffaa00; font-weight: bold;">🎯 MOTIVE:</span>
-                            <span style="color: #ffffff; margin-left: 4px;">${escapeHtml(c.correctAnswer.why)}</span>
-                        </div>
-                    </div>
-
-                    <div style="font-size: 9px; color: #a4a4c4; line-height: 1.5; border-left: 3px solid var(--gold); padding-left: 8px; background: rgba(252, 219, 56, 0.05); padding-top: 4px; padding-bottom: 4px;">
-                        <strong style="color: var(--gold);">EXPLANATION:</strong> ${escapeHtml(c.explanation.summary)}
-                    </div>
-                </div>
-            `;
-        }).join('');
+        container.innerHTML = `
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; color: #d0d1db; background: #16171b; min-width: 800px;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #2d2e35; background: #1f2026;">
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left; width: 44px;">#</th>
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Title</th>
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Dimension</th>
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Victim</th>
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Culprit</th>
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">How (6 words)</th>
+                        <th style="padding: 12px 14px; font-weight: 600; color: #9a9ca8; text-align: left;">Why (6 words)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table>
+        `;
     }
 
     function escapeHtml(text) {

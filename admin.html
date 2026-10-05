@@ -745,26 +745,15 @@
 
     <!-- 5. MASTER ANSWER KEY DISPLAY MODAL -->
     <div id="modal-answers" class="modal-config" style="display: none;">
-        <div class="config-card" style="max-width: 1020px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--border-pixel); padding-bottom: 14px; margin-bottom: 16px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 24px;">📜</span>
-                    <div>
-                        <h3 style="margin: 0; color: var(--gold); font-size: 14px; letter-spacing: 1px;">CASE: ABHEDYA — MASTER ANSWER KEY</h3>
-                        <span style="font-size: 9px; color: var(--emerald); letter-spacing: 1px;">OFFICIAL INSTRUCTOR SOLUTIONS (ALL 10 LEVELS)</span>
-                    </div>
-                </div>
-                <button type="button" class="btn-projector btn-danger-reset" onclick="AdminPortal.closeAnswersModal()">✕ CLOSE</button>
+        <div class="config-card" style="max-width: 1280px; width: 96vw; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; padding: 18px; background: #16171b; border: 2px solid #2d2e35; border-radius: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d2e35; padding-bottom: 12px; margin-bottom: 12px;">
+                <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 14px; color: #f0f0f5;">Answers Key</span>
+                <button type="button" class="btn-projector btn-danger-reset" style="padding: 6px 12px; font-size: 10px;" onclick="AdminPortal.closeAnswersModal()">✕ CLOSE</button>
             </div>
 
-            <!-- Scrollable Cards Container -->
-            <div id="answers-list-container" style="overflow-y: auto; flex: 1; padding-right: 8px; display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 16px;">
-                <!-- Rendered dynamically from CASES data -->
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; border-top: 2px solid var(--border-pixel); padding-top: 12px;">
-                <span style="font-size: 9px; color: var(--text-dim);">Confidential Instructor Solution Sheet</span>
-                <button type="button" class="btn-projector" onclick="AdminPortal.closeAnswersModal()">DONE</button>
+            <!-- Scrollable Table Container -->
+            <div id="answers-list-container" style="overflow-x: auto; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; border: 1px solid #26272e; border-radius: 4px;">
+                <!-- Table rendered dynamically from CASES data -->
             </div>
         </div>
     </div>
