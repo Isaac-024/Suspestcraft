@@ -217,6 +217,45 @@ const AudioEngine = (function() {
         playSound('tntExplosion', 1.0);
     }
 
+    // --- BGM ENGINE ---
+    let currentBGM = null;
+
+    const bgmMappings = {
+        1: 'bgm/audio1.mpeg',
+        2: 'bgm/audio2.mpeg',
+        3: 'bgm/audio3.mpeg',
+        4: 'bgm/audio4.mpeg',
+        5: 'bgm/audio5.mpeg',
+        6: 'bgm/audio6.mpeg',
+        7: 'bgm/audio7.mpeg',
+        8: 'bgm/audio9.mpeg', // Explicitly mapped
+        9: 'bgm/audio1.mpeg', // Explicitly mapped
+        10: 'bgm/audio8.mpeg' // Explicitly mapped
+    };
+
+    function playBGM(caseId) {
+        stopBGM(); // Stop any currently playing track
+        
+        const trackPath = bgmMappings[caseId];
+        if (!trackPath) return;
+
+        currentBGM = new Audio(trackPath);
+        currentBGM.loop = true;
+        currentBGM.volume = 0.4; // Lower volume so it doesn't overpower sfx
+        
+        currentBGM.play().catch(err => {
+            console.log(`[AudioEngine] BGM Autoplay prevented:`, err.message);
+        });
+    }
+
+    function stopBGM() {
+        if (currentBGM) {
+            currentBGM.pause();
+            currentBGM.currentTime = 0;
+            currentBGM = null;
+        }
+    }
+
     return {
         init,
         playClick,
@@ -224,9 +263,12 @@ const AudioEngine = (function() {
         playEnterLevel1,
         playEnterLevel4,
         playEnterLevel7,
+        playEnterEndDimension,
         playOpenAccuse,
         playLevelClear,
         playGameComplete,
-        playTntExplosion
+        playTntExplosion,
+        playBGM,
+        stopBGM
     };
 })();

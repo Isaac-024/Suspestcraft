@@ -38,6 +38,7 @@ const Game = (function () {
      * Show Main Menu (Sets underwater background)
      */
     function showMainMenu() {
+        AudioEngine.stopBGM();
         setState(STATES.MENU);
         UI.setMenuTheme();
         UI.showScreen('menu');
@@ -55,6 +56,7 @@ const Game = (function () {
      * Open Case Files Archive / Select Screen
      */
     function showCaseSelect() {
+        AudioEngine.stopBGM();
         setState(STATES.CASE_SELECT);
         UI.setArchiveTheme();
         UI.showScreen('caseSelect');
@@ -102,6 +104,7 @@ const Game = (function () {
     }
 
     function transitionToBriefing(numericId) {
+        AudioEngine.stopBGM();
         setState(STATES.BRIEFING);
         UI.renderBriefing(currentCase);
         UI.showScreen('briefing');
@@ -185,6 +188,9 @@ const Game = (function () {
     function beginInvestigation() {
         if (!currentCase) return;
         setState(STATES.INVESTIGATION);
+
+        // Start Investigation Background Music
+        AudioEngine.playBGM(currentCase.id);
 
         const inspectedList = Storage.getInspectedClues(currentCase.id);
 
@@ -286,6 +292,7 @@ const Game = (function () {
      * TNT Failure Sequence (Audio starts immediately on drop)
      */
     function triggerTNTFailure() {
+        AudioEngine.stopBGM();
         setState(STATES.EXPLOSION);
 
         const overlay = document.getElementById('tnt-overlay');
@@ -333,6 +340,7 @@ const Game = (function () {
      * Solve Case (Enforcing numbers to prevent "4" + "1" = "41" bug)
      */
     function solveCase() {
+        AudioEngine.stopBGM();
         const currentId = parseInt(currentCase.id, 10);
         const isFinalCase = currentId >= 10;
 
