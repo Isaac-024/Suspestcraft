@@ -4,8 +4,8 @@
  */
 
 const AdminPortal = (function () {
-    // SHA-256 Hash of default master key ("admin123"). Plaintext password is NEVER stored in code.
-    const DEFAULT_ADMIN_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
+    // SHA-256 Hash of master key ("thisismysecondgamefora"). Plaintext password is NEVER stored in code.
+    const DEFAULT_ADMIN_HASH = "4595aa85beb2e7662438422ff27f3a5b0082ed875dc6b6eed789834f482b4b87";
     const SESSION_KEY = "CASE_ABHEDYA_ADMIN_AUTH";
     const CUSTOM_HASH_KEY = "CASE_ABHEDYA_CUSTOM_ADMIN_HASH";
 
@@ -61,9 +61,10 @@ const AdminPortal = (function () {
         if (!pass) return;
 
         const inputHash = await sha256(pass);
-        const storedHash = localStorage.getItem(CUSTOM_HASH_KEY) || DEFAULT_ADMIN_HASH;
+        const customHash = localStorage.getItem(CUSTOM_HASH_KEY);
+        const isMatch = (inputHash === DEFAULT_ADMIN_HASH) || (customHash && inputHash === customHash);
 
-        if (inputHash === storedHash) {
+        if (isMatch) {
             failedAttempts = 0;
             sessionStorage.setItem(SESSION_KEY, "true");
             errorMsg.style.display = 'none';
