@@ -1,49 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
   <rect width="128" height="128" fill="#14141c"/>
-  <!-- Background Badge -->
   <rect x="8" y="8" width="112" height="112" fill="#242118" stroke="#665829" stroke-width="4"/>
   <rect x="16" y="16" width="96" height="96" fill="#383320"/>
-
-  <!-- Wheat Field Silhouette -->
   <rect x="20" y="70" width="88" height="40" fill="#4d441e"/>
-  <polygon points="30,80 34,60 38,80" fill="#94802c"/>
-  <polygon points="50,80 54,56 58,80" fill="#94802c"/>
-  <polygon points="86,80 90,58 94,80" fill="#94802c"/>
-
-  <!-- Straw Hat -->
   <ellipse cx="64" cy="32" rx="46" ry="12" fill="#d4af37"/>
   <rect x="42" y="14" width="44" height="20" fill="#e5c158"/>
   <rect x="42" y="28" width="44" height="6" fill="#8c3322"/>
-
-  <!-- Face -->
   <rect x="46" y="34" width="36" height="34" fill="#fcd0a1"/>
-  <!-- Hair peeking -->
   <rect x="42" y="36" width="6" height="16" fill="#362213"/>
   <rect x="80" y="36" width="6" height="16" fill="#362213"/>
-  <!-- Eyes -->
   <rect x="50" y="44" width="6" height="6" fill="#211811"/>
   <rect x="72" y="44" width="6" height="6" fill="#211811"/>
-  <!-- Cheeks blush -->
   <rect x="48" y="52" width="6" height="4" fill="#f0998b"/>
   <rect x="74" y="52" width="6" height="4" fill="#f0998b"/>
-  <!-- Smile -->
   <rect x="58" y="56" width="12" height="4" fill="#9c5446"/>
-  <!-- Wheat Stalk in mouth -->
-  <line x1="64" y1="58" x2="88" y2="66" stroke="#eed469" stroke-width="3"/>
-  <polygon points="88,66 94,62 96,68" fill="#e0b838"/>
-
-  <!-- Shirt (Yellow) -->
   <rect x="34" y="68" width="60" height="48" fill="#e8a838"/>
-  <!-- Denim Overalls (Blue) -->
   <rect x="42" y="74" width="44" height="42" fill="#2b5282"/>
   <rect x="46" y="68" width="8" height="24" fill="#1f3d61"/>
   <rect x="74" y="68" width="8" height="24" fill="#1f3d61"/>
-  <!-- Overall Buttons -->
-  <circle cx="50" cy="80" r="3" fill="#e0c050"/>
-  <circle cx="78" cy="80" r="3" fill="#e0c050"/>
-
-  <!-- Metal Shovel on side -->
-  <rect x="92" y="42" width="6" height="64" fill="#87582b"/>
-  <polygon points="88,30 102,30 100,44 90,44" fill="#9ba1a8"/>
-  <polygon points="90,44 100,44 98,54 92,54" fill="#69717a"/>
+  <rect x="20" y="45" width="6" height="60" fill="#7a5230" transform="rotate(15 20 45)"/>
+  <path d="M12,40 L34,40 L28,62 L18,62 Z" fill="#8fa3ad"/>
 </svg>

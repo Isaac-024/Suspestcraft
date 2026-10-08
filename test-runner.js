@@ -126,10 +126,20 @@ CASES.forEach((c, idx) => {
         allCasesValid = false;
     }
 
-    // Verify suspects (2-3 for early levels, 4 for final levels)
+    // Verify suspects (2-4 suspects)
     if (!Array.isArray(c.suspects) || c.suspects.length < 2) {
         console.error(`❌ Case #${caseNum} requires at least 2 suspects, got ${c.suspects?.length}`);
         allCasesValid = false;
+    } else {
+        c.suspects.forEach(s => {
+            if (s.image) {
+                const sImgPath = path.join(__dirname, s.image);
+                if (!fs.existsSync(sImgPath)) {
+                    console.error(`❌ Case #${caseNum}: Suspect image not found: ${s.image}`);
+                    allCasesValid = false;
+                }
+            }
+        });
     }
 
     // Verify 3 Evidence categories
@@ -141,6 +151,12 @@ CASES.forEach((c, idx) => {
             if (!c.evidence[ek]) {
                 console.error(`❌ Case #${caseNum} missing evidence key: ${ek}`);
                 allCasesValid = false;
+            } else if (c.evidence[ek].image) {
+                const cImgPath = path.join(__dirname, c.evidence[ek].image);
+                if (!fs.existsSync(cImgPath)) {
+                    console.error(`❌ Case #${caseNum}: Clue image not found: ${c.evidence[ek].image}`);
+                    allCasesValid = false;
+                }
             }
         });
     }

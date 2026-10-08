@@ -1,7 +1,7 @@
 /**
  * CASE: AARNA - Master Case Database
- * 10 Brand New Mystery Cases for the Aarna Investigation Bureau.
- * Features balanced options, strict 3-clue evidence structures, and progressive deduction.
+ * 10 Mystery Cases for the Aarna Investigation Bureau.
+ * Features balanced options, strict 3-clue visual evidence structures, and progressive deduction.
  */
 
 const CASES = [
@@ -76,103 +76,111 @@ const CASES = [
         difficulty: 1,
         synopsis: "Milo was poisoned in the flour mill. The second Aarna Shard is missing.",
         suspects: [
-            { id: "clara", name: "Clara", role: "Baker", relation: "Partner", personality: "Carries a heavy rolling pin.", alibi: "I was baking sweet bread.", motive: "Upset about high flour prices." },
-            { id: "tuck", name: "Tuck", role: "Carpenter", relation: "Friend", personality: "Carries a sharp metal saw.", alibi: "I was cutting cedar planks.", motive: "Argued over wooden mill parts." },
-            { id: "finn", name: "Finn", role: "Gardener", relation: "Neighbor", personality: "Carries toxic green plant poison.", alibi: "I was spraying rose bushes.", motive: "Wants money for rare seeds." }
+            { id: "clara", name: "Clara", role: "Weaver", relation: "Partner", personality: "Wears a warm pink wool scarf.", alibi: "I was knitting wool scarves.", motive: "Upset about high wool taxes.", image: "images/suspects/clara_weaver.svg", avatarEmoji: "🧣" },
+            { id: "tuck", name: "Tuck", role: "Baker", relation: "Friend", personality: "Wears a clean white chef apron.", alibi: "I was baking fresh bread.", motive: "Argued over flour delivery costs.", image: "images/suspects/tuck_baker.svg", avatarEmoji: "🥖" },
+            { id: "lin", name: "Lin", role: "Botanist", relation: "Neighbor", personality: "Carries bottles of green plant poison.", alibi: "I was mixing green herbal potion.", motive: "Wants the second shard power.", image: "images/suspects/lin_potions.svg", avatarEmoji: "🧪" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Shoe prints smelling of rose bushes.",
-                details: "Wet garden soil smelling of rose spray was tracked inside.",
-                crossRefHint: "HINT: Match the rose scent to the suspect."
+                title: "BOTTLE",
+                icon: "🧪",
+                summary: "A shattered green poison vial.",
+                details: "A broken glass vial coated in lethal green plant poison.",
+                weaponName: "Green Poison Vial",
+                image: "images/clues/c2-bottle.svg",
+                crossRefHint: "HINT: Match the green potion bottle to the suspect."
             },
             clue2: {
-                title: "WEAPON",
-                icon: "🧪",
-                summary: "A broken green poison bottle.",
-                details: "A shattered flask containing lethal green pesticide.",
-                weaponName: "Green Poison Bottle",
-                crossRefHint: "HINT: Who carries green plant poison?"
+                title: "STAIN",
+                icon: "💧",
+                summary: "Green liquid splashed across floorboards.",
+                details: "Wet green liquid matching herbal extracts was spilled under the window.",
+                image: "images/clues/c2-stain.svg",
+                crossRefHint: "HINT: Who was mixing green liquid?"
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A written note about poison.",
-                messages: [{ sender: "Finn", time: "07:30", text: "I will spray poison and take the glowing shard." }],
-                crossRefHint: "HINT: Read the sender's name on the note."
+                title: "SCROLL",
+                icon: "📜",
+                summary: "A recipe scroll signed by Lin.",
+                details: "A written formula for green poison with Lin's name signed at the bottom.",
+                messages: [{ sender: "Lin", time: "07:30", text: "I will pour the green poison and take the second shard." }],
+                image: "images/clues/c2-scroll.svg",
+                crossRefHint: "HINT: Read the name on the recipe scroll."
             }
         },
         options: {
-            who: ["Clara", "Tuck", "Finn"],
-            how: ["Threw toxic poison through the window", "Struck the victim with a pin", "Cut the gears with a saw"],
-            why: ["To steal the second glowing shard", "To protest the high flour prices", "To settle a wooden mill dispute"]
+            who: ["Clara", "Tuck", "Lin"],
+            how: ["Poured green poison through the window", "Struck the victim with a pin", "Choked the victim with a scarf"],
+            why: ["To steal the second glowing shard", "To protest the high flour prices", "To avenge a ruined wool order"]
         },
         correctAnswer: {
-            who: "Finn",
-            how: "Threw toxic poison through the window",
+            who: "Lin",
+            how: "Poured green poison through the window",
             why: "To steal the second glowing shard"
         },
         explanation: {
-            summary: "Finn threw green plant poison through the window to knock out Milo and steal the second Aarna Shard.",
-            clueChain: ["The shoe prints smelled of rose spray.", "Shattered green poison flask on the floor.", "Dropped note outlined the poison attack."]
+            summary: "Lin poured toxic green herbal poison through the windmill window to incapacitate Milo and steal the second Aarna Shard.",
+            clueChain: ["The shattered green poison vial.", "Green liquid puddle under the window.", "Recipe scroll signed by Lin."]
         },
-        failureHint: "HINT: Look at who carries green plant poison and sprays rose bushes."
+        failureHint: "HINT: Look at who carries bottles of green poison and mixes herbal potions."
     },
 
     {
         id: 3,
         title: "THE LIGHTNING TOWER",
         dimension: "fortress",
-        victim: "Bruno",
+        victim: "Lord",
         location: "Stone Watchtower",
         time: "10:00 PM",
         status: "MURDER",
         difficulty: 1,
-        synopsis: "Bruno was struck by lightning in the tower. The third Aarna Shard is missing.",
+        synopsis: "The Lord was electrocuted in the watchtower. The third Aarna Shard is missing.",
         suspects: [
-            { id: "tara", name: "Tara", role: "Stonemason", relation: "Builder", personality: "Carries a heavy iron chisel.", alibi: "I was carving granite stones.", motive: "Upset about unpaid building fees." },
-            { id: "vance", name: "Vance", role: "Electrician", relation: "Technician", personality: "Carries a long copper wire.", alibi: "I was stripping copper cables.", motive: "Needs power for his generator." },
-            { id: "cole", name: "Cole", role: "Courier", relation: "Delivery", personality: "Carries a leather postal pouch.", alibi: "I was resting by campfire.", motive: "Wants money for travel expenses." }
+            { id: "vance", name: "Vance", role: "Engineer", relation: "Technician", personality: "Wears rubber gloves and orange goggles.", alibi: "I was winding orange copper wire.", motive: "Needs power for his generator.", image: "images/suspects/vance_engineer.svg", avatarEmoji: "⚡" },
+            { id: "bruno", name: "Bruno", role: "Mason", relation: "Builder", personality: "Carries a heavy grey chisel belt.", alibi: "I was carving granite wall blocks.", motive: "Upset about unpaid building fees.", image: "images/suspects/bruno_mason.svg", avatarEmoji: "⛏️" },
+            { id: "selena", name: "Selena", role: "Trader", relation: "Merchant", personality: "Carries a heavy blue trade pack.", alibi: "I was counting blue trade tokens.", motive: "Wants money for travel expenses.", image: "images/suspects/selena_trader.svg", avatarEmoji: "🎒" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Tracks covered in copper clippings.",
-                details: "Orange copper wire fragments were embedded in the muddy steps.",
-                crossRefHint: "HINT: Match the copper fragments to the alibi."
+                title: "WIRE",
+                icon: "⚡",
+                summary: "Orange copper wire hooked to rod.",
+                details: "Long orange copper wires rigged from the roof lightning rod into the chamber.",
+                weaponName: "Orange Copper Wire",
+                image: "images/clues/c3-wire.svg",
+                crossRefHint: "HINT: Match the orange copper wire to the suspect."
             },
             clue2: {
-                title: "WEAPON",
-                icon: "⚡",
-                summary: "A scorched long copper wire.",
-                details: "A copper wire tied between the roof rod and the victim's vault.",
-                weaponName: "Long Copper Wire",
-                crossRefHint: "HINT: Who carries copper wire?"
+                title: "BURN",
+                icon: "🔥",
+                summary: "Electrified scorch marks around iron plate.",
+                details: "Deep electrical scorch patterns radiating across the stone floor.",
+                image: "images/clues/c3-burn.svg",
+                crossRefHint: "HINT: Who understands high voltage circuits?"
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about electricity.",
+                title: "TAG",
+                icon: "🏷️",
+                summary: "A wire spool label marked Vance.",
+                details: "An empty wire spool tag with the property label 'Vance' left on the steps.",
                 messages: [{ sender: "Vance", time: "09:15", text: "I can channel lightning through copper wire to take the shard." }],
-                crossRefHint: "HINT: Read Vance's plan in the note."
+                image: "images/clues/c3-tag.svg",
+                crossRefHint: "HINT: Read the owner's name on the wire spool."
             }
         },
         options: {
-            who: ["Tara", "Vance", "Cole"],
-            how: ["Channeled lightning with a copper wire", "Smashed the wall with a chisel", "Snagged the lock with a pouch"],
-            why: ["To steal the third ancient shard", "To demand unpaid stone building fees", "To pay for expensive travel costs"]
+            who: ["Vance", "Bruno", "Selena"],
+            how: ["Channeled lightning through a copper wire", "Smashed the iron plate with chisel", "Shorted the lightning rod with water"],
+            why: ["To steal the third ancient shard", "To retaliate over unpaid stone fees", "To collect on an overdue debt"]
         },
         correctAnswer: {
             who: "Vance",
-            how: "Channeled lightning with a copper wire",
+            how: "Channeled lightning through a copper wire",
             why: "To steal the third ancient shard"
         },
         explanation: {
-            summary: "Vance connected copper wire to the lightning rod to direct lightning into the vault and steal the third shard.",
-            clueChain: ["Copper clippings matched his work alibi.", "Burnt copper wire tied to the roof rod.", "Dropped note detailed the lightning plan."]
+            summary: "Vance connected orange copper wire to the tower's lightning rod during the storm to electrocute the Lord and steal the third shard.",
+            clueChain: ["Orange copper wire hooked to the roof rod.", "Electrical scorch marks on the plate.", "Spool label marked with Vance's name."]
         },
         failureHint: "HINT: Look at who works with copper wire and understands electrical circuits."
     },
@@ -181,112 +189,120 @@ const CASES = [
         id: 4,
         title: "THE LAVA GATE",
         dimension: "caverns",
-        victim: "Vorg",
+        victim: "Sentry",
         location: "Lava Chamber",
         time: "02:00 PM",
         status: "MURDER",
         difficulty: 2,
-        synopsis: "Vorg was crushed under the heavy stone gate. The fourth Aarna Shard is missing.",
+        synopsis: "The Sentry was crushed under the portcullis. The fourth Aarna Shard is missing.",
         suspects: [
-            { id: "pyra", name: "Pyra", role: "Pilot", relation: "Transporter", personality: "Carries a long wooden oar.", alibi: "I was steering the lava boat.", motive: "Needs gold to repair boat." },
-            { id: "kira", name: "Kira", role: "Scout", relation: "Guard", personality: "Carries a heavy steel crossbow.", alibi: "I was scouting distant ridges.", motive: "Wants to purchase better armor." },
-            { id: "zul", name: "Zul", role: "Operator", relation: "Coworker", personality: "Carries an oily iron lever.", alibi: "I was greasing iron levers.", motive: "Wants the shard for power." }
+            { id: "zul", name: "Zul", role: "Treasurer", relation: "Coworker", personality: "Wears a heavy gold signet ring.", alibi: "I was counting gold vault coins.", motive: "Wants the fourth shard power.", image: "images/suspects/zul_treasurer.svg", avatarEmoji: "💍" },
+            { id: "pyra", name: "Pyra", role: "Handler", relation: "Transporter", personality: "Carries a glowing lava staff.", alibi: "I was feeding the lava pits.", motive: "Needs gold for lava supplies.", image: "images/suspects/pyra_handler.svg", avatarEmoji: "🔥" },
+            { id: "vorg", name: "Vorg", role: "Guard", relation: "Security", personality: "Carries a massive iron shield.", alibi: "I was guarding the tunnel entrance.", motive: "Upset about long watch shifts.", image: "images/suspects/vorg_sentry.svg", avatarEmoji: "🛡️" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Boot prints slick with lever grease.",
-                details: "Black gear lubricant was tracked from the switch to the door.",
-                crossRefHint: "HINT: Who works with lever grease?"
+                title: "LEVER",
+                icon: "⚙️",
+                summary: "Gold signet ring smudge on switch.",
+                details: "A gold-tinted smudge from a signet ring left on the heavy iron gate lever.",
+                weaponName: "Heavy Gate Lever",
+                image: "images/clues/c4-lever.svg",
+                crossRefHint: "HINT: Who wears a heavy gold signet ring?"
             },
             clue2: {
-                title: "WEAPON",
-                icon: "⚙️",
-                summary: "An oily heavy iron lever.",
-                details: "An iron lever pulled down to drop the massive stone gate.",
-                weaponName: "Heavy Iron Lever",
-                crossRefHint: "HINT: Which suspect carries iron levers?"
+                title: "GATE",
+                icon: "🚪",
+                summary: "Crushed stone under iron portcullis.",
+                details: "The heavy iron gate dropped suddenly, smashing the stone walkway below.",
+                image: "images/clues/c4-gate.svg",
+                crossRefHint: "HINT: How was the stone entrance crushed?"
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about the gate.",
+                title: "LEDGER",
+                icon: "📜",
+                summary: "An order note signed by Zul.",
+                details: "A written order requesting the gate mechanism to be triggered at 02:00 PM.",
                 messages: [{ sender: "Zul", time: "01:20", text: "I will pull the gate lever and grab the fourth shard." }],
-                crossRefHint: "HINT: Check the name on the message."
+                image: "images/clues/c4-ledger.svg",
+                crossRefHint: "HINT: Read the signature on the order note."
             }
         },
         options: {
-            who: ["Pyra", "Kira", "Zul"],
-            how: ["Dropped the gate with a lever", "Pushed the victim with an oar", "Fired a bolt from the ridges"],
-            why: ["To steal the fourth powerful shard", "To pay for broken boat repairs", "To purchase expensive heavy body armor"]
+            who: ["Zul", "Pyra", "Vorg"],
+            how: ["Dropped the portcullis with a lever", "Blasted the heavy door with fire", "Crushed the entrance using iron shields"],
+            why: ["To steal the fourth fiery shard", "To protect the secret lava chambers", "To protest dangerous overtime guard duties"]
         },
         correctAnswer: {
             who: "Zul",
-            how: "Dropped the gate with a lever",
-            why: "To steal the fourth powerful shard"
+            how: "Dropped the portcullis with a lever",
+            why: "To steal the fourth fiery shard"
         },
         explanation: {
-            summary: "Zul pulled the heavy iron lever to drop the stone gate on Vorg and steal the fourth Aarna Shard.",
-            clueChain: ["Black lever grease on boot prints.", "Oily iron lever left at the switch.", "Message outlined dropping the gate."]
+            summary: "Zul pulled the gate lever to drop the heavy portcullis onto the Sentry and secure the fourth Aarna Shard.",
+            clueChain: ["Gold ring smudge on the gate lever.", "Crushed stone beneath the portcullis.", "Order ledger bearing Zul's signature."]
         },
-        failureHint: "HINT: Look at who carries iron levers and has grease on their boots."
+        failureHint: "HINT: Look at who wears a gold signet ring and signed the gate drop order."
     },
 
     {
         id: 5,
         title: "THE ROPE BRIDGE",
         dimension: "magma",
-        victim: "Cinder",
+        victim: "Scout",
         location: "Canyon Crossing",
         time: "04:00 PM",
         status: "MURDER",
         difficulty: 2,
-        synopsis: "Cinder fell when the rope bridge was sliced. The fifth Aarna Shard is missing.",
+        synopsis: "The Scout fell into the lava canyon. The fifth Aarna Shard is missing.",
         suspects: [
-            { id: "valka", name: "Valka", role: "Explorer", relation: "Rival", personality: "Carries a long metal spear.", alibi: "I was mapping dark tunnels.", motive: "Wants fame from new maps." },
-            { id: "krag", name: "Krag", role: "Climber", relation: "Guide", personality: "Carries a sharp flint knife.", alibi: "I was carving flint tools.", motive: "Wants the valuable ancient shard." },
-            { id: "thorne", name: "Thorne", role: "Sentry", relation: "Guard", personality: "Carries a heavy iron shield.", alibi: "I was guarding the gate.", motive: "Upset about long guard shifts." }
+            { id: "malakor", name: "Malakor", role: "Nomad", relation: "Rival", personality: "Wears a dark hooded black cowl.", alibi: "I was resting in shadow tents.", motive: "Wants the fifth shard power.", image: "images/suspects/malakor_nomad.svg", avatarEmoji: "🥷" },
+            { id: "darek", name: "Darek", role: "Quarryman", relation: "Miner", personality: "Carries a heavy iron pickaxe.", alibi: "I was chipping hard basalt rock.", motive: "Wants to buy new quarry tools.", image: "images/suspects/darek_quarryman.svg", avatarEmoji: "⛏️" },
+            { id: "mira", name: "Mira", role: "Scout", relation: "Explorer", personality: "Wears flexible brown leather boots.", alibi: "I was scouting the canyon rim.", motive: "Wants fame from new maps.", image: "images/suspects/mira_scout.svg", avatarEmoji: "👢" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Bridge planks covered in flint shavings.",
-                details: "Small grey flint chips from knife carving were left on the wooden planks.",
-                crossRefHint: "HINT: Match the flint shavings to the suspect."
+                title: "FLASK",
+                icon: "🧪",
+                summary: "A swapped flask containing cold water.",
+                details: "The victim's fire resistance potion was swapped with a flask of plain water.",
+                weaponName: "Swapped Water Flask",
+                image: "images/clues/c5-flask.svg",
+                crossRefHint: "HINT: Match the cold water flask to the sabotage."
             },
             clue2: {
-                title: "WEAPON",
-                icon: "🔪",
-                summary: "A sharp flint carving knife.",
-                details: "A keen flint knife covered in frayed hemp rope strands.",
-                weaponName: "Sharp Flint Knife",
-                crossRefHint: "HINT: Who carries a flint knife?"
+                title: "THREAD",
+                icon: "🧵",
+                summary: "Torn black cloth on saddle pouch.",
+                details: "Frayed fibers from a dark hooded black cowl snagged on the victim's pouch.",
+                image: "images/clues/c5-thread.svg",
+                crossRefHint: "HINT: Who wears dark black hooded clothing?"
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about cutting rope.",
-                messages: [{ sender: "Krag", time: "03:30", text: "I will cut the bridge ropes to take the fifth shard." }],
-                crossRefHint: "HINT: Read the sender's plan in the note."
+                title: "CORK",
+                icon: "🍾",
+                summary: "Marked cork floating near the boat.",
+                details: "A wooden flask cork stamped with the letter 'M' found near the ferry pier.",
+                messages: [{ sender: "Malakor", time: "03:30", text: "Swapping the potion with water ensures the fifth shard is mine." }],
+                image: "images/clues/c5-cork.svg",
+                crossRefHint: "HINT: Look at the letter stamped on the cork."
             }
         },
         options: {
-            who: ["Valka", "Krag", "Thorne"],
-            how: ["Cut bridge ropes with a knife", "Pushed from cliff with a spear", "Blocked the exit with a shield"],
-            why: ["To steal the fifth ancient shard", "To gain fame from cave maps", "To protest unfair long guard shifts"]
+            who: ["Malakor", "Darek", "Mira"],
+            how: ["Swapped fire potion with plain water", "Cut the ferry cables with pickaxe", "Pushed the boat off the ledge"],
+            why: ["To steal the fifth burning shard", "To claim ownership over the ferry", "To conceal an illegal trading route"]
         },
         correctAnswer: {
-            who: "Krag",
-            how: "Cut bridge ropes with a knife",
-            why: "To steal the fifth ancient shard"
+            who: "Malakor",
+            how: "Swapped fire potion with plain water",
+            why: "To steal the fifth burning shard"
         },
         explanation: {
-            summary: "Krag used his sharp flint knife to cut the bridge ropes, causing Cinder to fall so he could take the fifth shard.",
-            clueChain: ["Flint shavings matched his carving alibi.", "Flint knife left with cut rope fibers.", "Note described cutting the bridge ropes."]
+            summary: "Malakor swapped the scout's fire protection potion with cold water, causing the victim to perish in the lava heat and allowing him to steal the fifth shard.",
+            clueChain: ["Swapped flask filled with plain water.", "Torn black cloth from a hooded cowl.", "Cork stamped with 'M' found near the scene."]
         },
-        failureHint: "HINT: Look at who carries a sharp flint knife and carves stone tools."
+        failureHint: "HINT: Look at who wears a black hooded cowl and left their marked cork."
     },
 
     {
@@ -300,217 +316,233 @@ const CASES = [
         difficulty: 2,
         synopsis: "Jada was blast-injured inside the shelter. The sixth Aarna Shard is missing.",
         suspects: [
-            { id: "varren", name: "Varren", role: "Mason", relation: "Builder", personality: "Carries a heavy stone hammer.", alibi: "I was chipping basalt rock.", motive: "Needs money for building stones." },
-            { id: "nari", name: "Nari", role: "Trader", relation: "Merchant", personality: "Carries a silver balance scale.", alibi: "I was weighing trade items.", motive: "Argued over unpaid market taxes." },
-            { id: "solas", name: "Solas", role: "Alchemist", relation: "Neighbor", personality: "Carries yellow explosive sulfur powder.", alibi: "I was mixing sulfur powder.", motive: "Needs the shard for alchemy." }
+            { id: "solas", name: "Solas", role: "Firemage", relation: "Alchemist", personality: "Wears yellow sulfur dust on sleeves.", alibi: "I was mixing explosive sulfur powder.", motive: "Needs the sixth shard power.", image: "images/suspects/solas_firemage.svg", avatarEmoji: "✨" },
+            { id: "varren", name: "Varren", role: "Cutter", relation: "Builder", personality: "Carries a sharp steel mason saw.", alibi: "I was cutting dark basalt slabs.", motive: "Needs money for building stones.", image: "images/suspects/varren_cutter.svg", avatarEmoji: "🪚" },
+            { id: "nari", name: "Nari", role: "Carrier", relation: "Merchant", personality: "Carries large woven canvas sacks.", alibi: "I was carrying heavy trade sacks.", motive: "Argued over unpaid market taxes.", image: "images/suspects/nari_carrier.svg", avatarEmoji: "👜" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Yellow sulfur powder on doorway.",
-                details: "Bright yellow sulfur dust was tracked across the stone threshold.",
-                crossRefHint: "HINT: Who was mixing yellow sulfur powder?"
+                title: "BOMB",
+                icon: "💣",
+                summary: "A yellow charged explosive bomb base.",
+                details: "A round yellow sulfur bomb casing stamped with the alchemical letter 'S'.",
+                weaponName: "Yellow Sulfur Bomb",
+                image: "images/clues/c6-bomb.svg",
+                crossRefHint: "HINT: Who works with yellow explosive sulfur?"
             },
             clue2: {
-                title: "WEAPON",
-                icon: "💥",
-                summary: "A pouch of yellow sulfur powder.",
-                details: "A scorched cloth pouch containing explosive sulfur powder remnants.",
-                weaponName: "Yellow Sulfur Powder",
-                crossRefHint: "HINT: Which suspect carries sulfur powder?"
+                title: "POWDER",
+                icon: "✨",
+                summary: "Yellow powder trail leading into cave.",
+                details: "Bright yellow sulfur residue spilled along the escape path toward the delta.",
+                image: "images/clues/c6-powder.svg",
+                crossRefHint: "HINT: Match the yellow powder to the suspect."
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about an explosion.",
+                title: "BLUEPRINT",
+                icon: "📐",
+                summary: "Bomb wiring sketch marked by Solas.",
+                details: "A chemical blueprint for an explosive sulfur bomb with Solas's signature.",
                 messages: [{ sender: "Solas", time: "06:30", text: "My explosive sulfur will blast the door so I can take the shard." }],
-                crossRefHint: "HINT: Read Solas's message."
+                image: "images/clues/c6-blueprint.svg",
+                crossRefHint: "HINT: Read the creator on the bomb blueprint."
             }
         },
         options: {
-            who: ["Varren", "Nari", "Solas"],
-            how: ["Detonated yellow powder at the door", "Smashed the vault with a hammer", "Forced the latch with a scale"],
-            why: ["To steal the sixth glowing shard", "To pay for heavy basalt blocks", "To collect unpaid trade market taxes"]
+            who: ["Solas", "Varren", "Nari"],
+            how: ["Detonated yellow bomb at the door", "Cut the basalt roof with saw", "Trapped the exit using heavy sacks"],
+            why: ["To steal the sixth glowing shard", "To secure rare basalt stone quarry", "To monopolize the underground shipping routes"]
         },
         correctAnswer: {
             who: "Solas",
-            how: "Detonated yellow powder at the door",
+            how: "Detonated yellow bomb at the door",
             why: "To steal the sixth glowing shard"
         },
         explanation: {
-            summary: "Solas placed explosive yellow sulfur powder at the doorway to blow open the shelter and steal the sixth shard.",
-            clueChain: ["Yellow sulfur dust in footprints.", "Scorched sulfur pouch at the entrance.", "Note outlined blasting the shelter door."]
+            summary: "Solas planted a yellow sulfur bomb at the shelter entrance to blast open the vault and claim the sixth shard.",
+            clueChain: ["Yellow bomb casing stamped with 'S'.", "Trail of yellow sulfur dust.", "Chemical bomb blueprint signed by Solas."]
         },
-        failureHint: "HINT: Look at who works with yellow explosive sulfur powder."
+        failureHint: "HINT: Look at who has yellow sulfur dust on their sleeves and designs chemical bombs."
     },
 
     {
         id: 7,
         title: "THE SKY SPIRE",
         dimension: "sky",
-        victim: "Lyra",
+        victim: "Watcher",
         location: "High Sky Spire",
         time: "11:00 AM",
         status: "MURDER",
         difficulty: 3,
-        synopsis: "Lyra was attacked on the isolated high balcony. The seventh Aarna Shard is missing.",
+        synopsis: "The Watcher was attacked on the isolated high balcony. The seventh Aarna Shard is missing.",
         suspects: [
-            { id: "brak", name: "Brak", role: "Guard", relation: "Tower Watch", personality: "Carries a heavy wooden baton.", alibi: "I was patrolling ground stairs.", motive: "Wants money for armor upgrades." },
-            { id: "nyx", name: "Nyx", role: "Glider", relation: "Messenger", personality: "Carries flying white cloth wings.", alibi: "I was gliding between towers.", motive: "Wants the shard as trophy." },
-            { id: "zane", name: "Zane", role: "Scholar", relation: "Colleague", personality: "Carries a long brass telescope.", alibi: "I was observing the clouds.", motive: "Angry over stolen research scrolls." }
+            { id: "nyx", name: "Nyx", role: "Assassin", relation: "Infiltrator", personality: "Wears flying purple glider wings.", alibi: "I was gliding between cloud towers.", motive: "Wants the seventh shard power.", image: "images/suspects/nyx_assassin.svg", avatarEmoji: "🪽" },
+            { id: "brak", name: "Brak", role: "Sentry", relation: "Guard", personality: "Wears a round iron shell helmet.", alibi: "I was guarding ground tower stairs.", motive: "Wants money for armor upgrades.", image: "images/suspects/brak_sentry.svg", avatarEmoji: "🪖" },
+            { id: "lyra", name: "Lyra", role: "Mystic", relation: "Scholar", personality: "Carries a glowing crystal pendant.", alibi: "I was praying at cloud shrines.", motive: "Angry over stolen shrine scrolls.", image: "images/suspects/lyra_mystic.svg", avatarEmoji: "🔮" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "White feathers caught on railings.",
-                details: "Soft white wing feathers were snagged in the isolated balcony rails.",
-                crossRefHint: "HINT: Who carries flying white cloth wings?"
+                title: "WING",
+                icon: "🪽",
+                summary: "Purple glider feather beside puddle.",
+                details: "A distinct purple glider feather snagged on the high balcony parapet.",
+                weaponName: "Purple Glider Wings",
+                image: "images/clues/c7-wing.svg",
+                crossRefHint: "HINT: Who wears flying purple glider wings?"
             },
             clue2: {
-                title: "WEAPON",
-                icon: "🪽",
-                summary: "A pair of white cloth wings.",
-                details: "Gliding cloth wings used to dive onto the stairs-free platform.",
-                weaponName: "Flying Cloth Wings",
-                crossRefHint: "HINT: Which suspect glides with cloth wings?"
+                title: "WATER",
+                icon: "💧",
+                summary: "Splash water bottle fragments on roof.",
+                details: "Shattered blue glass from a splash potion bottle used to soften landing.",
+                image: "images/clues/c7-water.svg",
+                crossRefHint: "HINT: Look at the shattered glass on the roof."
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about flying.",
+                title: "FEATHER",
+                icon: "🎯",
+                summary: "Drop marker on balcony signed Nyx.",
+                details: "A target beacon carved into the isolated spire balcony floor with Nyx's mark.",
                 messages: [{ sender: "Nyx", time: "10:30", text: "I will glide from the sky and steal the seventh shard." }],
-                crossRefHint: "HINT: Read the sender on the flight note."
+                image: "images/clues/c7-feather.svg",
+                crossRefHint: "HINT: Read the initials on the drop marker."
             }
         },
         options: {
-            who: ["Brak", "Nyx", "Zane"],
-            how: ["Dived from above using cloth wings", "Struck the victim with a baton", "Pushed the victim with a telescope"],
-            why: ["To steal the seventh sky shard", "To pay for heavy tower armor", "To recover stolen ancient research scrolls"]
+            who: ["Nyx", "Brak", "Lyra"],
+            how: ["Glided from above with purple wings", "Breached the balcony using siege ram", "Overloaded the altar with holy water"],
+            why: ["To steal the seventh floating shard", "To take command of sky guard", "To silence an outspoken temple critic"]
         },
         correctAnswer: {
             who: "Nyx",
-            how: "Dived from above using cloth wings",
-            why: "To steal the seventh sky shard"
+            how: "Glided from above with purple wings",
+            why: "To steal the seventh floating shard"
         },
         explanation: {
-            summary: "Nyx used flying cloth wings to swoop down onto the isolated high platform and steal the seventh shard.",
-            clueChain: ["White feathers caught on railing.", "Cloth wings found abandoned on platform.", "Message proved the aerial heist plan."]
+            summary: "Nyx used her purple glider wings to swoop down onto the isolated high platform, incapacitate the Watcher, and steal the seventh shard.",
+            clueChain: ["Purple glider feather on the railing.", "Shattered glass from a landing splash potion.", "Target drop marker bearing Nyx's mark."]
         },
-        failureHint: "HINT: Look at who uses cloth wings to glide between high towers."
+        failureHint: "HINT: Look at who uses purple wings to glide between cloud towers."
     },
 
     {
         id: 8,
         title: "THE SKY SHIP",
         dimension: "sky",
-        victim: "Rex",
+        victim: "Captain",
         location: "Docked Airship",
         time: "01:00 PM",
         status: "MURDER",
         difficulty: 3,
-        synopsis: "Rex was injured when the airship engine burst. The eighth Aarna Shard is missing.",
+        synopsis: "The Captain was injured when the airship engine burst. The eighth Aarna Shard is missing.",
         suspects: [
-            { id: "tuck", name: "Tuck", role: "Courier", relation: "Deckhand", personality: "Carries heavy wooden cargo crates.", alibi: "I was loading food crates.", motive: "Upset about low loading pay." },
-            { id: "maya", name: "Maya", role: "Pilot", relation: "Captain", personality: "Carries sharp metal rope shears.", alibi: "I was trimming sail ropes.", motive: "Wants total control of airship." },
-            { id: "brak", name: "Brak", role: "Mechanic", relation: "Engineer", personality: "Carries explosive red fire crackers.", alibi: "I was testing red rockets.", motive: "Wants the valuable ancient shard." }
+            { id: "brak", name: "Brak", role: "Mechanic", relation: "Engineer", personality: "Carries red fuses in his belt.", alibi: "I was testing red rocket fuses.", motive: "Wants the eighth shard power.", image: "images/suspects/brak_mechanic.svg", avatarEmoji: "🔧" },
+            { id: "vesper", name: "Vesper", role: "Priest", relation: "Temple Leader", personality: "Wears dark flowing black robes.", alibi: "I was chanting in dark shrines.", motive: "Wants to disrupt airship commerce.", image: "images/suspects/vesper_priest.svg", avatarEmoji: "🕯️" },
+            { id: "tuck", name: "Tuck", role: "Runner", relation: "Deckhand", personality: "Carries heavy wooden fruit crates.", alibi: "I was hauling fresh food crates.", motive: "Upset about low delivery wages.", image: "images/suspects/tuck_runner.svg", avatarEmoji: "📦" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Red paper wrappers by engine.",
-                details: "Burnt red paper casings from fire crackers were scattered near the hatch.",
-                crossRefHint: "HINT: Match red wrappers to the suspect."
+                title: "FIREWORK",
+                icon: "🧨",
+                summary: "Red explosive rocket in booster slot.",
+                details: "A high-yield red firework rocket jammed directly into the airship intake slot.",
+                weaponName: "Red Booster Firework",
+                image: "images/clues/c8-firework.svg",
+                crossRefHint: "HINT: Who carries explosive red rocket fuses?"
             },
             clue2: {
-                title: "WEAPON",
-                icon: "🧨",
-                summary: "Explosive red fire crackers.",
-                details: "Burnt fire crackers jammed directly inside the fuel tank.",
-                weaponName: "Red Fire Crackers",
-                crossRefHint: "HINT: Who carries red fire crackers?"
+                title: "WRAPPER",
+                icon: "📜",
+                summary: "Red explosive firework paper and fuse.",
+                details: "Burnt red paper casings and copper ignition wire found near the engine hatch.",
+                image: "images/clues/c8-wrapper.svg",
+                crossRefHint: "HINT: Match red wrappers to the suspect's belt."
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about airship.",
+                title: "CRATE",
+                icon: "📦",
+                summary: "Tampered booster crate marked Brak.",
+                details: "A maintenance crate stamped 'ENG: BRAK' containing dismantled rocket boosters.",
                 messages: [{ sender: "Brak", time: "12:30", text: "I will blow the engine with fire crackers and grab the shard." }],
-                crossRefHint: "HINT: Read Brak's plan in the note."
+                image: "images/clues/c8-crate.svg",
+                crossRefHint: "HINT: Read the engineer tag on the crate."
             }
         },
         options: {
-            who: ["Tuck", "Maya", "Brak"],
-            how: ["Put red fire crackers inside engine", "Dropped heavy cargo crates onto engine", "Cut the fuel lines using shears"],
-            why: ["To steal the eighth ancient shard", "To protest low cargo loading wages", "To seize full control of airship"]
+            who: ["Brak", "Vesper", "Tuck"],
+            how: ["Jammed red firework into booster slot", "Cast a curse onto navigation engine", "Dropped heavy fruit crates into propeller"],
+            why: ["To steal the eighth aerial shard", "To sacrifice the airship to shadows", "To protest harsh cargo delivery terms"]
         },
         correctAnswer: {
             who: "Brak",
-            how: "Put red fire crackers inside engine",
-            why: "To steal the eighth ancient shard"
+            how: "Jammed red firework into booster slot",
+            why: "To steal the eighth aerial shard"
         },
         explanation: {
-            summary: "Brak stuffed red fire crackers into the fuel tank to blow up the engine and steal the eighth shard.",
-            clueChain: ["Red paper casings matched his rocket supplies.", "Burnt fire crackers found in fuel tank.", "Dropped note detailed the engine sabotage."]
+            summary: "Brak stuffed an explosive red firework into the engine booster slot to cause an explosion and steal the eighth shard.",
+            clueChain: ["Red firework jammed in the booster.", "Burnt red paper casings from his fuses.", "Tampered maintenance crate marked 'ENG: BRAK'."]
         },
-        failureHint: "HINT: Look at who carries red fire crackers and works on engines."
+        failureHint: "HINT: Look at who carries red rocket fuses and works on engine maintenance."
     },
 
     {
         id: 9,
         title: "THE CRYSTAL ROOM",
         dimension: "temple",
-        victim: "Nora",
+        victim: "Guardian",
         location: "Sacred Glass Altar",
         time: "05:00 PM",
         status: "MURDER",
         difficulty: 3,
-        synopsis: "Nora was blinded by focused sun rays. The ninth Aarna Shard is missing.",
+        synopsis: "The Guardian was blinded by focused laser energy. The ninth Aarna Shard is missing.",
         suspects: [
-            { id: "omen", name: "Omen", role: "Archivist", relation: "Librarian", personality: "Carries heavy ancient leather books.", alibi: "I was reading library scrolls.", motive: "Upset about damaged old books." },
-            { id: "vesper", name: "Vesper", role: "Priest", relation: "Temple Leader", personality: "Carries a polished glass mirror.", alibi: "I was cleaning temple mirrors.", motive: "Wants the ninth shard power." },
-            { id: "mira", name: "Mira", role: "Messenger", relation: "Courier", personality: "Carries a ringing silver bell.", alibi: "I was ringing evening bells.", motive: "Needs money to travel abroad." }
+            { id: "vesper", name: "Vesper", role: "Cultist", relation: "Temple Leader", personality: "Carries a purple laser tuning rod.", alibi: "I was aligning temple energy rods.", motive: "Wants the ninth shard power.", image: "images/suspects/vesper_cultist.svg", avatarEmoji: "🔮" },
+            { id: "omen", name: "Omen", role: "Sage", relation: "Librarian", personality: "Carries heavy ancient blue books.", alibi: "I was reading sacred blue scrolls.", motive: "Upset about damaged temple history.", image: "images/suspects/omen_sage.svg", avatarEmoji: "📖" },
+            { id: "mira", name: "Mira", role: "Courier", relation: "Messenger", personality: "Carries a green leather satchel.", alibi: "I was delivering temple post letters.", motive: "Needs money to travel abroad.", image: "images/suspects/mira_courier.svg", avatarEmoji: "🎒" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Glass polishing dust on steps.",
-                details: "Fine white glass polishing residue was smeared on the altar steps.",
-                crossRefHint: "HINT: Who was cleaning glass mirrors?"
+                title: "LENS",
+                icon: "💎",
+                summary: "Crystal beam angled toward altar.",
+                details: "A focused purple energy beam aligned to concentrate light directly onto the altar.",
+                weaponName: "Purple Crystal Beam",
+                image: "images/clues/c9-lens.svg",
+                crossRefHint: "HINT: How was the focused energy beam redirected?"
             },
             clue2: {
-                title: "WEAPON",
-                icon: "🪞",
-                summary: "A polished concave glass mirror.",
-                details: "A curved mirror positioned on a stand to focus sun rays on the altar.",
-                weaponName: "Polished Glass Mirror",
-                crossRefHint: "HINT: Which suspect carries a glass mirror?"
+                title: "ROD",
+                icon: "🔮",
+                summary: "Purple tuning rod on beam adjuster.",
+                details: "A resonant purple metallic tuning rod left attached to the crystal lens mount.",
+                image: "images/clues/c9-rod.svg",
+                crossRefHint: "HINT: Who carries a purple laser tuning rod?"
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about sun ray.",
-                messages: [{ sender: "Vesper", time: "04:30", text: "I will focus the sun beam with my mirror to take the shard." }],
-                crossRefHint: "HINT: Read Vesper's message."
+                title: "CHISEL",
+                icon: "🏛️",
+                summary: "Pillar lock marks carved by rod.",
+                details: "Scratches on the stone pillar lock matching the hexagonal tip of Vesper's rod.",
+                messages: [{ sender: "Vesper", time: "04:30", text: "I will focus the sun beam with my rod to take the shard." }],
+                image: "images/clues/c9-chisel.svg",
+                crossRefHint: "HINT: Match the rod marks on the stone pillar."
             }
         },
         options: {
-            who: ["Omen", "Vesper", "Mira"],
-            how: ["Aimed focused sun rays with mirror", "Struck the victim with heavy books", "Distracted the victim with silver bell"],
-            why: ["To steal the ninth sacred shard", "To protect damaged ancient library scrolls", "To fund expensive foreign travel tickets"]
+            who: ["Vesper", "Omen", "Mira"],
+            how: ["Focused crystal beam with tuning rod", "Deflected the light using ancient books", "Smashed the prism with heavy satchel"],
+            why: ["To steal the ninth radiant shard", "To decipher forbidden lost temple rituals", "To ransom the ancient sacred relic"]
         },
         correctAnswer: {
             who: "Vesper",
-            how: "Aimed focused sun rays with mirror",
-            why: "To steal the ninth sacred shard"
+            how: "Focused crystal beam with tuning rod",
+            why: "To steal the ninth radiant shard"
         },
         explanation: {
-            summary: "Vesper used a polished concave glass mirror to focus sun rays on Nora, allowing him to steal the ninth shard.",
-            clueChain: ["White glass dust matched mirror polishing.", "Concave mirror mounted on focusing stand.", "Note proved the sun beam plan."]
+            summary: "Vesper used his purple laser tuning rod to align the crystal lens beam onto the Guardian, seizing the ninth shard.",
+            clueChain: ["Redirected purple crystal laser beam.", "Purple tuning rod left on the lens adjuster.", "Hexagonal rod marks on the pillar lock."]
         },
-        failureHint: "HINT: Look at who works with mirrors and understands optical reflection."
+        failureHint: "HINT: Look at who works with laser tuning rods and aligns temple optical crystals."
     },
 
     {
@@ -524,50 +556,54 @@ const CASES = [
         difficulty: 3,
         synopsis: "Leo was stunned by sonic vibration. Vesper is assembling all 10 shards into the Aarna Singularity!",
         suspects: [
-            { id: "solas", name: "Solas", role: "Explorer", relation: "Rival", personality: "Carries a bright flame torch.", alibi: "I was lighting dark tunnels.", motive: "Wants to find cave relics." },
-            { id: "garth", name: "Garth", role: "Miner", relation: "Partner", personality: "Carries a heavy iron pickaxe.", alibi: "I was mining blue crystals.", motive: "Wants to pay mining debts." },
-            { id: "vesper", name: "Vesper", role: "Mastermind", relation: "Shadow Leader", personality: "Carries a silver tuning fork.", alibi: "I was studying cave acoustics.", motive: "Wants to trigger Aarna Singularity." },
-            { id: "nyx", name: "Nyx", role: "Scout", relation: "Guide", personality: "Carries a long leather whip.", alibi: "I was exploring monster dens.", motive: "Wants money for cave supplies." }
+            { id: "vesper", name: "Vesper", role: "Mastermind", relation: "Shadow Leader", personality: "Wears soft wool boots and fork.", alibi: "I was studying acoustic cavern resonance.", motive: "Wants to trigger Aarna Singularity.", image: "images/suspects/vesper_mastermind.svg", avatarEmoji: "👑" },
+            { id: "durand", name: "Durand", role: "Smith", relation: "Blacksmith", personality: "Wears loud heavy iron boots.", alibi: "I was forging iron cavern gates.", motive: "Wants to melt shards for iron.", image: "images/suspects/durand_smith.svg", avatarEmoji: "🔨" },
+            { id: "solas", name: "Solas", role: "Pyro", relation: "Firemage", personality: "Carries crackling bright flame torches.", alibi: "I was lighting deep cavern walls.", motive: "Wants to illuminate dark depths.", image: "images/suspects/solas_pyro.svg", avatarEmoji: "🔥" },
+            { id: "nyx", name: "Nyx", role: "Shadow", relation: "Assassin", personality: "Wears silent shadow dagger sheath.", alibi: "I was patrolling upper tunnel arches.", motive: "Wants to flee the underground.", image: "images/suspects/nyx_shadow.svg", avatarEmoji: "🗡️" }
         ],
         evidence: {
             clue1: {
-                title: "FOOTPRINTS",
-                icon: "👣",
-                summary: "Silver filings near acoustic bell.",
-                details: "Silver metal filings from a tuning fork were left on the sonic pedestal.",
-                crossRefHint: "HINT: Who carries a silver tuning fork?"
+                title: "WOOL",
+                icon: "🧶",
+                summary: "White wool boot fibers near sensor.",
+                details: "Soft white wool fibers caught on the sonic sensor, used to muffle footsteps.",
+                image: "images/clues/c10-wool.svg",
+                crossRefHint: "HINT: Who wears soft wool-padded boots to avoid detection?"
             },
             clue2: {
-                title: "WEAPON",
+                title: "FORK",
                 icon: "🎵",
-                summary: "A vibrating silver tuning fork.",
-                details: "A silver tuning fork tuned to resonate with the ancient sonic bell.",
-                weaponName: "Silver Tuning Fork",
-                crossRefHint: "HINT: Which suspect carries a tuning fork?"
+                summary: "Iron tuning fork on acoustic sensor.",
+                details: "A heavy iron acoustic tuning fork tuned to resonate with the cavern sensor.",
+                weaponName: "Iron Tuning Fork",
+                image: "images/clues/c10-fork.svg",
+                crossRefHint: "HINT: Which suspect carries an acoustic tuning fork?"
             },
             clue3: {
-                title: "CHAT LOG",
-                icon: "💬",
-                summary: "A dropped note about Singularity.",
+                title: "LEDGER",
+                icon: "📜",
+                summary: "Master ledger of assembled shards.",
+                details: "A master ledger detailing the positions of all 10 Aarna Shards signed by Vesper.",
                 messages: [{ sender: "Vesper", time: "11:00", text: "Striking the acoustic bell will stun Leo so I can assemble the Aarna Singularity." }],
-                crossRefHint: "HINT: Read Vesper's master plan."
+                image: "images/clues/c10-ledger.svg",
+                crossRefHint: "HINT: Read Vesper's master plan for the Aarna Singularity."
             }
         },
         options: {
-            who: ["Solas", "Garth", "Vesper", "Nyx"],
-            how: ["Struck sonic bell with tuning fork", "Burned the chamber with a torch", "Smashed the gate with a pickaxe", "Lashed the pillars with a whip"],
-            why: ["To assemble the ultimate Aarna Singularity", "To uncover secret ancient cave relics", "To pay off heavy mining debts", "To purchase expensive underground cave supplies"]
+            who: ["Vesper", "Durand", "Solas", "Nyx"],
+            how: ["Struck acoustic sensor with tuning fork", "Smashed the sound chamber with hammer", "Burned the resonance cables with torch", "Sliced the sensory wires with dagger"],
+            why: ["To trigger the cataclysmic Aarna Singularity", "To melt ancient shards into weapons", "To illuminate the deep dark depths", "To escape the underground cavern fortress"]
         },
         correctAnswer: {
             who: "Vesper",
-            how: "Struck sonic bell with tuning fork",
-            why: "To assemble the ultimate Aarna Singularity"
+            how: "Struck acoustic sensor with tuning fork",
+            why: "To trigger the cataclysmic Aarna Singularity"
         },
         explanation: {
-            summary: "Vesper struck the giant acoustic bell with his silver tuning fork to incapacitate Leo and seize all shards to assemble the Aarna Singularity.",
-            clueChain: ["Silver filings matched tuning fork.", "Tuning fork left on sonic pedestal.", "Dropped note revealed the Aarna Singularity plot."]
+            summary: "Vesper muffled his steps with wool-padded boots, struck the acoustic sensor with his iron tuning fork to stun Leo, and attempted to assemble the cataclysmic Aarna Singularity.",
+            clueChain: ["White wool fibers from his muffled boots.", "Iron acoustic tuning fork on the sensor.", "Master ledger outlining the Aarna Singularity plan."]
         },
-        failureHint: "HINT: Look at who studies cave sounds and carries a silver tuning fork."
+        failureHint: "HINT: Look at who wears wool-padded boots, carries an acoustic tuning fork, and seeks the Aarna Singularity."
     }
 ];
 
@@ -578,4 +614,8 @@ function getCaseById(id) {
 
 function getAllCases() {
     return CASES;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { CASES, getCaseById, getAllCases };
 }

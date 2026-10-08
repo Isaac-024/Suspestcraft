@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
+  <rect width="160" height="120" fill="#100f14"/>
+  <rect x="6" y="6" width="148" height="108" fill="#142130" stroke="#254d78" stroke-width="4"/>
+  <rect x="25" y="16" width="110" height="88" fill="#1c3b61" stroke="#5294e2" stroke-width="2"/>
+  <circle cx="60" cy="55" r="18" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <line x1="78" y1="55" x2="115" y2="55" stroke="#ffd000" stroke-width="3"/>
+  <text x="35" y="94" fill="#ffffff" font-family="monospace" font-size="9" font-weight="bold">SOLAS CHEM-BOMB</text>
+</svg>

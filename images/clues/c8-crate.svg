@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
+  <rect width="160" height="120" fill="#100f14"/>
+  <rect x="6" y="6" width="148" height="108" fill="#241e17" stroke="#52402d" stroke-width="4"/>
+  <rect x="35" y="25" width="90" height="70" fill="#8f5d2c" stroke="#472b0f" stroke-width="4"/>
+  <line x1="35" y1="25" x2="125" y2="95" stroke="#472b0f" stroke-width="3"/>
+  <line x1="35" y1="95" x2="125" y2="25" stroke="#472b0f" stroke-width="3"/>
+  <text x="45" y="62" fill="#ffd000" font-family="monospace" font-size="12" font-weight="bold">ENG: BRAK</text>
+</svg>

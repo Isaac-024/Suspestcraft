@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
+  <rect width="160" height="120" fill="#100f14"/>
+  <rect x="6" y="6" width="148" height="108" fill="#2b1612" stroke="#5e261c" stroke-width="4"/>
+  <rect x="15" y="45" width="130" height="60" fill="#ff4d17"/>
+  <polygon points="15,65 45,55 75,68 115,52 145,65 145,105 15,105" fill="#ffd000"/>
+  <ellipse cx="80" cy="55" rx="18" ry="12" fill="#80562e" stroke="#422911" stroke-width="3"/>
+  <text x="73" y="58" fill="#faebd0" font-family="monospace" font-size="10" font-weight="bold">M</text>
+</svg>

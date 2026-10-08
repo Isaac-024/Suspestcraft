@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
+  <rect width="160" height="120" fill="#100f14"/>
+  <rect x="6" y="6" width="148" height="108" fill="#121e29" stroke="#24445e" stroke-width="4"/>
+  <polygon points="25,15 135,15 135,105 25,105" fill="#faebd0"/>
+  <text x="35" y="32" fill="#0a1a26" font-family="monospace" font-size="9" font-weight="bold">AARNA SINGULARITY</text>
+  <text x="35" y="50" fill="#0a3d62" font-family="monospace" font-size="8">SHARDS 1-9 SECURED</text>
+  <text x="35" y="68" fill="#a82323" font-family="monospace" font-size="8">SHARD 10 AT CAVERN</text>
+  <circle cx="115" cy="85" r="12" fill="#00ffff" stroke="#0a3d62" stroke-width="2"/>
+  <text x="35" y="92" fill="#4d148c" font-family="monospace" font-size="10" font-weight="bold">VESPER</text>
+</svg>

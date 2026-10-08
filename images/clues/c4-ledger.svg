@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
+  <rect width="160" height="120" fill="#100f14"/>
+  <rect x="6" y="6" width="148" height="108" fill="#2e1a14" stroke="#5c2e1b" stroke-width="4"/>
+  <polygon points="25,18 135,18 135,102 25,102" fill="#faebd0"/>
+  <rect x="35" y="28" width="90" height="8" fill="#872917"/>
+  <line x1="35" y1="48" x2="125" y2="48" stroke="#42291d" stroke-width="3"/>
+  <line x1="35" y1="60" x2="110" y2="60" stroke="#42291d" stroke-width="3"/>
+  <text x="35" y="80" fill="#801c1c" font-family="monospace" font-size="9" font-weight="bold">ORDER: DROP GATE</text>
+  <text x="75" y="95" fill="#80440a" font-family="monospace" font-size="10" font-weight="bold">SIGN: ZUL</text>
+</svg>
