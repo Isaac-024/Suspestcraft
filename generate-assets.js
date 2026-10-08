@@ -12,8 +12,12 @@ const cluesDir = path.join(__dirname, 'images', 'clues');
 if (!fs.existsSync(suspectsDir)) fs.mkdirSync(suspectsDir, { recursive: true });
 if (!fs.existsSync(cluesDir)) fs.mkdirSync(cluesDir, { recursive: true });
 
+function escapeXml(str) {
+    return str.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;)/g, '&amp;');
+}
+
 function saveSvg(filePath, svgContent) {
-    fs.writeFileSync(filePath, svgContent.trim());
+    fs.writeFileSync(filePath, escapeXml(svgContent).trim());
 }
 
 /**
@@ -185,7 +189,7 @@ const c1AxeSvg = createClueSvg('CHIPPED WOODEN AXE', 'EVIDENCE: HEAVY SPLINTERED
   <polygon points="160,118 170,112 165,122" fill="#e0a058"/>
 `);
 
-const c1NoteSvg = createClueSvg('DROPPED NOTE', 'EVIDENCE: SCRAP SHOWING AXE & GOLD', '#ffdd59', `
+const c1NoteSvg = createClueSvg('DROPPED NOTE', 'EVIDENCE: SCRAP SHOWING AXE AND GOLD', '#ffdd59', `
   <!-- Crinkled Parchment Sheet -->
   <polygon points="40,42 200,38 195,142 35,145" fill="#f5e6c4" stroke="#8a6f3b" stroke-width="3"/>
   <!-- Bold Axe Sketch on Note -->
@@ -738,7 +742,7 @@ const c8FireworkSvg = createClueSvg('RED BOOSTER ROCKET', 'EVIDENCE: JAMMED INTO
   <line x1="65" y1="86" x2="40" y2="86" stroke="#ffffff" stroke-width="4"/>
 `);
 
-const c8WrapperSvg = createClueSvg('RED FIREWORK CASING', 'EVIDENCE: TORN CASINGS & FUSE MATCHING BELT', '#d90429', `
+const c8WrapperSvg = createClueSvg('RED FIREWORK CASING', 'EVIDENCE: TORN CASINGS AND FUSE MATCHING BELT', '#d90429', `
   <polygon points="40,55 110,38 165,85 105,135 35,105" fill="#d90429" stroke="#7a0010" stroke-width="3"/>
   <polygon points="65,60 105,48 145,85 105,115" fill="#ff4d6d"/>
   <!-- Copper Fuse Wire -->

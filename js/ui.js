@@ -174,7 +174,7 @@ const UI = (function() {
             item.setAttribute('aria-label', `Inspect Dossier for ${suspect.name}`);
 
             const avatarMarkup = suspect.image
-                ? `<img src="${suspect.image}" class="suspect-photo" alt="${suspect.name}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">`
+                ? `<img src="${suspect.image}" class="suspect-photo" alt="${suspect.name}" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'100\\' height=\\'100\\' viewBox=\\'0 0 100 100\\'><rect width=\\'100\\' height=\\'100\\' fill=\\'%231b1a26\\'/><text x=\\'50%25\\' y=\\'50%25\\' dominant-baseline=\\'middle\' text-anchor=\\'middle\' font-size=\\'36\\'>👤</text></svg>';" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">`
                 : (suspect.avatarEmoji || '👤');
 
             item.innerHTML = `
@@ -278,7 +278,7 @@ const UI = (function() {
             const imgWrapper = document.createElement('div');
             imgWrapper.className = 'clue-image-wrapper';
             imgWrapper.style.cssText = 'width: 100%; margin-bottom: 12px; border: 2px solid #3a5a80; background: #0b0a0f; padding: 6px; display: flex; justify-content: center;';
-            imgWrapper.innerHTML = `<img src="${clueData.image}" alt="Evidence Visual" style="max-width: 100%; max-height: 200px; object-fit: contain; image-rendering: pixelated;">`;
+            imgWrapper.innerHTML = `<img src="${clueData.image}" class="clue-photo" alt="${clueData.title || 'Evidence'}" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'180\\' height=\\'120\\' viewBox=\\'0 0 180 120\\'><rect width=\\'180\\' height=\\'120\\' fill=\\'%2314131b\\' stroke=\\'%233a5a80\\' stroke-width=\\'2\\'/><text x=\\'50%25\\' y=\\'50%25\\' dominant-baseline=\\'middle\' text-anchor=\\'middle\' fill=\\'%23ffcc00\' font-family=\\'monospace\' font-size=\\'12\\'>[ CLUE ARTIFACT ]</text></svg>';" style="max-width: 100%; max-height: 200px; object-fit: contain; image-rendering: pixelated;">`;
             displayArea.appendChild(imgWrapper);
         }
 
@@ -386,7 +386,7 @@ const UI = (function() {
         document.getElementById('modal-suspect-name').textContent = suspect.name;
         const avatarEl = document.getElementById('modal-suspect-avatar');
         if (suspect.image) {
-            avatarEl.innerHTML = `<img src="${suspect.image}" class="suspect-photo" alt="${suspect.name}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">`;
+            avatarEl.innerHTML = `<img src="${suspect.image}" class="suspect-photo" alt="${suspect.name}" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'100\\' height=\\'100\\' viewBox=\\'0 0 100 100\\'><rect width=\\'100\\' height=\\'100\\' fill=\\'%231b1a26\\'/><text x=\\'50%25\\' y=\\'50%25\\' dominant-baseline=\\'middle\' text-anchor=\\'middle\' font-size=\\'36\\'>👤</text></svg>';" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">`;
         } else {
             avatarEl.textContent = suspect.avatarEmoji || '👤';
         }

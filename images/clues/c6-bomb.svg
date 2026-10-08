@@ -14,7 +14,7 @@
   <!-- Demolition Sphere (Bright Yellow) -->
   <circle cx="120" cy="95" r="44" fill="#ffea00" stroke="#bfa600" stroke-width="4"/>
   <circle cx="120" cy="95" r="28" fill="#ffd000"/>
-  <!-- Fuse & Cap -->
+  <!-- Fuse &amp; Cap -->
   <rect x="112" y="38" width="16" height="16" fill="#3a3a45"/>
   <path d="M120,38 Q140,15 160,25" stroke="#ff5400" stroke-width="4" fill="none"/>
   <polygon points="160,25 170,18 165,30" fill="#ffd000"/>

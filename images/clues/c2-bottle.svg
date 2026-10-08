@@ -13,7 +13,7 @@
     
   <!-- Pedestal -->
   <rect x="60" y="125" width="120" height="20" fill="#2d382e" stroke="#121f14" stroke-width="2"/>
-  <!-- Flask Neck & Cork -->
+  <!-- Flask Neck &amp; Cork -->
   <rect x="110" y="40" width="20" height="18" fill="#80562e" stroke="#422911" stroke-width="2"/>
   <rect x="106" y="56" width="28" height="12" fill="#528a5e"/>
   <!-- Glass Body filled with Glowing Acid Green Liquid -->
