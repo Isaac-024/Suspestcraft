@@ -1184,3 +1184,70 @@
     image-rendering: pixelated;
     display: block;
 }
+
+/* --- MODAL HEADER LAYOUT & CLOSE BUTTON FIX --- */
+.dialog-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: relative !important;
+    padding: 10px 14px !important;
+    min-height: 48px !important;
+    gap: 12px !important;
+    border-bottom: 2px solid var(--ui-border-dark) !important;
+    background: #111018 !important;
+}
+
+.dialog-header .dialog-title,
+#modal-suspect-name,
+#modal-evidence-title,
+#modal-notebook-title,
+#modal-credits-title {
+    font-size: 14px !important;
+    color: #ffcc00 !important;
+    text-shadow: 2px 2px 0px #000 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    flex: 1 !important;
+    text-align: right !important;
+    padding-right: 8px !important;
+}
+
+.dialog-header .evidence-type-tag {
+    flex-shrink: 0 !important;
+    font-size: 10px !important;
+    color: var(--dim-accent) !important;
+    letter-spacing: 1px !important;
+}
+
+.btn-pixel-close {
+    position: relative !important;
+    flex-shrink: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: #b52222 !important;
+    color: #ffffff !important;
+    border: 2px solid #000000 !important;
+    box-shadow: inset 2px 2px 0px #e04f4f, inset -2px -2px 0px #5e0d0d !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: 8px !important;
+    z-index: 10 !important;
+}
+
+.btn-pixel-close:hover {
+    background: #d63030 !important;
+}
+
+/* Ensure backdrop dims background clearly so background text doesn't bleed through */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75) !important;
+    backdrop-filter: blur(2px) !important;
+}
