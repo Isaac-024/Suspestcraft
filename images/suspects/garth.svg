@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
+  <rect width="128" height="128" fill="#14141c"/>
+  <!-- Background Badge -->
+  <rect x="8" y="8" width="112" height="112" fill="#1f2421" stroke="#3d5a45" stroke-width="4"/>
+  <rect x="16" y="16" width="96" height="96" fill="#2d382e"/>
+  
+  <!-- Pine Tree silhouette behind -->
+  <polygon points="64,20 44,48 84,48" fill="#1c2b1e"/>
+  <polygon points="64,36 38,70 90,70" fill="#1c2b1e"/>
+
+  <!-- Character Hair & Cap -->
+  <rect x="44" y="24" width="40" height="16" fill="#543310"/>
+  <rect x="40" y="28" width="48" height="12" fill="#402208"/>
+  <rect x="40" y="22" width="48" height="8" fill="#8c3a27"/>
+
+  <!-- Face -->
+  <rect x="44" y="36" width="40" height="28" fill="#f5c298"/>
+  <!-- Eyes -->
+  <rect x="48" y="44" width="8" height="8" fill="#ffffff"/>
+  <rect x="52" y="44" width="4" height="8" fill="#291d0f"/>
+  <rect x="72" y="44" width="8" height="8" fill="#ffffff"/>
+  <rect x="72" y="44" width="4" height="8" fill="#291d0f"/>
+  <!-- Nose -->
+  <rect x="60" y="48" width="8" height="8" fill="#d99b6c"/>
+  <!-- Beard -->
+  <rect x="40" y="56" width="48" height="20" fill="#543310"/>
+  <rect x="44" y="60" width="40" height="20" fill="#402208"/>
+  <rect x="52" y="72" width="24" height="8" fill="#2b1402"/>
+
+  <!-- Red Plaid Shirt (Flannel) -->
+  <rect x="32" y="76" width="64" height="40" fill="#b82626"/>
+  <!-- Plaid Black Stripes -->
+  <rect x="32" y="84" width="64" height="6" fill="#1c1c1c"/>
+  <rect x="32" y="98" width="64" height="6" fill="#1c1c1c"/>
+  <rect x="48" y="76" width="6" height="40" fill="#1c1c1c"/>
+  <rect x="74" y="76" width="6" height="40" fill="#1c1c1c"/>
+  <!-- Suspenders / Straps -->
+  <rect x="42" y="76" width="6" height="40" fill="#543310"/>
+  <rect x="80" y="76" width="6" height="40" fill="#543310"/>
+
+  <!-- Axe on shoulder -->
+  <rect x="84" y="40" width="8" height="50" fill="#8b5a2b" transform="rotate(-20 84 40)"/>
+  <polygon points="96,30 114,24 116,46 94,40" fill="#a8a8b2"/>
+  <polygon points="96,30 102,28 102,38 94,40" fill="#6c6c75"/>
+  <rect x="110" y="26" width="4" height="18" fill="#e0e0eb"/>
+</svg>

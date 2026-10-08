@@ -16,9 +16,9 @@ const CASES = [
         difficulty: 1,
         synopsis: "Bob was struck in his office. The first Aarna Shard is missing.",
         suspects: [
-            { id: "garth", name: "Garth", role: "Woodcutter", relation: "Neighbor", personality: "Carries a heavy wooden axe.", alibi: "I was chopping pine trees.", motive: "Needs gold for new tools." },
-            { id: "lin", name: "Lin", role: "Farmer", relation: "Friend", personality: "Carries a metal shovel.", alibi: "I was planting wheat seeds.", motive: "Angry about the land taxes." },
-            { id: "sam", name: "Sam", role: "Guard", relation: "Security", personality: "Carries a long rope.", alibi: "I was sleeping at home.", motive: "No known motive at all." }
+            { id: "garth", name: "Garth", role: "Woodcutter", relation: "Neighbor", personality: "Carries a heavy wooden axe.", alibi: "I was chopping pine trees.", motive: "Needs gold for new tools.", image: "images/suspects/garth.svg", avatarEmoji: "🪓" },
+            { id: "lin", name: "Lin", role: "Farmer", relation: "Friend", personality: "Carries a metal shovel.", alibi: "I was planting wheat seeds.", motive: "Angry about the land taxes.", image: "images/suspects/lin.svg", avatarEmoji: "🌾" },
+            { id: "sam", name: "Sam", role: "Guard", relation: "Security", personality: "Carries a long rope.", alibi: "I was sleeping at home.", motive: "No known motive at all.", image: "images/suspects/sam.svg", avatarEmoji: "🛡️" }
         ],
         evidence: {
             clue1: { 
@@ -26,6 +26,7 @@ const CASES = [
                 icon: "👣", 
                 summary: "Deep boot prints with pine needles.", 
                 details: "Fresh mud and pine needles were found on the floor.", 
+                image: "images/clues/c1-footprints.svg",
                 crossRefHint: "HINT: Match the pine needles to the suspect's alibi." 
             },
             clue2: { 
@@ -34,14 +35,17 @@ const CASES = [
                 summary: "A heavy wooden axe.", 
                 details: "The wooden axe is covered in fresh splinters.", 
                 weaponName: "Wooden Axe", 
+                image: "images/clues/c1-axe.svg",
                 crossRefHint: "HINT: Which suspect carries an axe?" 
             },
             clue3: { 
-                title: "CHAT LOG", 
-                icon: "💬", 
+                title: "NOTE", 
+                icon: "📜", 
                 summary: "A dropped note about stealing.", 
-                messages: [{ sender: "Garth", time: "05:00", text: "I will use my axe to get that gold." }], 
-                crossRefHint: "HINT: Read the sender's name on the note." 
+                details: "A crinkled piece of paper showing a drawn axe and gold coin.",
+                messages: [{ sender: "Garth", time: "05:00", text: "I will use my axe to get that gold coin." }], 
+                image: "images/clues/c1-note.svg",
+                crossRefHint: "HINT: Read the sender's plan on the note." 
             }
         },
         options: {

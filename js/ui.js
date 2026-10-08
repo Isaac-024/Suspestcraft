@@ -173,8 +173,12 @@ const UI = (function() {
             item.setAttribute('role', 'button');
             item.setAttribute('aria-label', `Inspect Dossier for ${suspect.name}`);
 
+            const avatarMarkup = suspect.image
+                ? `<img src="${suspect.image}" class="suspect-photo" alt="${suspect.name}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">`
+                : (suspect.avatarEmoji || '👤');
+
             item.innerHTML = `
-                <div class="suspect-avatar-box">${suspect.avatarEmoji || '👤'}</div>
+                <div class="suspect-avatar-box">${avatarMarkup}</div>
                 <div class="suspect-info">
                     <h4 class="suspect-name">${suspect.name}</h4>
                     <div class="suspect-role">${suspect.role}</div>
@@ -269,6 +273,14 @@ const UI = (function() {
 
         const displayArea = document.getElementById('modal-evidence-display');
         displayArea.innerHTML = '';
+
+        if (clueData.image) {
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = 'clue-image-wrapper';
+            imgWrapper.style.cssText = 'width: 100%; margin-bottom: 12px; border: 2px solid #3a5a80; background: #0b0a0f; padding: 6px; display: flex; justify-content: center;';
+            imgWrapper.innerHTML = `<img src="${clueData.image}" alt="Evidence Visual" style="max-width: 100%; max-height: 200px; object-fit: contain; image-rendering: pixelated;">`;
+            displayArea.appendChild(imgWrapper);
+        }
 
         if (clueKey === 'chatLog' && Array.isArray(clueData.messages)) {
             const chatBox = document.createElement('div');
@@ -372,7 +384,12 @@ const UI = (function() {
         if (!modal) return;
 
         document.getElementById('modal-suspect-name').textContent = suspect.name;
-        document.getElementById('modal-suspect-avatar').textContent = suspect.avatarEmoji || '👤';
+        const avatarEl = document.getElementById('modal-suspect-avatar');
+        if (suspect.image) {
+            avatarEl.innerHTML = `<img src="${suspect.image}" class="suspect-photo" alt="${suspect.name}" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">`;
+        } else {
+            avatarEl.textContent = suspect.avatarEmoji || '👤';
+        }
         document.getElementById('modal-suspect-occupation').textContent = suspect.role;
         document.getElementById('modal-suspect-relation').textContent = suspect.relation;
         document.getElementById('modal-suspect-personality').textContent = suspect.personality;
