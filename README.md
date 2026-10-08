@@ -1,4 +1,4 @@
-# CASE: ABHEDYA — Voxel Detective Murder Mystery
+# CASE: AARNA — Voxel Detective Murder Mystery
 
 > **A 10-Level Minecraft-Inspired Detective Murder Mystery Game built with Vanilla HTML5, CSS3, and JavaScript.**
 
@@ -6,7 +6,7 @@
 
 ## 🗡️ 1. Concept & Story Overview
 
-In the shattered voxel realm, an ancient cosmic artifact known as the **Abhedya Conduit** (the impenetrable celestial block maintaining the dimensional boundaries) has been fractured into 10 resonant shards.
+In the shattered voxel realm, an ancient cosmic artifact known as the **Aarna Conduit** (the impenetrable celestial block maintaining the dimensional boundaries) has been fractured into 10 resonant shards.
 
 A clandestine syndicate known as the **Obsidian Circle** is executing precise assassinations across the four dimensions to seize every shard:
 1. **Cases 1–3 — Overworld**: Rural village mysteries, lightning-charged fortresses, and poisoned mills.
@@ -97,7 +97,7 @@ All 10 cases are completely data-driven and defined in `js/cases.js`. Adding a n
 ## 📁 4. Project Structure
 
 ```text
-CASE-ABHEDYA/
+CASE-AARNA/
 │
 ├── index.html                  # Accessible semantic application markup
 │

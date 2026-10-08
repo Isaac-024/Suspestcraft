@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA — CORE GAME STATE MACHINE & LOGIC ENGINE (js/game.js)
+ * CASE: AARNA — CORE GAME STATE MACHINE & LOGIC ENGINE (js/game.js)
  * Implements game state loop, dimensional audio cues, TNT failure sequence, and case progression.
  */
 

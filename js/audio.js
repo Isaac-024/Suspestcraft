@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA — AUDIO ENGINE (js/audio.js)
+ * CASE: AARNA — AUDIO ENGINE (js/audio.js)
  * Maps exact local audio files to specific game triggers with zero background music.
  * Features Web Audio API with pre-decoded PCM AudioBuffers for true zero-latency instant playback,
  * eliminating browser hardware decoding spin-up delays.

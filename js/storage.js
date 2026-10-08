@@ -1,10 +1,10 @@
 /**
- * CASE: ABHEDYA — STORAGE & PROGRESS MANAGER
+ * CASE: AARNA — STORAGE & PROGRESS MANAGER
  * Handles localStorage persistence with safe fallback and debug tools.
  */
 
 const Storage = (function() {
-    const STORAGE_KEY = 'CASE_ABHEDYA_SAVE_V1';
+    const STORAGE_KEY = 'CASE_AARNA_SAVE_V1';
     
     // Default initial state
     const defaultData = {

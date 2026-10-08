@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA — APPLICATION ENTRY POINT & EVENT BINDINGS (js/main.js)
+ * CASE: AARNA — APPLICATION ENTRY POINT & EVENT BINDINGS (js/main.js)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     runLoadingSequence(() => {
         Game.showMainMenu();
         
-        const existingUser = localStorage.getItem('CASE_ABHEDYA_USER');
+        const existingUser = localStorage.getItem('CASE_AARNA_USER');
         const saveData = Storage.load();
         
         const statsTag = document.getElementById('quick-stats-tag');
@@ -48,7 +48,7 @@ function promptUserRegistration(onComplete) {
     const errorMsg = document.getElementById('register-error-msg');
     
     if (input) {
-        input.value = localStorage.getItem('CASE_ABHEDYA_USER') || '';
+        input.value = localStorage.getItem('CASE_AARNA_USER') || '';
     }
     if (errorMsg) errorMsg.style.display = 'none';
 
@@ -128,7 +128,7 @@ function bindSafeClick(id, callback) {
  */
 function setupMenuEvents() {
     bindSafeClick('btn-new-game', () => {
-        const existingUser = localStorage.getItem('CASE_ABHEDYA_USER');
+        const existingUser = localStorage.getItem('CASE_AARNA_USER');
         if (!existingUser) {
             promptUserRegistration();
         } else {

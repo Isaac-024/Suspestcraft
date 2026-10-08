@@ -1,13 +1,13 @@
 /**
- * CASE: ABHEDYA — ADMIN LEADERBOARD CONTROLLER (admin.js)
+ * CASE: AARNA — ADMIN LEADERBOARD CONTROLLER (admin.js)
  * Dual Real-Time Engine (Cloud Firestore + Local Multi-Tab Broadcast Sync).
  */
 
 const AdminPortal = (function () {
     // SHA-256 Hash of master key ("thisismysecondgamefora"). Plaintext password is NEVER stored in code.
     const DEFAULT_ADMIN_HASH = "4595aa85beb2e7662438422ff27f3a5b0082ed875dc6b6eed789834f482b4b87";
-    const SESSION_KEY = "CASE_ABHEDYA_ADMIN_AUTH";
-    const CUSTOM_HASH_KEY = "CASE_ABHEDYA_CUSTOM_ADMIN_HASH";
+    const SESSION_KEY = "CASE_AARNA_ADMIN_AUTH";
+    const CUSTOM_HASH_KEY = "CASE_AARNA_CUSTOM_ADMIN_HASH";
 
     let failedAttempts = 0;
     let lockUntil = 0;
@@ -156,15 +156,15 @@ const AdminPortal = (function () {
         }
 
         // 2. Custom Window Event Listener
-        window.addEventListener('abhedya:player_update', (e) => {
-            console.log('[Admin] abhedya:player_update event received');
+        window.addEventListener('aarna:player_update', (e) => {
+            console.log('[Admin] aarna:player_update event received');
             refreshLocalLeaderboard();
         });
 
         // 3. BroadcastChannel for instant cross-tab sync
         try {
             if (typeof BroadcastChannel !== 'undefined') {
-                syncChannel = new BroadcastChannel('case_abhedya_leaderboard');
+                syncChannel = new BroadcastChannel('case_aarna_leaderboard');
                 syncChannel.onmessage = (event) => {
                     console.log('[Admin] Real-time broadcast received:', event.data);
                     refreshLocalLeaderboard();
@@ -174,7 +174,7 @@ const AdminPortal = (function () {
 
         // 4. Window storage listener fallback
         window.addEventListener('storage', (e) => {
-            if (e.key === 'CASE_ABHEDYA_LOCAL_PLAYERS' || e.key === 'CASE_ABHEDYA_USER' || e.key === 'CASE_ABHEDYA_SAVE_V1') {
+            if (e.key === 'CASE_AARNA_LOCAL_PLAYERS' || e.key === 'CASE_AARNA_USER' || e.key === 'CASE_AARNA_SAVE_V1') {
                 refreshLocalLeaderboard();
             }
         });
@@ -338,7 +338,7 @@ const AdminPortal = (function () {
             // Status Badge
             let statusHtml = '<span class="status-tag status-idle">REGISTERED</span>';
             if (isCompleted) {
-                statusHtml = '<span class="status-tag status-victory">🏆 ABHEDYA RESTORED</span>';
+                statusHtml = '<span class="status-tag status-victory">🏆 AARNA RESTORED</span>';
             } else if (solved > 0) {
                 statusHtml = `<span class="status-tag status-active">CASE #${solved + 1}</span>`;
             }
@@ -482,7 +482,7 @@ const AdminPortal = (function () {
        MASTER ANSWER KEY CONTROLLER
        ========================================================================= */
     const ANSWERS_AUTH_HASH = "49d837fbb43cbdc0c25a3a669fe7175bcda2d36b95d99ec5ba18891f458d7365";
-    const ANSWERS_SESSION_KEY = "CASE_ABHEDYA_ANSWERS_UNLOCKED";
+    const ANSWERS_SESSION_KEY = "CASE_AARNA_ANSWERS_UNLOCKED";
 
     /**
      * Open Master Answer Key (or Password Prompt)

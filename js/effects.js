@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA — VISUAL EFFECTS & PARTICLE SYSTEMS
+ * CASE: AARNA — VISUAL EFFECTS & PARTICLE SYSTEMS
  * Handles ambient dimension particles, explosion bursts, celebration confetti, and screen shakes.
  */
 

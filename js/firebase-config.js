@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA — TRI-ENGINE REAL-TIME LEADERBOARD & SYNC SERVICE (js/firebase-config.js)
+ * CASE: AARNA — TRI-ENGINE REAL-TIME LEADERBOARD & SYNC SERVICE (js/firebase-config.js)
  * 1. Global Cloud Relay (Internet-wide Real-Time Sync with Retained Messages across Vercel)
  * 2. Remote Instructor Control (Wipe & Force Session Reset on all connected devices)
  * 3. Firebase Cloud Firestore (Optional permanent cloud database with custom keys)
@@ -18,7 +18,7 @@ let firebaseConfig = {
 
 // Check for saved custom Firebase config in localStorage
 try {
-    const savedCustomConfig = localStorage.getItem('CASE_ABHEDYA_CUSTOM_FIREBASE_CONFIG');
+    const savedCustomConfig = localStorage.getItem('CASE_AARNA_CUSTOM_FIREBASE_CONFIG');
     if (savedCustomConfig) {
         const parsed = JSON.parse(savedCustomConfig);
         if (parsed && parsed.projectId && parsed.projectId !== "YOUR_PROJECT_ID") {
@@ -56,15 +56,15 @@ initFirebaseApp();
 // 3. Centralized Dual-Mode Service (Cloud Firestore + Internet Relay + Local BroadcastChannel)
 const FirebaseService = (function () {
     const COLLECTION_NAME = 'players';
-    const USER_KEY = 'CASE_ABHEDYA_USER';
-    const ID_KEY = 'CASE_ABHEDYA_PLAYER_ID';
-    const LOCAL_PLAYERS_KEY = 'CASE_ABHEDYA_LOCAL_PLAYERS';
+    const USER_KEY = 'CASE_AARNA_USER';
+    const ID_KEY = 'CASE_AARNA_PLAYER_ID';
+    const LOCAL_PLAYERS_KEY = 'CASE_AARNA_LOCAL_PLAYERS';
     
     // MQTT Cloud Relay Topics (Secure WebSockets)
-    const TOPIC_PLAYER_PREFIX = 'case_abhedya_live_v2/players/';
-    const TOPIC_PLAYER_WILDCARD = 'case_abhedya_live_v2/players/+';
-    const TOPIC_EVENTS = 'case_abhedya_live_v2/events';
-    const TOPIC_CONTROL = 'case_abhedya_live_v2/control';
+    const TOPIC_PLAYER_PREFIX = 'case_aarna_live_v2/players/';
+    const TOPIC_PLAYER_WILDCARD = 'case_aarna_live_v2/players/+';
+    const TOPIC_EVENTS = 'case_aarna_live_v2/events';
+    const TOPIC_CONTROL = 'case_aarna_live_v2/control';
 
     const listeners = [];
 
@@ -72,7 +72,7 @@ const FirebaseService = (function () {
     let localChannel = null;
     try {
         if (typeof BroadcastChannel !== 'undefined') {
-            localChannel = new BroadcastChannel('case_abhedya_leaderboard');
+            localChannel = new BroadcastChannel('case_aarna_leaderboard');
             localChannel.onmessage = (event) => {
                 if (event.data && event.data.type === 'REMOTE_RESET_ALL') {
                     handleRemoteReset();
@@ -88,7 +88,7 @@ const FirebaseService = (function () {
     function initCloudRelay() {
         if (typeof mqtt === 'undefined') return;
         try {
-            const clientId = 'abhedya_' + Math.random().toString(16).substring(2, 10);
+            const clientId = 'aarna_' + Math.random().toString(16).substring(2, 10);
             mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
                 clientId: clientId,
                 clean: false,
@@ -223,7 +223,7 @@ const FirebaseService = (function () {
 
         // 2. Custom DOM Event
         try {
-            window.dispatchEvent(new CustomEvent('abhedya:player_update', { detail: list }));
+            window.dispatchEvent(new CustomEvent('aarna:player_update', { detail: list }));
         } catch (e) {}
 
         // 3. Cross-tab BroadcastChannel
@@ -248,7 +248,7 @@ const FirebaseService = (function () {
             localStorage.removeItem(USER_KEY);
             localStorage.removeItem(ID_KEY);
             localStorage.removeItem(LOCAL_PLAYERS_KEY);
-            localStorage.removeItem('CASE_ABHEDYA_SAVE_V1');
+            localStorage.removeItem('CASE_AARNA_SAVE_V1');
         } catch (e) {}
 
         const isAdminPage = window.location.pathname.includes('admin') || document.getElementById('dashboard-container') !== null;
@@ -297,7 +297,7 @@ const FirebaseService = (function () {
             localStorage.removeItem(LOCAL_PLAYERS_KEY);
             localStorage.removeItem(USER_KEY);
             localStorage.removeItem(ID_KEY);
-            localStorage.removeItem('CASE_ABHEDYA_SAVE_V1');
+            localStorage.removeItem('CASE_AARNA_SAVE_V1');
         } catch (e) {}
 
         // 4. Clear Firestore if connected
@@ -344,7 +344,7 @@ const FirebaseService = (function () {
                 // Read actual completed cases from Storage
                 let solvedCount = 0;
                 try {
-                    const saveRaw = localStorage.getItem('CASE_ABHEDYA_SAVE_V1');
+                    const saveRaw = localStorage.getItem('CASE_AARNA_SAVE_V1');
                     if (saveRaw) {
                         const saveData = JSON.parse(saveRaw);
                         if (saveData && Array.isArray(saveData.completedCases)) {
@@ -402,7 +402,7 @@ const FirebaseService = (function () {
         // 2. Update local player list with actual solved cases from storage
         let solvedCount = 0;
         try {
-            const saveRaw = localStorage.getItem('CASE_ABHEDYA_SAVE_V1');
+            const saveRaw = localStorage.getItem('CASE_AARNA_SAVE_V1');
             if (saveRaw) {
                 const saveData = JSON.parse(saveRaw);
                 if (saveData && Array.isArray(saveData.completedCases)) {
@@ -531,7 +531,7 @@ const FirebaseService = (function () {
      */
     function saveCustomConfig(newConfig) {
         try {
-            localStorage.setItem('CASE_ABHEDYA_CUSTOM_FIREBASE_CONFIG', JSON.stringify(newConfig));
+            localStorage.setItem('CASE_AARNA_CUSTOM_FIREBASE_CONFIG', JSON.stringify(newConfig));
             firebaseConfig = newConfig;
             initFirebaseApp();
             return true;

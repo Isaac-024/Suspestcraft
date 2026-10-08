@@ -1,5 +1,5 @@
 /**
- * Automated Verification Script for CASE: ABHEDYA
+ * Automated Verification Script for CASE: AARNA
  * Verifies all 10 cases, clues, options, answers, image assets, audio assets, and data integrity.
  */
 
@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-console.log('=== STARTING AUTOMATED TEST SUITE FOR CASE: ABHEDYA ===\n');
+console.log('=== STARTING AUTOMATED TEST SUITE FOR CASE: AARNA ===\n');
 
 // 1. Verify all code files exist
 const requiredFiles = [

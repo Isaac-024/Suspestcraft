@@ -1,4 +1,4 @@
-# CASE: ABHEDYA Assets
+# CASE: AARNA Assets
 The game dynamically synthesizes all retro sound effects and ambient soundtracks via Web Audio API (`js/audio.js`).
 Optional `.mp3` sound files placed here will also be seamlessly loaded:
 - `mc_click.mp3`

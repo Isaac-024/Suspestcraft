@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA - Master Case Database
+ * CASE: AARNA - Master Case Database
  * 10 Brand New Mystery Cases with balanced options and relaxed deduction logic.
  */
 
@@ -969,7 +969,7 @@ const CASES = [
 
     {
         id: 10,
-        title: "THE DEEP CHAMBER",
+        title: "THE AARNA AWAKENING",
         dimension: "deepdark",
         victim: "Leo",
         location: "Underground Echo Chamber",

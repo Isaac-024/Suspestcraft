@@ -1,5 +1,5 @@
 /**
- * CASE: ABHEDYA — USER INTERFACE ENGINE (js/ui.js)
+ * CASE: AARNA — USER INTERFACE ENGINE (js/ui.js)
  * Manages DOM rendering, screens, modal dialogs, blueprint schematics, and form states.
  * Uses pure HTML/CSS without Canvas.
  */
