@@ -105,13 +105,9 @@ if (CASES.length !== 10) {
 }
 
 const requiredEvidenceKeys = [
-    'blockPrints',
-    'observerLog',
-    'chatLog',
-    'witness',
-    'weapon',
-    'roomLayout',
-    'timeline'
+    'clue1',
+    'clue2',
+    'clue3'
 ];
 
 let allCasesValid = true;
@@ -136,7 +132,7 @@ CASES.forEach((c, idx) => {
         allCasesValid = false;
     }
 
-    // Verify 7 Evidence categories
+    // Verify 3 Evidence categories
     if (!c.evidence) {
         console.error(`❌ Case #${caseNum} is missing evidence object.`);
         allCasesValid = false;

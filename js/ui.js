@@ -153,10 +153,13 @@ const UI = (function() {
     function renderInvestigation(caseData, inspectedCluesList, onInspectClue, onOpenSuspect) {
         setDimensionTheme(caseData.dimension);
 
+        const evidenceKeys = Object.keys(caseData.evidence || {});
+        const totalClues = evidenceKeys.length || 3;
+
         // Update HUD
         document.getElementById('hud-case-number').textContent = `CASE #${String(caseData.id).padStart(3, '0')}`;
         document.getElementById('hud-case-title').textContent = caseData.title;
-        updateInspectedCount(inspectedCluesList.length, 7);
+        updateInspectedCount(inspectedCluesList.length, totalClues);
 
         // Render Suspects Sidebar
         const suspectsListEl = document.getElementById('suspects-list');
@@ -194,35 +197,26 @@ const UI = (function() {
             suspectsListEl.appendChild(item);
         });
 
-        // Render Evidence Grid (7 categories)
+        // Render Evidence Grid
         const evidenceGridEl = document.getElementById('evidence-grid');
         evidenceGridEl.innerHTML = '';
 
-        const evidenceKeys = [
-            { key: 'blockPrints', num: '01', defaultIcon: '👣' },
-            { key: 'observerLog', num: '02', defaultIcon: '👁️' },
-            { key: 'chatLog', num: '03', defaultIcon: '💬' },
-            { key: 'witness', num: '04', defaultIcon: '📜' },
-            { key: 'weapon', num: '05', defaultIcon: '⚔️' },
-            { key: 'roomLayout', num: '06', defaultIcon: '📐' },
-            { key: 'timeline', num: '07', defaultIcon: '⏳' }
-        ];
-
-        evidenceKeys.forEach(info => {
-            const clueData = caseData.evidence[info.key];
+        evidenceKeys.forEach((key, index) => {
+            const clueData = caseData.evidence[key];
             if (!clueData) return;
 
-            const isInspected = inspectedCluesList.includes(info.key);
+            const isInspected = inspectedCluesList.includes(key);
+            const num = String(index + 1).padStart(2, '0');
 
             const card = document.createElement('article');
             card.className = `evidence-card ${isInspected ? 'is-inspected' : 'is-uninspected'}`;
             card.setAttribute('tabindex', '0');
             card.setAttribute('role', 'button');
-            card.setAttribute('aria-label', `Evidence ${info.num}: ${clueData.title}`);
+            card.setAttribute('aria-label', `Evidence ${num}: ${clueData.title}`);
 
             card.innerHTML = `
-                <span class="evidence-badge-num">${info.num} — EVIDENCE</span>
-                <div class="evidence-icon-large">${clueData.icon || info.defaultIcon}</div>
+                <span class="evidence-badge-num">${num} — EVIDENCE</span>
+                <div class="evidence-icon-large">${clueData.icon || '🔍'}</div>
                 <h4 class="evidence-card-title">${clueData.title}</h4>
                 <p class="evidence-card-preview">${clueData.summary}</p>
                 <div class="evidence-status-tag ${isInspected ? 'evidence-inspected' : 'evidence-uninspected'}">
@@ -232,13 +226,13 @@ const UI = (function() {
 
             card.addEventListener('click', () => {
                 AudioEngine.playClick();
-                onInspectClue(info.key, clueData, caseData);
+                onInspectClue(key, clueData, caseData);
             });
             card.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     AudioEngine.playClick();
-                    onInspectClue(info.key, clueData, caseData);
+                    onInspectClue(key, clueData, caseData);
                 }
             });
 
@@ -249,7 +243,7 @@ const UI = (function() {
     /**
      * Update inspected evidence counter badge
      */
-    function updateInspectedCount(inspectedCount, total = 7) {
+    function updateInspectedCount(inspectedCount, total = 3) {
         const counter = document.getElementById('inspected-count');
         if (counter) {
             counter.textContent = `${inspectedCount} / ${total}`;

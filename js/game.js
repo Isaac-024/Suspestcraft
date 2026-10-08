@@ -216,7 +216,8 @@ const Game = (function () {
         Storage.markClueInspected(currentCase.id, clueKey);
 
         const inspectedList = Storage.getInspectedClues(currentCase.id);
-        UI.updateInspectedCount(inspectedList.length, 7);
+        const totalClues = Object.keys(currentCase.evidence || {}).length || 3;
+        UI.updateInspectedCount(inspectedList.length, totalClues);
 
         UI.openEvidenceModal(clueKey, clueData, currentCase);
 
