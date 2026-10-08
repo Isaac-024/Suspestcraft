@@ -1,10 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#1a181f" stroke="#3b3547" stroke-width="4"/>
-  <rect x="20" y="65" width="120" height="35" fill="#382a1c" stroke="#1f160e" stroke-width="3"/>
-  <rect x="35" y="80" width="90" height="12" fill="#543e2a"/>
-  <rect x="30" y="35" width="100" height="12" fill="#8a5529" transform="rotate(25 30 35)"/>
-  <polygon points="105,45 135,32 140,75 110,65" fill="#80562e"/>
-  <polygon points="120,40 135,32 140,75 125,70" fill="#523417"/>
-  <polygon points="135,50 130,55 136,58" fill="#1f160e"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#ff9f1c" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#ff9f1c" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#ff9f1c" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">CHIPPED WOODEN AXE</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <!-- Desk Base -->
+  <rect x="30" y="115" width="180" height="25" fill="#3b2716" stroke="#1f1308" stroke-width="2"/>
+  <!-- Axe Handle -->
+  <rect x="40" y="60" width="140" height="16" fill="#8c5828" stroke="#4a2a0c" stroke-width="2" transform="rotate(20 40 60)"/>
+  <!-- Axe Blade Head -->
+  <polygon points="145,65 195,45 205,105 155,95" fill="#80562e" stroke="#3b2410" stroke-width="3"/>
+  <polygon points="175,55 195,45 205,105 185,98" fill="#ba8049"/>
+  <!-- Chipped Splinters -->
+  <polygon points="195,70 185,75 197,80" fill="#12121a"/>
+  <polygon points="140,110 148,105 145,115" fill="#e0a058"/>
+  <polygon points="160,118 170,112 165,122" fill="#e0a058"/>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: HEAVY SPLINTERED BLADE</text>
 </svg>

@@ -1,7 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#211a1a" stroke="#4a3636" stroke-width="4"/>
-  <polygon points="35,40 85,25 125,65 75,95 25,75" fill="#e62e2e"/>
-  <polygon points="50,45 80,35 110,65 75,85" fill="#ff6b6b"/>
-  <line x1="75" y1="95" x2="105" y2="105" stroke="#ffffff" stroke-width="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#d90429" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#d90429" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#d90429" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">RED FIREWORK CASING</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <polygon points="40,55 110,38 165,85 105,135 35,105" fill="#d90429" stroke="#7a0010" stroke-width="3"/>
+  <polygon points="65,60 105,48 145,85 105,115" fill="#ff4d6d"/>
+  <!-- Copper Fuse Wire -->
+  <path d="M105,135 Q135,150 160,130 T200,140" stroke="#ffd000" stroke-width="4" fill="none"/>
+  <text x="90" y="90" fill="#ffffff" font-family="'Courier New', monospace" font-size="10" font-weight="900">ROCKET FUSE</text>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: TORN CASINGS & FUSE MATCHING BELT</text>
 </svg>

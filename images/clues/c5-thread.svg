@@ -1,8 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#241e1a" stroke="#4f3f35" stroke-width="4"/>
-  <rect x="40" y="30" width="80" height="60" fill="#784b2a" stroke="#3b210f" stroke-width="4"/>
-  <polygon points="70,70 100,50 115,80 85,95" fill="#141417"/>
-  <line x1="100" y1="50" x2="110" y2="35" stroke="#141417" stroke-width="3"/>
-  <line x1="115" y1="80" x2="130" y2="85" stroke="#141417" stroke-width="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#9d4edd" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#9d4edd" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#9d4edd" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">BLACK COWL THREADS</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <!-- Bronze Saddle Buckle -->
+  <rect x="70" y="50" width="100" height="75" fill="#b08947" stroke="#523a13" stroke-width="4"/>
+  <rect x="85" y="65" width="70" height="45" fill="#171722"/>
+  <!-- Pitch Black Cowl Fibers Snagged -->
+  <path d="M95,65 L80,120 L110,105 L95,145" stroke="#050508" stroke-width="6" fill="none"/>
+  <path d="M125,65 L145,130 L160,115 L170,140" stroke="#050508" stroke-width="6" fill="none"/>
+  <circle cx="80" cy="120" r="4" fill="#ff0054"/>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: SHREDDED HOOD FIBERS ON BUCKLE</text>
 </svg>

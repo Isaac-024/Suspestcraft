@@ -1,10 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#121e29" stroke="#24445e" stroke-width="4"/>
-  <polygon points="25,15 135,15 135,105 25,105" fill="#faebd0"/>
-  <text x="35" y="32" fill="#0a1a26" font-family="monospace" font-size="9" font-weight="bold">AARNA SINGULARITY</text>
-  <text x="35" y="50" fill="#0a3d62" font-family="monospace" font-size="8">SHARDS 1-9 SECURED</text>
-  <text x="35" y="68" fill="#a82323" font-family="monospace" font-size="8">SHARD 10 AT CAVERN</text>
-  <circle cx="115" cy="85" r="12" fill="#00ffff" stroke="#0a3d62" stroke-width="2"/>
-  <text x="35" y="92" fill="#4d148c" font-family="monospace" font-size="10" font-weight="bold">VESPER</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#ffd700" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#ffd700" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#ffd700" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">AARNA SINGULARITY PLAN</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <!-- Dark Master Ledger -->
+  <rect x="35" y="38" width="170" height="106" fill="#0b132b" stroke="#00ffff" stroke-width="3"/>
+  <text x="120" y="60" text-anchor="middle" fill="#00ffff" font-family="'Courier New', monospace" font-size="11" font-weight="900">AARNA SINGULARITY</text>
+  <line x1="45" y1="68" x2="195" y2="68" stroke="#0077b6" stroke-width="2"/>
+  <text x="50" y="85" fill="#ffffff" font-family="'Courier New', monospace" font-size="9" font-weight="bold">• SHARDS 1-9 ASSEMBLED</text>
+  <text x="50" y="100" fill="#ffffff" font-family="'Courier New', monospace" font-size="9" font-weight="bold">• STUN LEO WITH ACOUSTIC FORK</text>
+  <!-- Vesper Signature -->
+  <text x="120" y="128" text-anchor="middle" fill="#ffd700" font-family="'Courier New', monospace" font-size="13" font-weight="900">MASTER: VESPER</text>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: MASTER RECORD SIGNED BY VESPER</text>
 </svg>

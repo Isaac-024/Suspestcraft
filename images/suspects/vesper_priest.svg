@@ -1,11 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#17141f" stroke="#3e3157" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#251e33"/>
-  <polygon points="64,14 36,44 92,44" fill="#120e1c"/>
-  <rect x="44" y="36" width="40" height="28" fill="#f5cbb0"/>
-  <rect x="50" y="44" width="6" height="6" fill="#4d1b94"/>
-  <rect x="72" y="44" width="6" height="6" fill="#4d1b94"/>
-  <rect x="32" y="64" width="64" height="52" fill="#140f21"/>
-  <rect x="60" y="64" width="8" height="52" fill="#6930c3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#9d4edd" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <polygon points="100,16 55,54 145,54" fill="#100b1a"/>
+  <rect x="72" y="48" width="56" height="40" fill="#fcd0a1"/>
+  <rect x="78" y="58" width="8" height="8" fill="#3c096c"/>
+  <rect x="114" y="58" width="8" height="8" fill="#3c096c"/>
+  <rect x="45" y="96" width="110" height="66" fill="#100b1a"/>
+  <rect x="94" y="96" width="12" height="66" fill="#9d4edd"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#9d4edd" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">VESPER</text>
+  <text x="100" y="186" text-anchor="middle" fill="#9d4edd" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">PRIEST</text>
 </svg>

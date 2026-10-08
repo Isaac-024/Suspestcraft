@@ -1,13 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#1f232b" stroke="#3e4f6e" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#2a3345"/>
-  <rect x="42" y="18" width="44" height="18" fill="#4d301b"/>
-  <rect x="40" y="32" width="48" height="14" fill="#d67b29"/>
-  <circle cx="52" cy="38" r="7" fill="#5ef7ff"/>
-  <circle cx="76" cy="38" r="7" fill="#5ef7ff"/>
-  <rect x="44" y="46" width="40" height="20" fill="#fcd0a1"/>
-  <rect x="32" y="66" width="64" height="50" fill="#475266"/>
-  <rect x="30" y="80" width="16" height="24" fill="#f29424"/>
-  <path d="M90,70 Q105,85 88,100" stroke="#e07719" stroke-width="4" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#ff9f1c" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <rect x="68" y="24" width="64" height="20" fill="#4d301b"/>
+  <!-- Orange Protective Goggles -->
+  <rect x="60" y="42" width="80" height="22" fill="#d66800" stroke="#472300" stroke-width="2"/>
+  <circle cx="80" cy="53" r="9" fill="#00ffff" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="120" cy="53" r="9" fill="#00ffff" stroke="#ffffff" stroke-width="2"/>
+  <!-- Face -->
+  <rect x="70" y="64" width="60" height="28" fill="#fcd0a1"/>
+  <rect x="88" y="78" width="24" height="6" fill="#7a3616"/>
+  <!-- Work Jacket -->
+  <rect x="45" y="96" width="110" height="66" fill="#3a4b61"/>
+  <!-- Orange Rubber Gloves -->
+  <rect x="35" y="120" width="25" height="35" fill="#ff7700" stroke="#7a3900" stroke-width="2"/>
+  <!-- Spool of Orange Copper Wire in hand -->
+  <circle cx="150" cy="130" r="22" fill="#d95f02" stroke="#ffaa5e" stroke-width="4"/>
+  <circle cx="150" cy="130" r="10" fill="#3a4b61"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#ff9f1c" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">VANCE</text>
+  <text x="100" y="186" text-anchor="middle" fill="#ff9f1c" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">ENGINEER</text>
 </svg>

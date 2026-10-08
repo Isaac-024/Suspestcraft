@@ -1,12 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#2e1414" stroke="#7a2a2a" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#4d1f1f"/>
-  <rect x="40" y="18" width="48" height="26" fill="#b03117"/>
-  <rect x="44" y="34" width="40" height="28" fill="#fcd0a1"/>
-  <rect x="50" y="42" width="6" height="6" fill="#290a0a"/>
-  <rect x="72" y="42" width="6" height="6" fill="#290a0a"/>
-  <rect x="34" y="62" width="60" height="54" fill="#4a1818"/>
-  <rect x="94" y="30" width="6" height="80" fill="#82512c"/>
-  <circle cx="97" cy="26" r="10" fill="#ff5d17" stroke="#ffd000" stroke-width="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#ff5400" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <rect x="66" y="24" width="68" height="26" fill="#b02a07"/>
+  <rect x="72" y="48" width="56" height="42" fill="#fcd0a1"/>
+  <rect x="78" y="58" width="8" height="8" fill="#3b0f03"/>
+  <rect x="114" y="58" width="8" height="8" fill="#3b0f03"/>
+  <rect x="45" y="96" width="110" height="66" fill="#d00000"/>
+  <!-- Flaming Lava Staff -->
+  <rect x="150" y="30" width="8" height="120" fill="#693b19"/>
+  <circle cx="154" cy="30" r="16" fill="#ff5400" stroke="#ffdd00" stroke-width="3"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#ff5400" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">PYRA</text>
+  <text x="100" y="186" text-anchor="middle" fill="#ff5400" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">LAVA HANDLER</text>
 </svg>

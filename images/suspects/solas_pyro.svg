@@ -1,12 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#261712" stroke="#693021" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#422218"/>
-  <rect x="40" y="18" width="48" height="20" fill="#d9531e"/>
-  <rect x="44" y="34" width="40" height="28" fill="#fcd0a1"/>
-  <rect x="50" y="42" width="6" height="6" fill="#240c05"/>
-  <rect x="72" y="42" width="6" height="6" fill="#240c05"/>
-  <rect x="34" y="62" width="60" height="54" fill="#752e18"/>
-  <rect x="94" y="55" width="6" height="40" fill="#694320"/>
-  <polygon points="97,35 90,55 104,55" fill="#ffaa00"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#ff5400" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <rect x="66" y="24" width="68" height="26" fill="#ff5400"/>
+  <rect x="72" y="48" width="56" height="42" fill="#fcd0a1"/>
+  <rect x="78" y="58" width="8" height="8" fill="#240c03"/>
+  <rect x="114" y="58" width="8" height="8" fill="#240c03"/>
+  <rect x="45" y="96" width="110" height="66" fill="#9d0208"/>
+  <!-- Flaming Torch in hand -->
+  <rect x="150" y="70" width="8" height="70" fill="#6a040f"/>
+  <polygon points="154,50 142,70 166,70" fill="#ffd000"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#ff5400" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">SOLAS</text>
+  <text x="100" y="186" text-anchor="middle" fill="#ff5400" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">FIRE SCOUT</text>
 </svg>

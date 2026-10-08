@@ -1,12 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#292621" stroke="#6e5837" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#423b30"/>
-  <ellipse cx="64" cy="24" rx="26" ry="14" fill="#f0ede6"/>
-  <rect x="44" y="34" width="40" height="28" fill="#f7cb9c"/>
-  <rect x="50" y="42" width="6" height="6" fill="#241e17"/>
-  <rect x="72" y="42" width="6" height="6" fill="#241e17"/>
-  <rect x="34" y="62" width="60" height="54" fill="#7a4b29"/>
-  <rect x="42" y="64" width="44" height="52" fill="#f5f2eb"/>
-  <ellipse cx="30" cy="85" rx="14" ry="8" fill="#d49444" stroke="#875317" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#ffffff" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <!-- Tall White Chef Hat -->
+  <ellipse cx="100" cy="30" rx="40" ry="20" fill="#ffffff" stroke="#a3a3a3" stroke-width="2"/>
+  <rect x="68" y="25" width="64" height="24" fill="#ffffff"/>
+  <!-- Face -->
+  <rect x="72" y="48" width="56" height="40" fill="#fcd0a1"/>
+  <rect x="78" y="58" width="8" height="8" fill="#24140b"/>
+  <rect x="114" y="58" width="8" height="8" fill="#24140b"/>
+  <!-- White Chef Apron -->
+  <rect x="45" y="96" width="110" height="66" fill="#7a4e28"/>
+  <rect x="60" y="96" width="80" height="66" fill="#ffffff" stroke="#b0b0b0" stroke-width="2"/>
+  <!-- Holding French Bread Loaf -->
+  <ellipse cx="40" cy="125" rx="20" ry="10" fill="#d49444" stroke="#7a4e18" stroke-width="2" transform="rotate(-30 40 125)"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#ffffff" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">TUCK</text>
+  <text x="100" y="186" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">BAKER</text>
 </svg>

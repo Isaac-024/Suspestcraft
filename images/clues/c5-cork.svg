@@ -1,8 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#2b1612" stroke="#5e261c" stroke-width="4"/>
-  <rect x="15" y="45" width="130" height="60" fill="#ff4d17"/>
-  <polygon points="15,65 45,55 75,68 115,52 145,65 145,105 15,105" fill="#ffd000"/>
-  <ellipse cx="80" cy="55" rx="18" ry="12" fill="#80562e" stroke="#422911" stroke-width="3"/>
-  <text x="73" y="58" fill="#faebd0" font-family="monospace" font-size="10" font-weight="bold">M</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#ffdd59" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#ffdd59" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#ffdd59" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">MARKED FLASK CORK</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <!-- Lava River Surface -->
+  <rect x="20" y="80" width="200" height="60" fill="#e85d04"/>
+  <polygon points="20,80 60,65 110,85 170,68 220,80 220,140 20,140" fill="#ffba08"/>
+  <!-- Wooden Flask Cork Floating -->
+  <ellipse cx="120" cy="75" rx="36" ry="22" fill="#8c5828" stroke="#4a2a0c" stroke-width="3"/>
+  <!-- Bold Stamped Letter M -->
+  <text x="120" y="84" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="22" font-weight="900">M</text>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: STAMPED WITH "M"</text>
 </svg>

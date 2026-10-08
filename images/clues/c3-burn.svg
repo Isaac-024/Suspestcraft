@@ -1,9 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#242426" stroke="#4a4a52" stroke-width="4"/>
-  <rect x="35" y="25" width="90" height="70" fill="#757d8a" stroke="#36393d" stroke-width="4"/>
-  <circle cx="80" cy="60" r="28" fill="#141414"/>
-  <polygon points="80,35 68,60 82,60 74,85 92,55 78,55" fill="#ffd000"/>
-  <path d="M55,45 Q70,55 45,75" stroke="#242424" stroke-width="3" fill="none"/>
-  <path d="M105,45 Q90,55 115,75" stroke="#242424" stroke-width="3" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#00f5d4" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#00f5d4" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#00f5d4" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">ELECTRICAL SCORCH MARK</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <!-- Iron Floor Plate -->
+  <rect x="40" y="40" width="160" height="100" fill="#586370" stroke="#252c36" stroke-width="3"/>
+  <!-- Black Scorched Center -->
+  <circle cx="120" cy="90" r="40" fill="#141417"/>
+  <!-- Lightning Scorch Cracks -->
+  <path d="M120,90 L90,50 M120,90 L160,55 M120,90 L75,115 M120,90 L165,125" stroke="#00ffff" stroke-width="3"/>
+  <polygon points="120,65 110,85 125,85 115,110 135,80 122,80" fill="#ffd000"/>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: HIGH VOLTAGE BLAST</text>
 </svg>

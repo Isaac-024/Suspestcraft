@@ -1,12 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#2b2612" stroke="#756419" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#453a18"/>
-  <rect x="40" y="18" width="48" height="24" fill="#d9ad26"/>
-  <rect x="44" y="34" width="40" height="28" fill="#fcd0a1"/>
-  <rect x="50" y="42" width="6" height="6" fill="#2e2508"/>
-  <rect x="72" y="42" width="6" height="6" fill="#2e2508"/>
-  <rect x="32" y="62" width="64" height="54" fill="#82321e"/>
-  <rect x="25" y="80" width="16" height="30" fill="#ffd700"/>
-  <rect x="87" y="80" width="16" height="30" fill="#ffd700"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#ffea00" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <rect x="66" y="24" width="68" height="26" fill="#ffd000"/>
+  <rect x="72" y="48" width="56" height="42" fill="#fcd0a1"/>
+  <rect x="78" y="58" width="8" height="8" fill="#3b2b03"/>
+  <rect x="114" y="58" width="8" height="8" fill="#3b2b03"/>
+  <!-- Dark Maroon Robes with Sleeves Covered in Bright Yellow Sulfur Dust -->
+  <rect x="45" y="96" width="110" height="66" fill="#6a040f"/>
+  <!-- Bright Yellow Powder on Sleeves -->
+  <rect x="35" y="110" width="22" height="45" fill="#ffea00" stroke="#998000" stroke-width="2"/>
+  <rect x="143" y="110" width="22" height="45" fill="#ffea00" stroke="#998000" stroke-width="2"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#ffea00" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">SOLAS</text>
+  <text x="100" y="186" text-anchor="middle" fill="#ffea00" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">ALCHEMIST</text>
 </svg>

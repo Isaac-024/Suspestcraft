@@ -1,28 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#1f2421" stroke="#3d5a45" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#2d382e"/>
-  <polygon points="64,20 44,48 84,48" fill="#1c2b1e"/>
-  <polygon points="64,36 38,70 90,70" fill="#1c2b1e"/>
-  <rect x="44" y="24" width="40" height="16" fill="#543310"/>
-  <rect x="40" y="28" width="48" height="12" fill="#402208"/>
-  <rect x="40" y="22" width="48" height="8" fill="#8c3a27"/>
-  <rect x="44" y="36" width="40" height="28" fill="#f5c298"/>
-  <rect x="48" y="44" width="8" height="8" fill="#ffffff"/>
-  <rect x="52" y="44" width="4" height="8" fill="#291d0f"/>
-  <rect x="72" y="44" width="8" height="8" fill="#ffffff"/>
-  <rect x="72" y="44" width="4" height="8" fill="#291d0f"/>
-  <rect x="60" y="48" width="8" height="8" fill="#d99b6c"/>
-  <rect x="40" y="56" width="48" height="20" fill="#543310"/>
-  <rect x="44" y="60" width="40" height="20" fill="#402208"/>
-  <rect x="52" y="72" width="24" height="8" fill="#2b1402"/>
-  <rect x="32" y="76" width="64" height="40" fill="#b82626"/>
-  <rect x="32" y="84" width="64" height="6" fill="#1c1c1c"/>
-  <rect x="32" y="98" width="64" height="6" fill="#1c1c1c"/>
-  <rect x="48" y="76" width="6" height="40" fill="#1c1c1c"/>
-  <rect x="74" y="76" width="6" height="40" fill="#1c1c1c"/>
-  <rect x="84" y="40" width="8" height="50" fill="#8b5a2b" transform="rotate(-20 84 40)"/>
-  <polygon points="96,30 114,24 116,46 94,40" fill="#a8a8b2"/>
-  <polygon points="96,30 102,28 102,38 94,40" fill="#6c6c75"/>
-  <rect x="110" y="26" width="4" height="18" fill="#e0e0eb"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#e63946" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <!-- Pine Background Backdrop -->
+  <polygon points="100,20 60,70 140,70" fill="#1b2e1e"/>
+  <!-- Hair / Cap -->
+  <rect x="70" y="30" width="60" height="16" fill="#5c2e14"/>
+  <rect x="65" y="34" width="70" height="12" fill="#8b3a1b"/>
+  <!-- Face -->
+  <rect x="70" y="44" width="60" height="40" fill="#fcd0a1"/>
+  <!-- Eyes -->
+  <rect x="76" y="52" width="10" height="10" fill="#ffffff"/>
+  <rect x="82" y="54" width="4" height="8" fill="#1c120c"/>
+  <rect x="114" y="52" width="10" height="10" fill="#ffffff"/>
+  <rect x="114" y="54" width="4" height="8" fill="#1c120c"/>
+  <!-- Nose -->
+  <rect x="94" y="58" width="12" height="10" fill="#d99b6c"/>
+  <!-- Full Bushy Beard -->
+  <rect x="62" y="70" width="76" height="34" fill="#4a220d"/>
+  <rect x="74" y="76" width="52" height="28" fill="#361707"/>
+  <!-- Red Flannel Shirt -->
+  <rect x="45" y="104" width="110" height="58" fill="#b81d24"/>
+  <!-- Plaid Black Lines -->
+  <rect x="45" y="118" width="110" height="8" fill="#241415"/>
+  <rect x="45" y="138" width="110" height="8" fill="#241415"/>
+  <rect x="72" y="104" width="8" height="58" fill="#241415"/>
+  <rect x="120" y="104" width="8" height="58" fill="#241415"/>
+  <!-- Large Prominent Axe on Shoulder -->
+  <rect x="145" y="45" width="10" height="90" fill="#8c5828" transform="rotate(-15 145 45)"/>
+  <polygon points="140,40 180,25 185,65 145,55" fill="#a8b2bd" stroke="#48535e" stroke-width="2"/>
+  <polygon points="175,28 185,25 185,65 178,60" fill="#ffffff"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#e63946" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">GARTH</text>
+  <text x="100" y="186" text-anchor="middle" fill="#e63946" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">WOODCUTTER</text>
 </svg>

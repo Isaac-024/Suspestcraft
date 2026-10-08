@@ -1,10 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120" shape-rendering="crispEdges">
-  <rect width="160" height="120" fill="#100f14"/>
-  <rect x="6" y="6" width="148" height="108" fill="#2e1a14" stroke="#5c2e1b" stroke-width="4"/>
-  <polygon points="25,18 135,18 135,102 25,102" fill="#faebd0"/>
-  <rect x="35" y="28" width="90" height="8" fill="#872917"/>
-  <line x1="35" y1="48" x2="125" y2="48" stroke="#42291d" stroke-width="3"/>
-  <line x1="35" y1="60" x2="110" y2="60" stroke="#42291d" stroke-width="3"/>
-  <text x="35" y="80" fill="#801c1c" font-family="monospace" font-size="9" font-weight="bold">ORDER: DROP GATE</text>
-  <text x="75" y="95" fill="#80440a" font-family="monospace" font-size="10" font-weight="bold">SIGN: ZUL</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" shape-rendering="crispEdges">
+  <!-- Background -->
+  <rect width="240" height="180" fill="#08080d"/>
+  <rect x="6" y="6" width="228" height="168" fill="#12121a" stroke="#ffd700" stroke-width="3"/>
+  <rect x="10" y="10" width="220" height="160" fill="#171722"/>
+
+  <!-- Top Title Banner -->
+  <rect x="10" y="10" width="220" height="26" fill="#0c0c14" stroke="#ffd700" stroke-width="2"/>
+  <text x="120" y="27" text-anchor="middle" fill="#ffd700" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">GATE DROP ORDER</text>
+
+  <!-- Clue Graphic Area -->
+  <g>
+    
+  <polygon points="45,38 195,38 190,145 40,145" fill="#faebd0" stroke="#800f2f" stroke-width="3"/>
+  <!-- Red Header Bar -->
+  <rect x="52" y="48" width="132" height="12" fill="#800f2f"/>
+  <text x="118" y="58" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="8" font-weight="bold">LAVA GATE DIRECTIVE</text>
+  <text x="60" y="85" fill="#381b0d" font-family="'Courier New', monospace" font-size="10" font-weight="bold">DROP PORTCULLIS: 02:00</text>
+  <!-- Gold Wax Seal stamped ZUL -->
+  <circle cx="150" cy="115" r="18" fill="#ffd700" stroke="#7a5500" stroke-width="2"/>
+  <text x="150" y="120" text-anchor="middle" fill="#800f2f" font-family="'Courier New', monospace" font-size="11" font-weight="900">ZUL</text>
+
+  </g>
+
+  <!-- Bottom Detail Tag -->
+  <rect x="16" y="152" width="208" height="16" fill="#0c0c14"/>
+  <text x="120" y="164" text-anchor="middle" fill="#8e8e9e" font-family="'Courier New', monospace" font-size="8" font-weight="bold" letter-spacing="1">EVIDENCE: SIGNED WITH ZUL SEAL</text>
 </svg>

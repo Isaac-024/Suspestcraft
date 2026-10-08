@@ -1,12 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#242426" stroke="#525257" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#38383d"/>
-  <rect x="42" y="18" width="44" height="20" fill="#302621"/>
-  <rect x="44" y="34" width="40" height="28" fill="#f0c299"/>
-  <rect x="50" y="44" width="6" height="6" fill="#1f1814"/>
-  <rect x="72" y="44" width="6" height="6" fill="#1f1814"/>
-  <rect x="34" y="62" width="60" height="54" fill="#5e5954"/>
-  <rect x="34" y="80" width="60" height="10" fill="#36322d"/>
-  <rect x="58" y="76" width="8" height="22" fill="#a3aab8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#adb5bd" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <rect x="66" y="24" width="68" height="26" fill="#2b2621"/>
+  <rect x="72" y="48" width="56" height="42" fill="#fcd0a1"/>
+  <rect x="78" y="58" width="8" height="8" fill="#141414"/>
+  <rect x="114" y="58" width="8" height="8" fill="#141414"/>
+  <!-- Stonemason Grey Apron -->
+  <rect x="45" y="96" width="110" height="66" fill="#525459"/>
+  <rect x="45" y="120" width="110" height="14" fill="#29292e"/>
+  <!-- Heavy Steel Chisel in Belt -->
+  <rect x="94" y="112" width="12" height="38" fill="#c4ccd4" stroke="#43484f" stroke-width="2"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#adb5bd" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">BRUNO</text>
+  <text x="100" y="186" text-anchor="middle" fill="#adb5bd" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">STONEMASON</text>
 </svg>

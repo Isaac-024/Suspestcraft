@@ -1,12 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" shape-rendering="crispEdges">
-  <rect width="128" height="128" fill="#14141c"/>
-  <rect x="8" y="8" width="112" height="112" fill="#2b251f" stroke="#634f3b" stroke-width="4"/>
-  <rect x="16" y="16" width="96" height="96" fill="#42372a"/>
-  <rect x="42" y="18" width="44" height="18" fill="#3b2719"/>
-  <rect x="44" y="34" width="40" height="28" fill="#fcd0a1"/>
-  <rect x="50" y="42" width="6" height="6" fill="#291a0c"/>
-  <rect x="72" y="42" width="6" height="6" fill="#291a0c"/>
-  <rect x="34" y="62" width="60" height="54" fill="#6e5033"/>
-  <line x1="88" y1="40" x2="108" y2="100" stroke="#7a4e27" stroke-width="6"/>
-  <path d="M75,35 Q100,20 120,40" stroke="#a3b1c2" stroke-width="8" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Background Card -->
+  <rect width="200" height="200" fill="#0a0910"/>
+  <rect x="6" y="6" width="188" height="188" fill="#15141f" stroke="#adb5bd" stroke-width="3"/>
+  <rect x="12" y="12" width="176" height="176" fill="#1c1a29"/>
+
+  <!-- Character Artwork -->
+  <g>
+    
+  <rect x="66" y="24" width="68" height="24" fill="#3b2210"/>
+  <rect x="72" y="46" width="56" height="42" fill="#fcd0a1"/>
+  <rect x="78" y="56" width="8" height="8" fill="#141414"/>
+  <rect x="114" y="56" width="8" height="8" fill="#141414"/>
+  <rect x="45" y="94" width="110" height="68" fill="#6c584c"/>
+  <!-- Heavy Iron Pickaxe -->
+  <line x1="130" y1="50" x2="160" y2="150" stroke="#8a5327" stroke-width="6"/>
+  <path d="M110,45 Q140,25 175,50" stroke="#c4ccd4" stroke-width="8" fill="none"/>
+
+  </g>
+
+  <!-- Name Banner -->
+  <rect x="12" y="162" width="176" height="26" fill="#0d0c14" stroke="#adb5bd" stroke-width="2"/>
+  <text x="100" y="176" text-anchor="middle" fill="#ffffff" font-family="'Courier New', monospace" font-size="11" font-weight="900" letter-spacing="1">DAREK</text>
+  <text x="100" y="186" text-anchor="middle" fill="#adb5bd" font-family="'Courier New', monospace" font-size="7" font-weight="bold" letter-spacing="1">QUARRYMAN</text>
 </svg>
