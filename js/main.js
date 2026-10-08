@@ -3,8 +3,11 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize Audio Engine
+    // 1. Initialize Audio Engine & Global Competition Listener
     AudioEngine.init();
+    if (typeof Game !== 'undefined' && Game.initCompetitionListener) {
+        Game.initCompetitionListener();
+    }
 
     // 2. Setup All Event Listeners
     setupMenuEvents();
@@ -128,6 +131,17 @@ function bindSafeClick(id, callback) {
  */
 function setupMenuEvents() {
     bindSafeClick('btn-new-game', () => {
+        if (typeof Game !== 'undefined' && Game.isCompetitionLocked && Game.isCompetitionLocked()) {
+            const lockout = document.getElementById('lockout-screen');
+            if (lockout) lockout.style.display = 'flex';
+            return;
+        }
+        if (typeof Game !== 'undefined' && Game.isCompetitionWaiting && Game.isCompetitionWaiting()) {
+            const waiting = document.getElementById('waiting-screen');
+            if (waiting) waiting.style.display = 'flex';
+            return;
+        }
+
         const existingUser = localStorage.getItem('CASE_AARNA_USER');
         if (!existingUser) {
             promptUserRegistration();
@@ -178,8 +192,34 @@ function setupMenuEvents() {
         if (modal) UI.closeModal(modal);
     });
 
-    bindSafeClick('btn-continue', () => Game.continueGame());
-    bindSafeClick('btn-case-files', () => Game.showCaseSelect());
+    bindSafeClick('btn-continue', () => {
+        if (typeof Game !== 'undefined' && Game.isCompetitionLocked && Game.isCompetitionLocked()) {
+            const lockout = document.getElementById('lockout-screen');
+            if (lockout) lockout.style.display = 'flex';
+            return;
+        }
+        if (typeof Game !== 'undefined' && Game.isCompetitionWaiting && Game.isCompetitionWaiting()) {
+            const waiting = document.getElementById('waiting-screen');
+            if (waiting) waiting.style.display = 'flex';
+            return;
+        }
+        Game.continueGame();
+    });
+
+    bindSafeClick('btn-case-files', () => {
+        if (typeof Game !== 'undefined' && Game.isCompetitionLocked && Game.isCompetitionLocked()) {
+            const lockout = document.getElementById('lockout-screen');
+            if (lockout) lockout.style.display = 'flex';
+            return;
+        }
+        if (typeof Game !== 'undefined' && Game.isCompetitionWaiting && Game.isCompetitionWaiting()) {
+            const waiting = document.getElementById('waiting-screen');
+            if (waiting) waiting.style.display = 'flex';
+            return;
+        }
+        Game.showCaseSelect();
+    });
+
     bindSafeClick('btn-close-case-select', () => Game.showMainMenu());
     bindSafeClick('btn-credits', () => {
         const modal = document.getElementById('modal-credits');
@@ -244,6 +284,11 @@ function setupAccusationEvents() {
     bindSafeClick('btn-cancel-accuse', () => Game.cancelAccusation());
 
     bindSafeClick('btn-submit-accuse', () => {
+        if (typeof Game !== 'undefined' && Game.isCompetitionLocked && Game.isCompetitionLocked()) {
+            const lockout = document.getElementById('lockout-screen');
+            if (lockout) lockout.style.display = 'flex';
+            return;
+        }
         if (!btnSubmit.disabled) {
             Game.submitAccusation(selectWho.value, selectHow.value, selectWhy.value);
         }

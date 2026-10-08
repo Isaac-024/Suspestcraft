@@ -22,6 +22,131 @@ const Game = (function () {
     let currentCase = null;
     let isSubmitting = false;
 
+    // Competition Session State
+    let competitionStatus = 'waiting';
+    let competitionSession = null;
+    let competitionTimerInterval = null;
+    let unsubscribeGameSessionSnapshot = null;
+
+    /**
+     * Real-time listener for Firestore gameControl/session on student client
+     */
+    function initCompetitionListener() {
+        if (unsubscribeGameSessionSnapshot) {
+            unsubscribeGameSessionSnapshot();
+            unsubscribeGameSessionSnapshot = null;
+        }
+
+        if (typeof db !== 'undefined' && db && typeof isFirebaseReady !== 'undefined' && isFirebaseReady) {
+            try {
+                unsubscribeGameSessionSnapshot = db.collection("gameControl").doc("session")
+                    .onSnapshot((doc) => {
+                        if (doc.exists) {
+                            const data = doc.data();
+                            if (data) handleCompetitionSession(data);
+                        }
+                    }, (err) => {
+                        console.warn("[Game] Firestore session snapshot notice:", err.message);
+                    });
+            } catch (err) {
+                console.warn("[Game] Firestore listener skipped:", err);
+            }
+        }
+
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.onSessionUpdate) {
+            FirebaseService.onSessionUpdate((session) => {
+                handleCompetitionSession(session);
+            });
+        }
+    }
+
+    /**
+     * Handle Competition State Updates (waiting, running, locked)
+     */
+    function handleCompetitionSession(session) {
+        if (!session || !session.status) return;
+        competitionStatus = session.status;
+        competitionSession = session;
+
+        const hudTimer = document.getElementById('hud-competition-timer');
+        const hudDigits = document.getElementById('hud-timer-digits');
+        const waitingScreen = document.getElementById('waiting-screen');
+        const lockoutScreen = document.getElementById('lockout-screen');
+
+        if (competitionTimerInterval) {
+            clearInterval(competitionTimerInterval);
+            competitionTimerInterval = null;
+        }
+
+        if (session.status === 'running') {
+            // Running: Show persistent HUD timer, allow investigation and solving
+            if (lockoutScreen) lockoutScreen.style.display = 'none';
+            if (waitingScreen) waitingScreen.style.display = 'none';
+            if (hudTimer) hudTimer.style.display = 'inline-flex';
+
+            const tick = () => {
+                const now = Date.now();
+                const remaining = Math.max(0, (session.endTime || (now + 600000)) - now);
+                const totalSecs = Math.floor(remaining / 1000);
+                const mins = Math.floor(totalSecs / 60);
+                const secs = totalSecs % 60;
+                const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                if (hudDigits) {
+                    hudDigits.textContent = timeStr;
+                    if (remaining <= 60000) {
+                        hudDigits.classList.add('urgent');
+                    } else {
+                        hudDigits.classList.remove('urgent');
+                    }
+                }
+
+                if (remaining <= 0) {
+                    if (competitionTimerInterval) {
+                        clearInterval(competitionTimerInterval);
+                        competitionTimerInterval = null;
+                    }
+                    handleCompetitionSession({ ...session, status: 'locked' });
+                }
+            };
+
+            tick();
+            competitionTimerInterval = setInterval(tick, 1000);
+
+        } else if (session.status === 'locked') {
+            // Locked: Immediately cut any active investigation and audio, show unclosable lockout screen
+            AudioEngine.stopBGM();
+            if (hudTimer) hudTimer.style.display = 'none';
+            if (waitingScreen) waitingScreen.style.display = 'none';
+            if (lockoutScreen) lockoutScreen.style.display = 'flex';
+
+            // Close open dialogs if any
+            if (typeof UI !== 'undefined' && UI.modals) {
+                Object.values(UI.modals).forEach(m => {
+                    if (m && m.open) UI.closeModal(m);
+                });
+            }
+
+        } else {
+            // Waiting: Display overlay or prevent starting new cases
+            if (hudTimer) hudTimer.style.display = 'none';
+            if (lockoutScreen) lockoutScreen.style.display = 'none';
+            
+            // If the student is already inside a case or briefing, show waiting screen
+            if (currentState !== STATES.MENU && currentState !== STATES.LOADING) {
+                if (waitingScreen) waitingScreen.style.display = 'flex';
+            }
+        }
+    }
+
+    function isCompetitionLocked() {
+        return competitionStatus === 'locked';
+    }
+
+    function isCompetitionWaiting() {
+        return competitionStatus === 'waiting';
+    }
+
     /**
      * Set active state safely
      */
@@ -56,6 +181,17 @@ const Game = (function () {
      * Open Case Files Archive / Select Screen
      */
     function showCaseSelect() {
+        if (isCompetitionLocked()) {
+            const lockoutScreen = document.getElementById('lockout-screen');
+            if (lockoutScreen) lockoutScreen.style.display = 'flex';
+            return;
+        }
+        if (isCompetitionWaiting()) {
+            const waitingScreen = document.getElementById('waiting-screen');
+            if (waitingScreen) waitingScreen.style.display = 'flex';
+            return;
+        }
+
         AudioEngine.stopBGM();
         setState(STATES.CASE_SELECT);
         UI.setArchiveTheme();
@@ -85,6 +221,17 @@ const Game = (function () {
      * Load Case and show Briefing Dashboard (With Level 10 Video Support on Desktop, auto-skipped on mobile)
      */
     function startCase(caseId) {
+        if (isCompetitionLocked()) {
+            const lockoutScreen = document.getElementById('lockout-screen');
+            if (lockoutScreen) lockoutScreen.style.display = 'flex';
+            return;
+        }
+        if (isCompetitionWaiting()) {
+            const waitingScreen = document.getElementById('waiting-screen');
+            if (waitingScreen) waitingScreen.style.display = 'flex';
+            return;
+        }
+
         const numericId = parseInt(caseId, 10);
         const targetCase = getCaseById(numericId);
         if (!targetCase) return;
@@ -250,7 +397,12 @@ const Game = (function () {
      * Deliver Final Accusation
      */
     function submitAccusation(who, how, why) {
-        if (isSubmitting || currentState !== STATES.ACCUSATION || !currentCase) return;
+        if (isCompetitionLocked()) {
+            const lockoutScreen = document.getElementById('lockout-screen');
+            if (lockoutScreen) lockoutScreen.style.display = 'flex';
+            return;
+        }
+        if (isCompetitionWaiting() || isSubmitting || currentState !== STATES.ACCUSATION || !currentCase) return;
         isSubmitting = true;
 
         const correct = currentCase.correctAnswer;
@@ -340,6 +492,11 @@ const Game = (function () {
      * Solve Case (Enforcing numbers to prevent "4" + "1" = "41" bug)
      */
     function solveCase() {
+        if (isCompetitionLocked()) {
+            console.warn('[Game] Competition is locked! Progress halted.');
+            return;
+        }
+
         AudioEngine.stopBGM();
         const currentId = parseInt(currentCase.id, 10);
         const isFinalCase = currentId >= 10;
@@ -417,6 +574,10 @@ const Game = (function () {
         respawnCase,
         solveCase,
         nextCase,
-        continueGame
+        continueGame,
+        initCompetitionListener,
+        isCompetitionLocked,
+        isCompetitionWaiting,
+        handleCompetitionSession
     };
 })();

@@ -537,6 +537,141 @@
             margin-bottom: 16px;
         }
 
+        /* 1b. GLOBAL COMPETITION COUNTDOWN & LOCK CONTROL BAR */
+        .competition-control-bar {
+            background: var(--bg-card);
+            border: 4px solid var(--border-pixel);
+            box-shadow: inset 3px 3px 0 #404058, inset -3px -3px 0 #0b0b0f;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .comp-control-left {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .comp-label {
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-comp-start {
+            background: #143d20;
+            color: #55ffaa;
+            border: 3px solid #227744;
+            box-shadow: inset 2px 2px 0 #55ffaa, inset -2px -2px 0 #0f2c16, 0 0 14px rgba(85, 255, 170, 0.35);
+            font-family: var(--font-pixel);
+            font-size: 11px;
+            padding: 12px 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-comp-start:hover {
+            background: #1c552c;
+            border-color: #55ffaa;
+            box-shadow: inset 2px 2px 0 #88ffcc, inset -2px -2px 0 #0f2c16, 0 0 20px rgba(85, 255, 170, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-comp-start:active {
+            transform: translateY(2px);
+        }
+
+        .btn-comp-lock {
+            background: #4a1518;
+            color: #ff8888;
+            border: 3px solid #882228;
+            box-shadow: inset 2px 2px 0 #ff6666, inset -2px -2px 0 #280b0d, 0 0 10px rgba(255, 85, 85, 0.3);
+            font-family: var(--font-pixel);
+            font-size: 11px;
+            padding: 12px 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-comp-lock:hover {
+            background: #6a1c22;
+            border-color: #ff5555;
+            box-shadow: inset 2px 2px 0 #ffa8a8, inset -2px -2px 0 #280b0d, 0 0 18px rgba(255, 85, 85, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-comp-lock:active {
+            transform: translateY(2px);
+        }
+
+        .comp-control-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .comp-timer-title {
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        .admin-timer-display {
+            font-family: var(--font-pixel);
+            font-size: 20px;
+            color: #fcdb38;
+            background: #000000;
+            padding: 10px 18px;
+            border: 3px solid #3a3a52;
+            box-shadow: inset 2px 2px 0 #222233, inset -2px -2px 0 #000, 0 0 12px rgba(252, 219, 56, 0.25);
+            letter-spacing: 2px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .admin-lock-banner {
+            background: linear-gradient(90deg, #382d04 0%, #7d630c 50%, #382d04 100%);
+            border: 3px solid #fcdb38;
+            box-shadow: 0 0 24px rgba(252, 219, 56, 0.5), inset 2px 2px 0 #fff085, inset -2px -2px 0 #201a02;
+            color: #fff8c4;
+            font-family: var(--font-pixel);
+            font-size: 13px;
+            text-align: center;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px #000;
+            animation: goldBannerPulse 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes goldBannerPulse {
+            0% {
+                border-color: #d49b28;
+                box-shadow: 0 0 12px rgba(252, 219, 56, 0.35);
+            }
+            100% {
+                border-color: #fff085;
+                box-shadow: 0 0 28px rgba(252, 219, 56, 0.85);
+            }
+        }
+
         /* Responsive Mobile & Projector Enhancements */
         @media (max-width: 768px) {
             body { padding: 10px; font-size: 10px; }
@@ -684,6 +819,28 @@
                     <span id="stat-last-sync" class="stat-value" style="font-size: 14px; font-family: var(--font-sub);">Live</span>
                 </div>
             </div>
+        </div>
+
+        <!-- Global Competition Control Bar -->
+        <div id="competition-control-bar" class="competition-control-bar">
+            <div class="comp-control-left">
+                <span class="comp-label">⚡ COMPETITION CONTROL:</span>
+                <button id="btn-start-competition" class="btn-comp-start" onclick="AdminPortal.startCompetition()">
+                    <span>▶</span> START 10-MIN COMPETITION
+                </button>
+                <button id="btn-force-lock" class="btn-comp-lock" onclick="AdminPortal.forceLockCompetition()">
+                    <span>🔒</span> FORCE LOCK
+                </button>
+            </div>
+            <div class="comp-control-right">
+                <span class="comp-timer-title">REMAINING TIME:</span>
+                <span id="admin-timer-display" class="admin-timer-display">10:00</span>
+            </div>
+        </div>
+
+        <!-- Golden Locked Banner -->
+        <div id="admin-lock-banner" class="admin-lock-banner" style="display: none;">
+            🏆 COMPETITION CONCLUDED — FINAL LEADERBOARD LOCKED 🏆
         </div>
 
         <!-- Leaderboard Table -->

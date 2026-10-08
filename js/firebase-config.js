@@ -65,8 +65,31 @@ const FirebaseService = (function () {
     const TOPIC_PLAYER_WILDCARD = 'case_aarna_live_v2/players/+';
     const TOPIC_EVENTS = 'case_aarna_live_v2/events';
     const TOPIC_CONTROL = 'case_aarna_live_v2/control';
+    const GAME_CONTROL_COLLECTION = 'gameControl';
+    const SESSION_DOC = 'session';
+    const SESSION_STORAGE_KEY = 'CASE_AARNA_GAME_CONTROL_SESSION';
 
     const listeners = [];
+    const sessionListeners = [];
+
+    // Current Session State
+    let currentSession = {
+        status: 'waiting',
+        startTime: null,
+        durationMs: 600000,
+        endTime: null
+    };
+
+    // Load initial session state if stored locally
+    try {
+        const savedSession = localStorage.getItem(SESSION_STORAGE_KEY);
+        if (savedSession) {
+            const parsed = JSON.parse(savedSession);
+            if (parsed && parsed.status) {
+                currentSession = parsed;
+            }
+        }
+    } catch (e) {}
 
     // BroadcastChannel for zero-latency cross-tab sync
     let localChannel = null;
@@ -74,8 +97,12 @@ const FirebaseService = (function () {
         if (typeof BroadcastChannel !== 'undefined') {
             localChannel = new BroadcastChannel('case_aarna_leaderboard');
             localChannel.onmessage = (event) => {
-                if (event.data && event.data.type === 'REMOTE_RESET_ALL') {
-                    handleRemoteReset();
+                if (event.data) {
+                    if (event.data.type === 'REMOTE_RESET_ALL') {
+                        handleRemoteReset();
+                    } else if (event.data.type === 'SESSION_UPDATE') {
+                        handleIncomingSession(event.data.session);
+                    }
                 }
             };
         }
@@ -124,6 +151,8 @@ const FirebaseService = (function () {
                             announceCurrentPlayer();
                         } else if (data && data.action === 'REMOTE_RESET_ALL') {
                             handleRemoteReset();
+                        } else if (data && data.action === 'SESSION_UPDATE') {
+                            handleIncomingSession(data.session);
                         }
                     } else if (topic === TOPIC_EVENTS) {
                         if (data && data.type === 'REMOTE_RESET_ALL') {
@@ -480,6 +509,12 @@ const FirebaseService = (function () {
 
         if (!playerId && !username) return;
 
+        // If competition is locked, disable all progress writes to Firestore & cloud
+        if (isCompetitionLocked()) {
+            console.warn('[Firebase] Competition is locked! Progress update ignored.');
+            return;
+        }
+
         const count = parseInt(casesSolvedCount, 10) || 0;
         const nowIso = new Date().toISOString();
 
@@ -527,6 +562,73 @@ const FirebaseService = (function () {
     }
 
     /**
+     * Session & Game Control Management
+     */
+    function handleIncomingSession(sessionData) {
+        if (!sessionData || !sessionData.status) return;
+        currentSession = {
+            status: sessionData.status,
+            startTime: sessionData.startTime || currentSession.startTime,
+            durationMs: sessionData.durationMs || 600000,
+            endTime: sessionData.endTime || currentSession.endTime
+        };
+        try {
+            localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(currentSession));
+        } catch (e) {}
+        notifySessionListeners(currentSession);
+    }
+
+    function notifySessionListeners(sessionData) {
+        sessionListeners.forEach(cb => {
+            try { cb(sessionData); } catch (e) { console.error('[Firebase] Session listener error:', e); }
+        });
+    }
+
+    function onSessionUpdate(callback) {
+        if (typeof callback === 'function') {
+            sessionListeners.push(callback);
+            try { callback(currentSession); } catch (e) {}
+        }
+    }
+
+    function getCompetitionSession() {
+        return currentSession;
+    }
+
+    function isCompetitionLocked() {
+        return currentSession && currentSession.status === 'locked';
+    }
+
+    function broadcastCompetitionSession(sessionData) {
+        if (!sessionData) return;
+        currentSession = { ...sessionData };
+        try {
+            localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(currentSession));
+        } catch (e) {}
+
+        // Multi-tab BroadcastChannel
+        if (localChannel) {
+            try {
+                localChannel.postMessage({ type: 'SESSION_UPDATE', session: currentSession });
+            } catch (e) {}
+        }
+
+        // MQTT Cloud Relay
+        if (mqttClient && isCloudRelayConnected) {
+            try {
+                const payload = JSON.stringify({
+                    action: 'SESSION_UPDATE',
+                    session: currentSession,
+                    sentAt: Date.now()
+                });
+                mqttClient.publish(TOPIC_CONTROL, payload, { qos: 1, retain: true });
+            } catch (e) {}
+        }
+
+        notifySessionListeners(currentSession);
+    }
+
+    /**
      * Save custom Firebase keys from Admin UI and reconnect
      */
     function saveCustomConfig(newConfig) {
@@ -559,6 +661,12 @@ const FirebaseService = (function () {
         getConfig,
         sanitizePlayerId,
         onPlayerUpdate,
-        COLLECTION_NAME
+        onSessionUpdate,
+        getCompetitionSession,
+        broadcastCompetitionSession,
+        isCompetitionLocked,
+        COLLECTION_NAME,
+        GAME_CONTROL_COLLECTION,
+        SESSION_DOC
     };
 })();

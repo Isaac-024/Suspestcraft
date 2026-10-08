@@ -15,6 +15,12 @@ const AdminPortal = (function () {
     let unsubscribeSnapshot = null;
     let syncChannel = null;
 
+    // Competition Control State
+    let competitionSession = { status: 'waiting', startTime: null, durationMs: 600000, endTime: null };
+    let competitionTimerInterval = null;
+    let isLeaderboardFrozen = false;
+    let unsubscribeSessionSnapshot = null;
+
     /**
      * Compute Cryptographic SHA-256 Hash
      */
@@ -124,6 +130,187 @@ const AdminPortal = (function () {
 
         updateSyncModeIndicator();
         startLeaderboardStream();
+        listenToCompetitionSession();
+    }
+
+    /**
+     * Start 10-Minute Global Competition
+     */
+    async function startCompetition() {
+        const now = Date.now();
+        const durationMs = 10 * 60 * 1000;
+        const sessionData = {
+            status: "running",
+            startTime: now,
+            durationMs: durationMs,
+            endTime: now + durationMs
+        };
+
+        if (db && isFirebaseReady) {
+            try {
+                await db.collection("gameControl").doc("session").set(sessionData);
+                console.log("[Admin] 10-Min competition started in Firestore.");
+            } catch (err) {
+                console.warn("[Admin] Firestore write session warning:", err.message);
+            }
+        }
+
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.broadcastCompetitionSession) {
+            FirebaseService.broadcastCompetitionSession(sessionData);
+        }
+
+        applyCompetitionSession(sessionData);
+    }
+
+    /**
+     * Force Emergency Lock
+     */
+    async function forceLockCompetition() {
+        const sessionData = {
+            status: "locked",
+            startTime: competitionSession.startTime || Date.now(),
+            durationMs: competitionSession.durationMs || (10 * 60 * 1000),
+            endTime: Date.now()
+        };
+
+        if (db && isFirebaseReady) {
+            try {
+                await db.collection("gameControl").doc("session").set(sessionData, { merge: true });
+                console.log("[Admin] Force lock updated in Firestore.");
+            } catch (err) {
+                console.warn("[Admin] Firestore lock session warning:", err.message);
+            }
+        }
+
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.broadcastCompetitionSession) {
+            FirebaseService.broadcastCompetitionSession(sessionData);
+        }
+
+        applyCompetitionSession(sessionData);
+    }
+
+    /**
+     * Listen to Firestore gameControl/session in Real-Time
+     */
+    function listenToCompetitionSession() {
+        if (unsubscribeSessionSnapshot) {
+            unsubscribeSessionSnapshot();
+            unsubscribeSessionSnapshot = null;
+        }
+
+        if (db && isFirebaseReady) {
+            try {
+                unsubscribeSessionSnapshot = db.collection("gameControl").doc("session")
+                    .onSnapshot((doc) => {
+                        if (doc.exists) {
+                            const data = doc.data();
+                            if (data) {
+                                applyCompetitionSession(data);
+                            }
+                        }
+                    }, (err) => {
+                        console.warn("[Admin] gameControl/session snapshot warning:", err.message);
+                    });
+            } catch (err) {
+                console.warn("[Admin] Firestore session listener skipped:", err.message);
+            }
+        }
+
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.onSessionUpdate) {
+            FirebaseService.onSessionUpdate(applyCompetitionSession);
+        }
+    }
+
+    /**
+     * Apply Session State (Timer, Lock, Banner)
+     */
+    function applyCompetitionSession(sessionData) {
+        if (!sessionData || !sessionData.status) return;
+        competitionSession = { ...sessionData };
+
+        const timerDisplay = document.getElementById('admin-timer-display');
+        const lockBanner = document.getElementById('admin-lock-banner');
+
+        if (competitionTimerInterval) {
+            clearInterval(competitionTimerInterval);
+            competitionTimerInterval = null;
+        }
+
+        if (sessionData.status === "running") {
+            isLeaderboardFrozen = false;
+            if (lockBanner) lockBanner.style.display = 'none';
+
+            const tick = () => {
+                const now = Date.now();
+                const remaining = Math.max(0, (sessionData.endTime || (now + 600000)) - now);
+                const totalSeconds = Math.floor(remaining / 1000);
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                if (timerDisplay) {
+                    timerDisplay.textContent = formatted;
+                    timerDisplay.style.color = remaining <= 60000 ? '#ff5555' : '#fcdb38';
+                }
+
+                if (remaining <= 0) {
+                    if (competitionTimerInterval) {
+                        clearInterval(competitionTimerInterval);
+                        competitionTimerInterval = null;
+                    }
+                    autoLockCompetition(sessionData);
+                }
+            };
+
+            tick();
+            competitionTimerInterval = setInterval(tick, 1000);
+
+        } else if (sessionData.status === "locked") {
+            if (timerDisplay) {
+                timerDisplay.textContent = '00:00';
+                timerDisplay.style.color = '#ff5555';
+            }
+            isLeaderboardFrozen = true;
+            if (lockBanner) {
+                lockBanner.style.display = 'block';
+                lockBanner.textContent = '🏆 COMPETITION CONCLUDED — FINAL LEADERBOARD LOCKED 🏆';
+            }
+        } else {
+            // "waiting"
+            if (timerDisplay) {
+                timerDisplay.textContent = '10:00';
+                timerDisplay.style.color = '#fcdb38';
+            }
+            isLeaderboardFrozen = false;
+            if (lockBanner) lockBanner.style.display = 'none';
+        }
+    }
+
+    /**
+     * Automatically update status to locked when countdown reaches 00:00
+     */
+    async function autoLockCompetition(prevSession) {
+        const lockedData = {
+            status: "locked",
+            startTime: prevSession.startTime || (Date.now() - 600000),
+            durationMs: prevSession.durationMs || 600000,
+            endTime: prevSession.endTime || Date.now()
+        };
+
+        if (db && isFirebaseReady) {
+            try {
+                await db.collection("gameControl").doc("session").set(lockedData, { merge: true });
+                console.log("[Admin] Countdown expired: Updated status to locked in Firestore.");
+            } catch (err) {
+                console.warn("[Admin] Auto-lock write error:", err.message);
+            }
+        }
+
+        if (typeof FirebaseService !== 'undefined' && FirebaseService.broadcastCompetitionSession) {
+            FirebaseService.broadcastCompetitionSession(lockedData);
+        }
+
+        applyCompetitionSession(lockedData);
     }
 
     /**
@@ -279,6 +466,11 @@ const AdminPortal = (function () {
      * 2. Secondary (Tie-Breaker): lastSolvedAt ASCENDING (earlier timestamp = finished faster)
      */
     function processAndRenderLeaderboard(players) {
+        if (isLeaderboardFrozen) {
+            // Competition locked: freeze leaderboard display and disable real-time re-sorting
+            return;
+        }
+
         const tbody = document.getElementById('leaderboard-body');
         if (!tbody) return;
 
@@ -632,7 +824,10 @@ const AdminPortal = (function () {
         promptShowAnswers,
         verifyAnswersPassword,
         closeAnswersAuthModal,
-        closeAnswersModal
+        closeAnswersModal,
+        startCompetition,
+        forceLockCompetition,
+        applyCompetitionSession
     };
 })();
 

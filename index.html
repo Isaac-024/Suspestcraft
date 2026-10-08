@@ -600,6 +600,30 @@
             <audio id="lvl10-audio" src="animation/audio.mp4" preload="auto"></audio>
         </div>
 
+        <!-- 17. PERSISTENT TOP-CENTER COMPETITION HUD TIMER -->
+        <div id="hud-competition-timer" class="hud-competition-timer" style="display: none;" aria-live="polite">
+            <span class="hud-timer-icon">⏱️</span>
+            <span class="hud-timer-label">TIME REMAINING: <span id="hud-timer-digits" class="hud-timer-digits">10:00</span></span>
+        </div>
+
+        <!-- 18. COMPETITION STANDBY / WAITING SCREEN -->
+        <div id="waiting-screen" class="waiting-overlay" style="display: none;" aria-modal="true">
+            <div class="waiting-box">
+                <div class="waiting-spinner">⏳</div>
+                <h2 class="waiting-title">EVENT STANDBY</h2>
+                <p class="waiting-msg">WAITING FOR ADMIN TO START THE EVENT...</p>
+                <p class="waiting-submsg">Please wait for the instructor to launch the 10-minute competition timer.</p>
+            </div>
+        </div>
+
+        <!-- 19. COMPETITION CLIENT LOCKOUT SCREEN -->
+        <div id="lockout-screen" class="lockout-overlay" style="display: none;" aria-modal="true">
+            <div class="lockout-box">
+                <h1 style="color: #ff3344; font-size: 24px;">TIME IS UP!</h1>
+                <p>The 10-minute competition has ended. Check the main projector for final results!</p>
+            </div>
+        </div>
+
     </div>
 
     <!-- Audio Preloader Elements for Zero-Latency Playback -->

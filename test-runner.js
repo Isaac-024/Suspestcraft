@@ -200,4 +200,77 @@ if (!allCasesValid) {
     console.log('\n🎉 ALL 10 CASES FULLY VALIDATED AND AIRTIGHT!');
 }
 
+console.log('\n--- Validating Competition Countdown Timer & Lockout Implementation ---');
+
+// 5. Verify Admin Portal (admin.html & admin.js)
+const adminHtml = fs.readFileSync(path.join(__dirname, 'admin.html'), 'utf-8');
+const adminJs = fs.readFileSync(path.join(__dirname, 'admin.js'), 'utf-8');
+
+const adminHtmlChecks = [
+    { name: 'Start Competition Button', pattern: 'id="btn-start-competition"' },
+    { name: 'Force Lock Button', pattern: 'id="btn-force-lock"' },
+    { name: 'Admin Timer Display', pattern: 'id="admin-timer-display"' },
+    { name: 'Admin Locked Banner', pattern: 'id="admin-lock-banner"' },
+    { name: 'Golden Lock Text', pattern: 'COMPETITION CONCLUDED — FINAL LEADERBOARD LOCKED' },
+    { name: 'Pixel green border on start button', pattern: '#227744' },
+    { name: 'Pixel green accent on start button', pattern: '#55ffaa' }
+];
+
+adminHtmlChecks.forEach(check => {
+    if (adminHtml.includes(check.pattern)) {
+        console.log(`✅ admin.html: ${check.name} verified`);
+    } else {
+        console.error(`❌ admin.html missing: ${check.name} (${check.pattern})`);
+        process.exit(1);
+    }
+});
+
+const adminJsChecks = [
+    { name: 'Firestore gameControl/session collection', pattern: '"gameControl"' },
+    { name: 'Firestore session document', pattern: '"session"' },
+    { name: '10-minute durationMs (600000)', pattern: '600000' },
+    { name: 'startCompetition method', pattern: 'startCompetition' },
+    { name: 'forceLockCompetition method', pattern: 'forceLockCompetition' },
+    { name: 'applyCompetitionSession method', pattern: 'applyCompetitionSession' },
+    { name: 'Leaderboard frozen check', pattern: 'isLeaderboardFrozen' }
+];
+
+adminJsChecks.forEach(check => {
+    if (adminJs.includes(check.pattern)) {
+        console.log(`✅ admin.js: ${check.name} verified`);
+    } else {
+        console.error(`❌ admin.js missing: ${check.name} (${check.pattern})`);
+        process.exit(1);
+    }
+});
+
+// 6. Verify Main Game Client (index.html, js/game.js, js/main.js, css/style.css)
+const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+const gameJs = fs.readFileSync(path.join(__dirname, 'js/game.js'), 'utf-8');
+const styleCss = fs.readFileSync(path.join(__dirname, 'css/style.css'), 'utf-8');
+
+const clientChecks = [
+    { file: 'index.html', name: 'Lockout screen ID', pattern: 'id="lockout-screen"' },
+    { file: 'index.html', name: 'Lockout box class', pattern: 'class="lockout-box"' },
+    { file: 'index.html', name: 'TIME IS UP! header', pattern: 'TIME IS UP!' },
+    { file: 'index.html', name: 'Waiting standby screen', pattern: 'id="waiting-screen"' },
+    { file: 'index.html', name: 'HUD competition timer', pattern: 'id="hud-competition-timer"' },
+    { file: 'js/game.js', name: 'Game competition listener', pattern: 'initCompetitionListener' },
+    { file: 'js/game.js', name: 'Game competition lock guard', pattern: 'isCompetitionLocked' },
+    { file: 'js/game.js', name: 'Game stop audio on lockout', pattern: 'AudioEngine.stopBGM()' },
+    { file: 'css/style.css', name: 'Lockout overlay dark backdrop (rgba(0, 0, 0, 0.92))', pattern: 'rgba(0, 0, 0, 0.92)' },
+    { file: 'css/style.css', name: 'Lockout red warning border (#ff3344)', pattern: '#ff3344' },
+    { file: 'css/style.css', name: 'HUD timer badge CSS', pattern: '.hud-competition-timer' }
+];
+
+clientChecks.forEach(check => {
+    const content = check.file === 'index.html' ? indexHtml : (check.file === 'js/game.js' ? gameJs : styleCss);
+    if (content.includes(check.pattern)) {
+        console.log(`✅ ${check.file}: ${check.name} verified`);
+    } else {
+        console.error(`❌ ${check.file} missing: ${check.name} (${check.pattern})`);
+        process.exit(1);
+    }
+});
+
 console.log('\n=== ALL TESTS PASSED SUCCESSFULLY! ===\n');
